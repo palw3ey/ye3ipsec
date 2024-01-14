@@ -91,16 +91,29 @@ docker network create --ipv6 \
   -v /etc/letsencrypt/live/www.test.lanm/privkey.pem:/etc/swanctl/private/privkey.pem \
 ```
 	
-- Specify the pool for remote access client (road warrior),  
+- Specify the pool, for remote access client (road warrior),  
   Use these options with docker run :
 ```bash
 -e Y_POOL_IPV4=10.2.200.0/24 -e Y_POOL_IPV6=fd00::a02:c800/120
+```
+- Get ip addresses from a DHCP server, for remote access client (road warrior),  
+  Use these options with docker run :
+```bash
+-e Y_POOL_DHCP=yes -e Y_DHCP_FORCE=yes -e Y_DCHP_IDENTITY=yes -e Y_DHCP_SERVER=10.2.152.1
 ```
 
 - Specify username and password for the EAP IKEv2 roadwarrior profile,  
   Use these options with docker run :
 ```bash
 -e Y_EAP_USERNAME=carol -e Y_EAP_PASSWORD=StrongPassword
+```
+
+- Get EAP authentication from a radius server, for the EAP IKEv2 roadwarrior profile,  
+  Use these options with docker run :
+```bash
+-e Y_EAP_REMOTE_AUTH=eap-radius -e Y_RADIUS_ENABLE=yes \
+  -e Y_RADIUS_SERVER=radius.server.lan -e Y_RADIUS_SERET=StrongRadiusSecret \
+  -e Y_RADIUS_PORT_AUTH=1812 -e Y_RADIUS_PORT_ACCT=1813
 ```
 
 - Specify id and secret for the PSK IKEv2 roadwarrior profile,  
