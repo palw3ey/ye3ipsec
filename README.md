@@ -72,7 +72,7 @@ docker network create --ipv6 \
   mynet46
 ```
 
-- Use mynet46 and customise the network settings to be able to use the VPN container,  
+- Use mynet46, and customise the network settings to be able to use the VPN from outside,  
   Use these options with docker run :
 ```bash
 --cap-add NET_ADMIN --cap-add SYS_MODULE --cap-add SYS_ADMIN \  
