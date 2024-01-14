@@ -35,7 +35,7 @@ docker exec -it myipsec cat /etc/swanctl/x509ca/caCert.pem
 2) On Windows, paste the content to a file named `caCert.crt` and double clic on it (or use certlm.msc) to import the certificate to : Local Computer > Trusted Root Certificate  
   (You can avoid this step by using Let's Encrypt certificate in docker run options, see HOWTOs)
 
-3) On Windows start menu type "add a VPN connection", fill in the fields :
+3) On Windows start menu type "add VPN connection", fill in the fields :
    - connection name : EAP Test
    - server name or address : Type the VPN server external ip address
    - VPN type : select "IKEv2"
