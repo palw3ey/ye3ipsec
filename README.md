@@ -2,10 +2,21 @@
 
 A docker IPSec server based on Strongswan and Alpine. With remote access and site to site VPN profile. Below 70 Mb. GNS3 ready.
 
-3 IKEv2 remote access profile are activated by default : RSA certificate, EAP MSCHAPv2 and PSK.  
+## Features
+- Road warrior IKEv2 profile : RSA, PSK and EAP
+- Road warrior IKEv1 profile : XAUTH RSA and PSK
+- Site to site IKEv2 profile : RSA and PSK
+- IPv4 and IPv6
+- Internal pool or external DHCP server
+- Internal certificate authority, with certificate revocation option
+- Possibility to use host Let's Encrypt certificate
+- Possibility to authenticate with a radius server (AAA)
+- Firewall option to Allow/Deny : interclient, lan, internet
+
+The 3 Road warrior IKEv2 profile (RSA, PSK, EAP) are activated by default.  
 The credentials are randomly generated, if not set. 
 
-The container will generate self signed certificate using external ip address as CN, if not set.  
+The container will generate self signed certificate using external (public) ip address as CN, if not set.  
 
 The container configurations and credentials can be displayed using the command : docker logs containerName
 
@@ -277,7 +288,7 @@ These are the env variables and their default values.
 |Y_DHCP_SERVER |  | 255.255.255.255 |  |
 |Y_FARP_LOAD |  | yes |  |
 |Y_FORECAST_LOAD |  | yes |  |
-|Y_BYPASSLAN_LOAD |  | yes |  |
+|Y_BYPASSLAN_LOAD |  | no |  |
 
 # Build
 
