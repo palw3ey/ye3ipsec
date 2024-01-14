@@ -2,6 +2,13 @@
 
 A docker IPSec server based on Strongswan and Alpine. With remote access and site to site VPN profile. Below 70 Mb. GNS3 ready.
 
+3 IKEv2 remote access profile are activated by default : RSA certificate, EAP MSCHAPv2 and PSK.  
+The credentials are randomly generated, if not set. 
+
+The container will generate self signed certificate using external ip address as CN, if not set.  
+
+The container configurations and credentials can be displayed using the command : docker logs containerName
+
 # Simple usage
 
 Create a remote access connection with MSCHAPv2 authentication :
@@ -25,7 +32,7 @@ docker run -dt \
 ```bash
 docker exec -it myipsec cat /etc/swanctl/x509ca/caCert.pem
 ```
-2) On Windows, paste the content to a file named caCert.crt and double clic on it (or use certlm.msc) to import the certificate to : Local Computer > Trusted Root Certificate  
+2) On Windows, paste the content to a file named `caCert.crt` and double clic on it (or use certlm.msc) to import the certificate to : Local Computer > Trusted Root Certificate  
   (You can avoid this step by using Let's Encrypt certificate in docker run options, see HOWTOs)
 
 3) On Windows start menu type "add a VPN connection", fill in the fields :
