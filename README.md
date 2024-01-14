@@ -126,8 +126,8 @@ These are the env variables and their default values.
 |Y_SERVER_CERT_CN |  |  |  |
 |Y_SERVER_CERT_DN |  | "C=FR, ST=Ile-de-France, L=Paris, O=IPSec, OU=Example" |  |
 |Y_SERVER_CERT_DAYS |  | 3650 |  |
-|Y_PROPOSALS_PHASE1 |  | "aes256-sha256-ecp256,aes256gcm16-sha384-prfsha384-ecp384,aes256-sha256-modp2048,aes256-sha256-modp1024,aes256-sha1-modp1024,3des-sha1-modp1024,des-sha1-modp1024" |  |
-|Y_PROPOSALS_PHASE2 |  | "aes256-sha256,aes256gcm16-ecp384,aes256-sha1,3des-sha1,des-sha1" |  |
+|Y_PROPOSALS_PHASE1 |  | "aes256-sha256-ecp256, aes256gcm16-sha384-prfsha384-ecp384, aes256-sha256-modp2048, aes256-sha256-modp1024, aes256-sha1-modp1024, 3des-sha1-modp1024, des-sha1-modp1024" |  |
+|Y_PROPOSALS_PHASE2 |  | "aes256-sha256, aes256gcm16-ecp384, aes256-sha1, 3des-sha1, des-sha1" |  |
 |Y_REKEY_PHASE1 |  | 86400s |  |
 |Y_REKEY_PHASE2 |  | 28800s |  |
 |Y_DPD_DELAY |  | 15s |  |
@@ -140,8 +140,8 @@ These are the env variables and their default values.
 |Y_POOL_IPV6_ENABLE |  | yes |  |
 |Y_POOL_IPV4 |  | 192.168.1.1/24 |  |
 |Y_POOL_IPV6 |  | fd00::c0a8:101/120 |  |
-|Y_POOL_DNS4 |  | 1.1.1.1,8.8.8.8 |  |
-|Y_POOL_DNS6 |  | 2606:4700:4700::1111,2001:4860:4860::8888 |  |
+|Y_POOL_DNS4 |  | "1.1.1.1, 8.8.8.8" |  |
+|Y_POOL_DNS6 |  | "2606:4700:4700::1111, 2001:4860:4860::8888" |  |
 |Y_FIREWALL_ENABLE |  | no |  |
 |Y_FIREWALL_INTERCLIENT |  | yes |  |
 |Y_FIREWALL_LAN |  | yes |  |
