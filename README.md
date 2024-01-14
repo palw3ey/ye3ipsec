@@ -4,7 +4,7 @@ A docker IPSec server based on Strongswan and Alpine. With remote access and sit
 
 # Simple usage
 
-Create a remote access IKEv2 VPN using MSCHAPv2 :
+Create a remote access connection with MSCHAPv2 authentication :
 
 ```bash
 docker run -dt \
