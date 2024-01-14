@@ -1,0 +1,50 @@
+cat <<EOL
+
+template-conn {
+	version = 2
+	send_cert = ifasked
+	proposals = $Y_PROPOSALS_PHASE1
+	encap = yes
+	pools = $vg_pool
+	rekey_time = $Y_REKEY_PHASE1
+	dpd_delay = $Y_DPD_DELAY
+	
+}
+
+template-local {
+	auth = pubkey
+	certs = $vg_local_cert
+	id = $Y_LOCAL_ID
+}
+		
+template-child {
+	local_ts = $Y_LOCAL_SUBNET
+	remote_ts = $Y_REMOTE_SUBNET
+	esp_proposals = $Y_PROPOSALS_PHASE2
+	rekey_time = $Y_REKEY_PHASE2
+	dpd_action = $Y_DPD_ACTION
+}
+
+secrets {
+    eap-eap1 {
+        id = $Y_EAP_USERNAME
+        secret = $Y_EAP_PASSWORD
+    }
+	ike-psk1 {
+		secret = $Y_PSK_SECRET
+		id-0 = $Y_PSK_LOCAL_ID
+		id-1 = $Y_PSK_REMOTE_ID
+	}
+}
+
+pools {
+	pool-ipv4-1 {
+		addrs = $Y_POOL_IPV4
+		dns = $Y_POOL_DNS4
+	}
+	pool-ipv6-1 {
+		addrs = $Y_POOL_IPV6
+		dns = $Y_POOL_DNS6
+	}
+}
+EOL
