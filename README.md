@@ -5,8 +5,34 @@ A docker IPSec server based on Strongswan and Alpine. With remote access and sit
 # Simple usage
 
 ```bash
-docker run -dt --name myipsec palw3ey/ye3ipsec
+docker run -dt \
+  \
+  --cap-add NET_ADMIN --cap-add SYS_MODULE --cap-add SYS_ADMIN \
+  --sysctl net.ipv4.ip_forward=1 --sysctl net.ipv6.conf.all.forwarding=1 --sysctl net.ipv6.conf.eth0.proxy_ndp=1 \
+  --net mynet6 --ip 10.2.192.254 --ip6 fd00::a02:c0fe -p 500:500/udp -p 4500:4500/udp -p 50:50/udp -p 51:51/udp -v /lib/modules:/lib/modules:ro \
+  -e Y_FIREWALL_ENABLE=yes \
+  \
+  -e Y_EAP_USERNAME=tux -e Y_EAP_PASSWORD=StrongPassword \
+  \
+  --name myipsec palw3ey/ye3ipsec
 ```
+
+# Test
+
+1) On the host, show the content of the ca certificate 
+```bash
+docker exec -it myipsec cat /etc/swanctl/x509ca/caCert.pem
+```
+2) On Windows, paste the content to a file name caCert.crt and double clic (or certlm.msc) to import the certificate to : Local Computer > Trusted Root Certificate
+3) On Windows start menu type "add a VPN connection", fill in the fields :
+   - connection name : EAP Test
+   - server name or address : Type the VPN server external ip address
+   - VPN type : select "IKEv2"
+   - Type of sign-in info : select "User name and password"
+   - User name : type "tux"
+   - Password : type "StrongPassword"
+   - Save
+   - Select "EAP Test" and Connect
 
 # HOWTOs
 
