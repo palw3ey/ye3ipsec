@@ -47,6 +47,23 @@ docker exec -it myipsec cat /etc/swanctl/x509ca/caCert.pem
 
 # HOWTOs
 
+- Enable ipv6 in Docker
+```bash
+# Open this file :
+vi /etc/docker/daemon.json
+
+# Add these parameters :
+{
+  "experimental": true,
+  "ip6tables": true
+}
+
+# To save and close, press successively these keyboard key : "Escape" ":" "w" "q" "Enter"
+
+# restart docker
+sudo systemctl restart docker
+```
+
 - Create a docker network with ipv4 and ipv6, named mynet46
 ```bash
 docker network create --ipv6 \  
