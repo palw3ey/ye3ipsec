@@ -4,7 +4,7 @@ A docker IPSec server based on Strongswan and Alpine. With remote access and sit
 
 ## Features
 - Road warrior IKEv2 profile : RSA, PSK and EAP
-- Road warrior IKEv1 profile : XAUTH RSA and PSK
+- Road warrior IKEv1 profile : XAUTH RSA and XAUTH PSK
 - Site to site IKEv2 profile : RSA and PSK
 - IPv4 and IPv6
 - Internal pool or external DHCP server
@@ -196,44 +196,44 @@ These are the env variables and their default values.
 |Y_LANGUAGE | text | fr_FR | Language. The list is in the folder /i18n |
 |Y_DEBUG | yes/no | no | yes, to show charon messages |
 |Y_IGNORE_CONFIG | yes/no | no | yes, to not apply file changes in the /etc/swanctl folder. A good option if you use a custom /etc/swanctl folder mounted from outside |
-|Y_PORT_ESP |  | 50 |  |
-|Y_PORT_AH |  | 51 |  |
-|Y_PORT_IKE |  | 500 |  |
-|Y_PORT_NAT |  | 4500 |  |
-|Y_SERVER_CERT_CN |  |  |  |
-|Y_SERVER_CERT_DN |  | "C=FR, ST=Ile-de-France, L=Paris, O=IPSec, OU=Example" |  |
-|Y_SERVER_CERT_DAYS |  | 3650 |  |
-|Y_PROPOSALS_PHASE1 |  | "aes256-sha256-ecp256, aes256gcm16-sha384-prfsha384-ecp384, aes256-sha256-modp2048, aes256-sha256-modp1024, aes256-sha1-modp1024, 3des-sha1-modp1024, des-sha1-modp1024" |  |
-|Y_PROPOSALS_PHASE2 |  | "aes256-sha256, aes256gcm16-ecp384, aes256-sha1, 3des-sha1, des-sha1" |  |
-|Y_REKEY_PHASE1 |  | 86400s |  |
-|Y_REKEY_PHASE2 |  | 28800s |  |
-|Y_DPD_DELAY |  | 15s |  |
-|Y_DPD_ACTION |  | restart |  |
-|Y_LOCAL_SELFCERT |  | yes |  |
-|Y_LOCAL_ID |  |  |  |
-|Y_LOCAL_SUBNET |  | "0.0.0.0/0, ::/0" |  |
-|Y_REMOTE_SUBNET |  | dynamic |  |
-|Y_POOL_DHCP |  | no |  |
-|Y_POOL_IPV6_ENABLE |  | yes |  |
-|Y_POOL_IPV4 |  | 192.168.1.1/24 |  |
-|Y_POOL_IPV6 |  | fd00::c0a8:101/120 |  |
-|Y_POOL_DNS4 |  | "1.1.1.1, 8.8.8.8" |  |
-|Y_POOL_DNS6 |  | "2606:4700:4700::1111, 2001:4860:4860::8888" |  |
-|Y_FIREWALL_ENABLE |  | no |  |
-|Y_FIREWALL_INTERCLIENT |  | yes |  |
-|Y_FIREWALL_LAN |  | yes |  |
-|Y_FIREWALL_INTERNET |  | yes |  |
-|Y_CERT_ENABLE |  | yes |  |
-|Y_CERT_DAYS |  | 365 |  |
-|Y_CERT_REMOTE_ID |  |  |  |
-|Y_CERT_CN |  |  |  |
-|Y_CERT_PASSWORD |  |  |  |
-|Y_EAP_ENABLE |  | yes |  |
-|Y_EAP_REMOTE_AUTH |  | eap-mschapv2 |  |
-|Y_EAP_REMOTE_EAP_ID |  | %any |  |
-|Y_EAP_USERNAME |  |  |  |
-|Y_EAP_PASSWORD |  |  |  |
-|Y_PSK_ENABLE |  | yes |  |
+|Y_PORT_ESP | port number | 50 | esp port |
+|Y_PORT_AH | port number | 51 | ah port |
+|Y_PORT_IKE | port number | 500 | ike port |
+|Y_PORT_NAT | port number | 4500 | nat-t port |
+|Y_SERVER_CERT_CN | IP address or domain name |  | CN value to use for the server certificate  |
+|Y_SERVER_CERT_DN | text | "C=FR, ST=Ile-de-France, L=Paris, O=IPSec, OU=Example" | DN value to add to the server certificate |
+|Y_SERVER_CERT_DAYS | integer | 3650 | number of days before expiration, for CA and Server certificate |
+|Y_PROPOSALS_PHASE1 | cipher suite | "aes256-sha256-ecp256, aes256gcm16-sha384-prfsha384-ecp384, aes256-sha256-modp2048, aes256-sha256-modp1024, aes256-sha1-modp1024, 3des-sha1-modp1024, des-sha1-modp1024" | cipher suites to use for phase 1 |
+|Y_PROPOSALS_PHASE2 | cipher suite | "aes256-sha256, aes256gcm16-ecp384, aes256-sha1, 3des-sha1, des-sha1" | cipher suites to use for phase 2 |
+|Y_REKEY_PHASE1 | text | 86400s | rekey time for phase 1 |
+|Y_REKEY_PHASE2 | text | 28800s | rekey time for phase 2 |
+|Y_DPD_DELAY | text | 15s | delay for dead peer detection  |
+|Y_DPD_ACTION | text | restart | action to take on dead peer detection timeout |
+|Y_LOCAL_SELFCERT | yes/no | yes | yes, to use self-signed certificates to identify the VPN server. If set to no, you need to provide 3 files... the CA : /etc/swanctl/x509ca/chain.pem  the certificate : /etc/swanctl/x509/cert.pem  the private key : /etc/swanctl/private/privkey.pem |
+|Y_LOCAL_ID | text |  | IKE identity for the VPN server |
+|Y_LOCAL_SUBNET | text | "0.0.0.0/0, ::/0" | local traffic selectors |
+|Y_REMOTE_SUBNET | text | dynamic | remote traffic selectors |
+|Y_POOL_DHCP | yes/no | no | yes, to set the pool to dhcp and give clients an ip address from an external dhcp server. You need to specify the dhcp server. see Y_DHCP_SERVER |
+|Y_POOL_IPV6_ENABLE | yes/no | yes | yes, to give clients IPv6 address |
+|Y_POOL_IPV4 | IP Address, and mask | 192.168.1.1/24 | IPv4 address pool for the clients |
+|Y_POOL_IPV6 | IPv6 Address, and mask | fd00::c0a8:101/120 | IPv6 address pool for the clients |
+|Y_POOL_DNS4 | IP Address | "1.1.1.1, 8.8.8.8" | IPv4 DNS for the clients, primary and secondary, default is Cloudflare and Google |
+|Y_POOL_DNS6 | IPv6 Address | "2606:4700:4700::1111, 2001:4860:4860::8888" | IPv6 DNS for the clients, primary and secondary, default is Cloudflare and Google |
+|Y_FIREWALL_ENABLE | yes/no | no | yes, to enable the firewall settings |
+|Y_FIREWALL_INTERCLIENT | yes/no | yes | yes, to allow clients to talk to each other |
+|Y_FIREWALL_LAN | yes/no | yes | yes, to allow client to communicate to lan address : 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16, fc00::/7 |
+|Y_FIREWALL_INTERNET | yes/no | yes | yes, to allow client to communicate with internet |
+|Y_CERT_ENABLE | yes/no | yes | yes, to activate the RA (remote access) IKEv2 Certificate profile |
+|Y_CERT_DAYS | integer | 365 | RA IKEv2 Certificate profile : How long to certify for |
+|Y_CERT_REMOTE_ID | text |  | RA IKEv2 Certificate profile : remote id of the client |
+|Y_CERT_CN | text |  | RA IKEv2 Certificate profile : CN of the client |
+|Y_CERT_PASSWORD | password |  | RA IKEv2 Certificate profile : password of the client p12 certificate file |
+|Y_EAP_ENABLE | yes/no | yes | yes, to activate the RA (remote access) IKEv2 EAP profile |
+|Y_EAP_REMOTE_AUTH | text | eap-mschapv2 | RA IKEv2 EAP profile : authentication method for the client |
+|Y_EAP_REMOTE_EAP_ID | text | %any | RA IKEv2 EAP profile : eap id for the client |
+|Y_EAP_USERNAME | text |  | RA IKEv2 EAP profile : username for the client |
+|Y_EAP_PASSWORD | text |  | RA IKEv2 EAP profile : password for the client |
+|Y_PSK_ENABLE | yes/no | yes | yes, to activate the RA (remote access) IKEv2 PSK profile |
 |Y_PSK_LOCAL_ID |  |  |  |
 |Y_PSK_REMOTE_ID |  |  |  |
 |Y_PSK_SECRET |  |  |  |
