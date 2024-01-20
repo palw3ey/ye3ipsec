@@ -225,70 +225,70 @@ These are the env variables and their default values.
 |Y_FIREWALL_INTERNET | yes/no | yes | yes, to allow client to communicate with internet |
 |Y_CERT_ENABLE | yes/no | yes | yes, to activate the RA (remote access) IKEv2 Certificate profile |
 |Y_CERT_DAYS | integer | 365 | RA IKEv2 Certificate profile : How long to certify for |
-|Y_CERT_REMOTE_ID | text |  | RA IKEv2 Certificate profile : remote id of the client |
-|Y_CERT_CN | text |  | RA IKEv2 Certificate profile : CN of the client |
-|Y_CERT_PASSWORD | password |  | RA IKEv2 Certificate profile : password of the client p12 certificate file |
+|Y_CERT_REMOTE_ID | text |  | RA IKEv2 Certificate profile : remote identity |
+|Y_CERT_CN | text | *(randomly generated, if not set)* | RA IKEv2 Certificate profile : CN of the client certificate |
+|Y_CERT_PASSWORD | password | *(randomly generated, if not set)* | RA IKEv2 Certificate profile : password of the client certificate file (.p12)|
 |Y_EAP_ENABLE | yes/no | yes | yes, to activate the RA (remote access) IKEv2 EAP profile |
-|Y_EAP_REMOTE_AUTH | text | eap-mschapv2 | RA IKEv2 EAP profile : authentication method for the client |
-|Y_EAP_REMOTE_EAP_ID | text | %any | RA IKEv2 EAP profile : eap id for the client |
-|Y_EAP_USERNAME | text |  | RA IKEv2 EAP profile : username for the client |
-|Y_EAP_PASSWORD | text |  | RA IKEv2 EAP profile : password for the client |
+|Y_EAP_REMOTE_AUTH | text | eap-mschapv2 | RA IKEv2 EAP profile : remote authentication method |
+|Y_EAP_REMOTE_EAP_ID | text | %any | RA IKEv2 EAP profile : remote eap identity |
+|Y_EAP_USERNAME | text | *(randomly generated, if not set)* | RA IKEv2 EAP profile : remote username  |
+|Y_EAP_PASSWORD | password | *(randomly generated, if not set)* | RA IKEv2 EAP profile : remote password|
 |Y_PSK_ENABLE | yes/no | yes | yes, to activate the RA (remote access) IKEv2 PSK profile |
-|Y_PSK_LOCAL_ID |  |  |  |
-|Y_PSK_REMOTE_ID |  |  |  |
-|Y_PSK_SECRET |  |  |  |
-|Y_XAUTH_PSK_ENABLE |  | no |  |
-|Y_XAUTH_PSK_AGGRESSIVE |  | yes |  |
-|Y_XAUTH_PSK_REMOTE_AUTH |  | xauth |  |
-|Y_XAUTH_PSK_LOCAL_ID |  |  |  |
-|Y_XAUTH_PSK_REMOTE_ID |  |  |  |
-|Y_XAUTH_PSK_SECRET |  |  |  |
-|Y_XAUTH_PSK_USERNAME |  |  |  |
-|Y_XAUTH_PSK_PASSWORD |  |  |  |
-|Y_XAUTH_RSA_ENABLE |  | no |  |
-|Y_XAUTH_RSA_AGGRESSIVE |  | no |  |
-|Y_XAUTH_RSA_REMOTE_AUTH |  | xauth |  |
-|Y_XAUTH_RSA_USERNAME |  |  |  |
-|Y_XAUTH_RSA_PASSWORD |  |  |  |
-|Y_S2S_PSK_ENABLE |  | no |  |
-|Y_S2S_PSK_LOCAL_ADDRS |  |  |  |
-|Y_S2S_PSK_REMOTE_ADDRS |  |  |  |
-|Y_S2S_PSK_LOCAL_TS |  |  |  |
-|Y_S2S_PSK_REMOTE_TS |  |  |  |
-|Y_S2S_PSK_START_ACTION |  | trap |  |
-|Y_S2S_PSK_LOCAL_ID |  |  |  |
-|Y_S2S_PSK_REMOTE_ID |  |  |  |
-|Y_S2S_PSK_SECRET |  |  |  |
-|Y_S2S_RSA_ENABLE |  | no |  |
-|Y_S2S_RSA_LOCAL_ADDRS |  |  |  |
-|Y_S2S_RSA_REMOTE_ADDRS |  |  |  |
-|Y_S2S_RSA_LOCAL_CERTS |  |  |  |
-|Y_S2S_RSA_LOCAL_ID |  |  |  |
-|Y_S2S_RSA_REMOTE_CERTS |  |  |  |
-|Y_S2S_RSA_REMOTE_ID |  |  |  |
-|Y_S2S_RSA_LOCAL_TS |  |  |  |
-|Y_S2S_RSA_REMOTE_TS |  |  |  |
-|Y_S2S_RSA_START_ACTION |  | trap |  |
-|Y_REVOCATION_LOAD |  | yes |  |
-|Y_REVOCATION_ENABLE_CRL |  | yes |  |
-|Y_REVOCATION_ENABLE_OCSP |  | yes |  |
-|Y_RADIUS_LOAD |  | no |  |
-|Y_RADIUS_CLASS_GROUP |  | no |  |
-|Y_RADIUS_ACCOUNTING |  | no |  |
-|Y_RADIUS_ADDRESS |  | 127.0.0.1 |  |
-|Y_RADIUS_SECRET |  | testing123 |  |
-|Y_RADIUS_AUTH_PORT |  | 1812 |  |
-|Y_RADIUS_ACCT_PORT |  | 1813 |  |
-|Y_RADIUS_DAE_ENABLE |  | no |  |
-|Y_RADIUS_DAE_LISTEN |  | 0.0.0.0 |  |
-|Y_RADIUS_DAE_PORT |  | 3799 |  |
-|Y_RADIUS_DAE_SECRET |  | testing123 |  |
-|Y_DHCP_FORCE_SERVER_ADDRESS |  | no |  |
-|Y_DCHP_IDENTITY_LEASE |  | no |  |
-|Y_DHCP_SERVER |  | 255.255.255.255 |  |
-|Y_FARP_LOAD |  | yes |  |
-|Y_FORECAST_LOAD |  | yes |  |
-|Y_BYPASSLAN_LOAD |  | no |  |
+|Y_PSK_LOCAL_ID | text | *(randomly generated, if not set)* | RA IKEv2 PSK profile : local identity |
+|Y_PSK_REMOTE_ID | text | *(randomly generated, if not set)* | RA IKEv2 PSK profile : remote identity |
+|Y_PSK_SECRET | password | *(randomly generated, if not set)* | RA IKEv2 PSK profile : shared secret |
+|Y_XAUTH_PSK_ENABLE | yes/no | no | yes, to activate the RA (remote access) IKEv1 XAUTH PSK profile |
+|Y_XAUTH_PSK_AGGRESSIVE | yes/no | yes | RA IKEv1 XAUTH PSK profile : yes, to enable aggressive mode. (use no, for main mode) |
+|Y_XAUTH_PSK_REMOTE_AUTH | text | xauth | RA IKEv1 XAUTH PSK profile : remote authentication method |
+|Y_XAUTH_PSK_LOCAL_ID | text | *(randomly generated, if not set)* | RA IKEv1 XAUTH PSK profile : local identity |
+|Y_XAUTH_PSK_REMOTE_ID | text | *(randomly generated, if not set)* | RA IKEv1 XAUTH PSK profile : remote identity |
+|Y_XAUTH_PSK_SECRET | password | *(randomly generated, if not set)* | RA IKEv1 XAUTH PSK profile : shared secret |
+|Y_XAUTH_PSK_USERNAME | text | *(randomly generated, if not set)* | RA IKEv1 XAUTH PSK profile : remote username |
+|Y_XAUTH_PSK_PASSWORD | password | *(randomly generated, if not set)* | RA IKEv1 XAUTH PSK profile : remote password |
+|Y_XAUTH_RSA_ENABLE | yes/no | no | yes, to activate the RA (remote access) IKEv1 XAUTH RSA profile |
+|Y_XAUTH_RSA_AGGRESSIVE | yes/no | no | RA IKEv1 XAUTH RSA profile : yes, to enable aggressive mode. (use no, for main mode) |
+|Y_XAUTH_RSA_REMOTE_AUTH | text | xauth | RA IKEv1 XAUTH RSA profile : remote authentication method |
+|Y_XAUTH_RSA_USERNAME | text | *(randomly generated, if not set)* | RA IKEv1 XAUTH RSA profile : remote username |
+|Y_XAUTH_RSA_PASSWORD | password | *(randomly generated, if not set)* | RA IKEv1 XAUTH RSA profile : remote password |
+|Y_S2S_PSK_ENABLE | yes/no | no | yes, to activate the S2S (site to site) IKEv2 PSK profile |
+|Y_S2S_PSK_LOCAL_ADDRS | IP address or domain |  | S2S IKEv2 PSK profile : local address |
+|Y_S2S_PSK_REMOTE_ADDRS | IP address or domain |  | S2S IKEv2 PSK profile : remote address |
+|Y_S2S_PSK_LOCAL_TS | IP Address |  | S2S IKEv2 PSK profile : local traffic selectors |
+|Y_S2S_PSK_REMOTE_TS | IP Address |  | S2S IKEv2 PSK profile : remote traffic selectors |
+|Y_S2S_PSK_START_ACTION | text | trap | S2S IKEv2 PSK profile : start action |
+|Y_S2S_PSK_LOCAL_ID | text | *(randomly generated, if not set)* | S2S IKEv2 PSK profile : local identity |
+|Y_S2S_PSK_REMOTE_ID | text | *(randomly generated, if not set)* | S2S IKEv2 PSK profile : remote identity |
+|Y_S2S_PSK_SECRET | password | *(randomly generated, if not set)* | S2S IKEv2 PSK profile : shared secret |
+|Y_S2S_RSA_ENABLE | yes/no | no | yes, to activate the S2S (site to site) IKEv2 RSA profile |
+|Y_S2S_RSA_LOCAL_ADDRS | IP address or domain |  | S2S IKEv2 RSA profile : local address |
+|Y_S2S_RSA_REMOTE_ADDRS | IP address or domain |  | S2S IKEv2 RSA profile : remote address |
+|Y_S2S_RSA_LOCAL_CERTS | file path |  | S2S IKEv2 RSA profile : local certificate |
+|Y_S2S_RSA_LOCAL_ID | text |  | S2S IKEv2 RSA profile : local identity |
+|Y_S2S_RSA_REMOTE_CERTS | file path |  | S2S IKEv2 RSA profile : remote certificate |
+|Y_S2S_RSA_REMOTE_ID | text |  | S2S IKEv2 RSA profile : remote identity |
+|Y_S2S_RSA_LOCAL_TS | IP address, with mask |  | S2S IKEv2 RSA profile : local traffic selectors |
+|Y_S2S_RSA_REMOTE_TS | IP address, with mask |  | S2S IKEv2 RSA profile : remote traffic selectors |
+|Y_S2S_RSA_START_ACTION | text | trap | S2S IKEv2 RSA profile : start action |
+|Y_REVOCATION_LOAD | yes/no | yes | yes, to activate revocation plugin |
+|Y_REVOCATION_ENABLE_CRL | yes/no | yes | REVOCATION : yes, to enable crl |
+|Y_REVOCATION_ENABLE_OCSP | yes/no | yes | REVOCATION : yes, to enable ocsp |
+|Y_RADIUS_LOAD | yes/no | no | yes, to activate radius plugin |
+|Y_RADIUS_CLASS_GROUP | yes/no | no | RADIUS : yes, to enable class group |
+|Y_RADIUS_ACCOUNTING | yes/no | no | RADIUS : yes, to enable radius accounting |
+|Y_RADIUS_ADDRESS | IP address | 127.0.0.1 | RADIUS : IP address of the radius server |
+|Y_RADIUS_SECRET | text | testing123 | RADIUS : secret password to connect to the radius server |
+|Y_RADIUS_AUTH_PORT | port number | 1812 | RADIUS : authentication port |
+|Y_RADIUS_ACCT_PORT | port number | 1813 | RADIUS : accounting port |
+|Y_RADIUS_DAE_ENABLE | yes/no | no | RADIUS : yes, to enable dae (Dynamic Authorization Extensions). If you need coa (Change-of-Authorization) |
+|Y_RADIUS_DAE_LISTEN | IP address | 0.0.0.0 | DAE : IP address to listen for requests |
+|Y_RADIUS_DAE_PORT | port number | 3799 | DAE : Port to listen for requests |
+|Y_RADIUS_DAE_SECRET | password | testing123 | DAE : shared secret |
+|Y_DHCP_FORCE_SERVER_ADDRESS | yes/no | no | DHCP : yes, to enable force server address |
+|Y_DCHP_IDENTITY_LEASE | yes/no | no | DHCP : yes, to enable identity lease |
+|Y_DHCP_SERVER | IP address | 255.255.255.255 | DHCP : IP address of the dhcp server |
+|Y_FARP_LOAD | yes/no | yes | yes, to activate farp plugin |
+|Y_FORECAST_LOAD | yes/no | yes | yes, to activate forecast plugin |
+|Y_BYPASSLAN_LOAD | yes/no | no | yes, to activate bypasslan plugin |
 
 # Build
 
@@ -316,7 +316,7 @@ docker run -dt --name my_customized_ipsec ye3ipsec
 
 # ToDo
 
-- need to document env variables
+- ~~need to document env variables~~ (2024-01-20)
 - add more translation files in i18n folder. Contribute ! Send me your translations by mail ;)
 
 Don't hesitate to send me your contributions, issues, improvements on github or by mail.
