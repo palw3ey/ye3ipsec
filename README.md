@@ -18,7 +18,9 @@ The credentials are randomly generated, if not set.
 
 The container will generate self signed certificate using external (public) ip address as CN, if not set.  
 
-The container configurations and credentials can be displayed using the command : docker logs containerName
+The container configurations and credentials can be displayed using the command : docker logs containerName  
+
+The /etc/swanctl folder is persistent.
 
 # Simple usage
 
@@ -200,25 +202,25 @@ These are the env variables and their default values.
 |Y_PORT_AH | port number | 51 | ah port |
 |Y_PORT_IKE | port number | 500 | ike port |
 |Y_PORT_NAT | port number | 4500 | nat-t port |
-|Y_SERVER_CERT_CN | IP address or domain name |  | CN value to use for the server certificate  |
+|Y_SERVER_CERT_CN | IP address or domain name | *if not set, will attempt to detect and use the public ip address otherwise the first local ip address* | CN value to use for the server certificate  |
 |Y_SERVER_CERT_DN | text | "C=FR, ST=Ile-de-France, L=Paris, O=IPSec, OU=Example" | DN value to add to the server certificate |
 |Y_SERVER_CERT_DAYS | integer | 3650 | number of days before expiration, for CA and Server certificate |
-|Y_PROPOSALS_PHASE1 | cipher suite | "aes256-sha256-ecp256, aes256gcm16-sha384-prfsha384-ecp384, aes256-sha256-modp2048, aes256-sha256-modp1024, aes256-sha1-modp1024, 3des-sha1-modp1024, des-sha1-modp1024" | cipher suites to use for phase 1 |
-|Y_PROPOSALS_PHASE2 | cipher suite | "aes256-sha256, aes256gcm16-ecp384, aes256-sha1, 3des-sha1, des-sha1" | cipher suites to use for phase 2 |
+|Y_PROPOSALS_PHASE1 | cipher suite | "aes256-sha256-ecp256, aes256gcm16-sha384-prfsha384-ecp384, aes256-sha256-modp2048, aes256-sha256-modp1024, aes256-sha1-modp1024, 3des-sha1-modp1024, des-sha1-modp1024" | cipher suites to use for phase 1. Note that by default some weak cipher are present in the list, you should narrow the list to strong ones. If supported by the client |
+|Y_PROPOSALS_PHASE2 | cipher suite | "aes256-sha256, aes256gcm16-ecp384, aes256-sha1, 3des-sha1, des-sha1" | cipher suites to use for phase 2. Note that by default some weak cipher are present in the list, you should narrow the list to strong ones. If supported by the client |
 |Y_REKEY_PHASE1 | text | 86400s | rekey time for phase 1 |
 |Y_REKEY_PHASE2 | text | 28800s | rekey time for phase 2 |
 |Y_DPD_DELAY | text | 15s | delay for dead peer detection  |
 |Y_DPD_ACTION | text | restart | action to take on dead peer detection timeout |
-|Y_LOCAL_SELFCERT | yes/no | yes | yes, to use self-signed certificates to identify the VPN server. If set to no, you need to provide 3 files... the CA : /etc/swanctl/x509ca/chain.pem  the certificate : /etc/swanctl/x509/cert.pem  the private key : /etc/swanctl/private/privkey.pem |
-|Y_LOCAL_ID | text |  | IKE identity for the VPN server |
+|Y_LOCAL_SELFCERT | yes/no | yes | yes, to use self-signed certificates to identify the VPN server. If set to no, you need to provide 3 files... the CA : /etc/swanctl/x509ca/chain.pem  the certificate : /etc/swanctl/x509/cert.pem  the private key : /etc/swanctl/private/privkey.pem  The same files provided by Let's Encrypt. |
+|Y_LOCAL_ID | text | *if not set, will be equal to Y_SERVER_CERT_CN* | IKE identity for the VPN server |
 |Y_LOCAL_SUBNET | text | "0.0.0.0/0, ::/0" | local traffic selectors |
 |Y_REMOTE_SUBNET | text | dynamic | remote traffic selectors |
 |Y_POOL_DHCP | yes/no | no | yes, to set the pool to dhcp and give clients an ip address from an external dhcp server. You need to specify the dhcp server. see Y_DHCP_SERVER |
 |Y_POOL_IPV6_ENABLE | yes/no | yes | yes, to give clients IPv6 address |
 |Y_POOL_IPV4 | IP Address, and mask | 192.168.1.1/24 | IPv4 address pool for the clients |
 |Y_POOL_IPV6 | IPv6 Address, and mask | fd00::c0a8:101/120 | IPv6 address pool for the clients |
-|Y_POOL_DNS4 | IP Address | "1.1.1.1, 8.8.8.8" | IPv4 DNS for the clients, primary and secondary, default is Cloudflare and Google |
-|Y_POOL_DNS6 | IPv6 Address | "2606:4700:4700::1111, 2001:4860:4860::8888" | IPv6 DNS for the clients, primary and secondary, default is Cloudflare and Google |
+|Y_POOL_DNS4 | IP Address | "1.1.1.1, 8.8.8.8" | IPv4 DNS for the clients, primary and secondary, default are Cloudflare and Google |
+|Y_POOL_DNS6 | IPv6 Address | "2606:4700:4700::1111, 2001:4860:4860::8888" | IPv6 DNS for the clients, primary and secondary, default are Cloudflare and Google |
 |Y_FIREWALL_ENABLE | yes/no | no | yes, to enable the firewall settings |
 |Y_FIREWALL_INTERCLIENT | yes/no | yes | yes, to allow clients to talk to each other |
 |Y_FIREWALL_LAN | yes/no | yes | yes, to allow client to communicate to lan address : 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16, fc00::/7 |
@@ -227,7 +229,7 @@ These are the env variables and their default values.
 |Y_CERT_DAYS | integer | 365 | RA IKEv2 Certificate profile : How long to certify for |
 |Y_CERT_REMOTE_ID | text |  | RA IKEv2 Certificate profile : remote identity |
 |Y_CERT_CN | text | *(randomly generated, if not set)* | RA IKEv2 Certificate profile : CN of the client certificate |
-|Y_CERT_PASSWORD | password | *(randomly generated, if not set)* | RA IKEv2 Certificate profile : password of the client certificate file (.p12)|
+|Y_CERT_PASSWORD | password | *(randomly generated, if not set)* | RA IKEv2 Certificate profile : password of the client p12 certificate file (/etc/swanctl/pkcs12/clientCert.p12)|
 |Y_EAP_ENABLE | yes/no | yes | yes, to activate the RA (remote access) IKEv2 EAP profile |
 |Y_EAP_REMOTE_AUTH | text | eap-mschapv2 | RA IKEv2 EAP profile : remote authentication method |
 |Y_EAP_REMOTE_EAP_ID | text | %any | RA IKEv2 EAP profile : remote eap identity |
@@ -245,7 +247,7 @@ These are the env variables and their default values.
 |Y_XAUTH_PSK_SECRET | password | *(randomly generated, if not set)* | RA IKEv1 XAUTH PSK profile : shared secret |
 |Y_XAUTH_PSK_USERNAME | text | *(randomly generated, if not set)* | RA IKEv1 XAUTH PSK profile : remote username |
 |Y_XAUTH_PSK_PASSWORD | password | *(randomly generated, if not set)* | RA IKEv1 XAUTH PSK profile : remote password |
-|Y_XAUTH_RSA_ENABLE | yes/no | no | yes, to activate the RA (remote access) IKEv1 XAUTH RSA profile |
+|Y_XAUTH_RSA_ENABLE | yes/no | no | yes, to activate the RA (remote access) IKEv1 XAUTH RSA profile. The client p12 certificate is the same generated by Y_CERT_DAYS, Y_CERT_CN and Y_CERT_PASSWORD : /etc/swanctl/pkcs12/clientCert.p12 |
 |Y_XAUTH_RSA_AGGRESSIVE | yes/no | no | RA IKEv1 XAUTH RSA profile : yes, to enable aggressive mode. (use no, for main mode) |
 |Y_XAUTH_RSA_REMOTE_AUTH | text | xauth | RA IKEv1 XAUTH RSA profile : remote authentication method |
 |Y_XAUTH_RSA_USERNAME | text | *(randomly generated, if not set)* | RA IKEv1 XAUTH RSA profile : remote username |
@@ -253,8 +255,8 @@ These are the env variables and their default values.
 |Y_S2S_PSK_ENABLE | yes/no | no | yes, to activate the S2S (site to site) IKEv2 PSK profile |
 |Y_S2S_PSK_LOCAL_ADDRS | IP address or domain |  | S2S IKEv2 PSK profile : local address |
 |Y_S2S_PSK_REMOTE_ADDRS | IP address or domain |  | S2S IKEv2 PSK profile : remote address |
-|Y_S2S_PSK_LOCAL_TS | IP Address |  | S2S IKEv2 PSK profile : local traffic selectors |
-|Y_S2S_PSK_REMOTE_TS | IP Address |  | S2S IKEv2 PSK profile : remote traffic selectors |
+|Y_S2S_PSK_LOCAL_TS | IP Address, and mask |  | S2S IKEv2 PSK profile : local traffic selectors |
+|Y_S2S_PSK_REMOTE_TS | IP Address, and mask |  | S2S IKEv2 PSK profile : remote traffic selectors |
 |Y_S2S_PSK_START_ACTION | text | trap | S2S IKEv2 PSK profile : start action |
 |Y_S2S_PSK_LOCAL_ID | text | *(randomly generated, if not set)* | S2S IKEv2 PSK profile : local identity |
 |Y_S2S_PSK_REMOTE_ID | text | *(randomly generated, if not set)* | S2S IKEv2 PSK profile : remote identity |
@@ -262,8 +264,8 @@ These are the env variables and their default values.
 |Y_S2S_RSA_ENABLE | yes/no | no | yes, to activate the S2S (site to site) IKEv2 RSA profile |
 |Y_S2S_RSA_LOCAL_ADDRS | IP address or domain |  | S2S IKEv2 RSA profile : local address |
 |Y_S2S_RSA_REMOTE_ADDRS | IP address or domain |  | S2S IKEv2 RSA profile : remote address |
-|Y_S2S_RSA_LOCAL_CERTS | file path |  | S2S IKEv2 RSA profile : local certificate |
-|Y_S2S_RSA_LOCAL_ID | text |  | S2S IKEv2 RSA profile : local identity |
+|Y_S2S_RSA_LOCAL_CERTS | file path |  | S2S IKEv2 RSA profile : local certificate. Y_S2S_RSA_LOCAL_ID must be set, otherwise will be ignored and will use the server selfsigned certifate by default. |
+|Y_S2S_RSA_LOCAL_ID | text |  | S2S IKEv2 RSA profile : local identity. Y_S2S_RSA_LOCAL_CERTS must be set, otherwise will be ignored and will use the server selfsigned id by default. |
 |Y_S2S_RSA_REMOTE_CERTS | file path |  | S2S IKEv2 RSA profile : remote certificate |
 |Y_S2S_RSA_REMOTE_ID | text |  | S2S IKEv2 RSA profile : remote identity |
 |Y_S2S_RSA_LOCAL_TS | IP address, with mask |  | S2S IKEv2 RSA profile : local traffic selectors |
