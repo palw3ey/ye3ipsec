@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# LABEL name="ye3ipsec" version="1.0.0" author="palw3ey" maintainer="palw3ey" email="palw3ey@gmail.com" website="https://github.com/palw3ey/ye3ipsec" license="MIT" create="20231203" update="20240114"
+# LABEL name="ye3ipsec" version="1.0.1" author="palw3ey" maintainer="palw3ey" email="palw3ey@gmail.com" website="https://github.com/palw3ey/ye3ipsec" license="MIT" create="20231203" update="20240121"
 
 # Entrypoint for docker
 
@@ -57,12 +57,18 @@ function f_credential(){
 	vl_cred_var=$1
 	vl_cred_value=$(eval "echo \$$vl_cred_var")
 	
+	if [[ -z $3 ]]; then
+		vl_persistent="yes"
+	else
+		vl_persistent=$3
+	fi
+	
 	# if env credentials not exist : generate and make persistent to survive a docker restart
 	
 	if [[ -z $vl_cred_value ]] ; then
 		
 		# verify if already exist
-		if [[ -f $vg_dir_credential/$vl_cred_var ]] ; then
+		if [[ -f $vg_dir_credential/$vl_cred_var ]] && [[ $vl_persistent == "yes" ]] ; then
 			vl_result=$(cat $vg_dir_credential/$vl_cred_var)
 		else
 			# generate
@@ -75,13 +81,47 @@ function f_credential(){
 			fi
 			vl_result=$(tr -dc $vl_char </dev/urandom | head -c $vl_size; echo)
 			# make persistent
-			echo $vl_result > $vg_dir_credential/$vl_cred_var
+			if [[ $vl_persistent == "yes" ]]; then
+				echo $vl_result > $vg_dir_credential/$vl_cred_var
+			fi
 		fi
 		echo $vl_result
 	else
 		echo $vl_cred_value
 	fi
 	
+}
+
+# get EAP username and password from Y_EAP_USERS
+function f_eap_users(){
+
+	vl_users=$1
+	vl_iteration=1
+	
+	echo "secrets {"  > $vg_dir_swanctl/conf.d/users.conf
+	
+	for vl_user in $vl_users; do
+		vl_iteration=$((vl_iteration+1))
+		if [[ $vl_user == ":"* ]]; then
+			vl_id=$(f_credential vl_id username no)
+		else
+			vl_id=$(echo $vl_user | sed 's/:.*//')
+		fi
+
+		if [[ $vl_user == *":" ]] || [[ ! $vl_user =~ ":" ]]; then
+			vl_secret=$(f_credential vl_secret password no)
+		else
+			vl_secret=$(echo $vl_user | sed 's/[^:]*://')
+		fi
+
+		echo -e "  eap-eap$vl_iteration { \n    id = $vl_id \n    secret = $vl_secret \n  }" >> $vg_dir_swanctl/conf.d/users.conf
+		
+		vl_id=
+		vl_secret=
+		
+	done
+	
+	echo "}" >> $vg_dir_swanctl/conf.d/users.conf
 }
 
 # create firewall rules
@@ -271,6 +311,13 @@ if [[ $Y_IGNORE_CONFIG == "no" ]]; then
 		f_log "$i_enable : $i_eap"
 		f_log "    CRED_Y_EAP_USERNAME : $Y_EAP_USERNAME"
 		f_log "    CRED_Y_EAP_PASSWORD : $Y_EAP_PASSWORD"
+		if [[ ! -z "$Y_EAP_USERS" ]]; then
+			f_eap_users "$Y_EAP_USERS"
+		fi
+		if [[ -f $vg_dir_swanctl/conf.d/users.conf ]]; then
+			f_log "    CRED_Y_EAP_USERS : "
+			echo "$(cat $vg_dir_swanctl/conf.d/users.conf)"
+		fi
 		source $vg_dir_swanctl/ye3ipsec/eap.sh > $vg_dir_swanctl/conf.d/eap.conf
 	else
 		rm $vg_dir_swanctl/conf.d/eap.conf 2>/dev/null

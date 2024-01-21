@@ -1,4 +1,4 @@
-# LABEL name="ye3ipsec" version="1.0.0" author="palw3ey" maintainer="palw3ey" email="palw3ey@gmail.com" website="https://github.com/palw3ey/ye3ipsec" license="MIT" create="20231203" update="20240114"
+# LABEL name="ye3ipsec" version="1.0.1" author="palw3ey" maintainer="palw3ey" email="palw3ey@gmail.com" website="https://github.com/palw3ey/ye3ipsec" license="MIT" create="20231203" update="20240121"
 
 # These values will override docker env variables. To activate, rename the file /etc/profile.d/bypass_docker_env.sh.dis to /etc/profile.d/bypass_docker_env.sh
 
@@ -54,6 +54,7 @@ export Y_EAP_REMOTE_AUTH=eap-mschapv2
 export Y_EAP_REMOTE_EAP_ID=%any
 export Y_EAP_USERNAME=
 export Y_EAP_PASSWORD=
+export Y_EAP_USERS=
 
 # IKEv2 Remote Access with Virtual IP Adresses PSK
 export Y_PSK_ENABLE=yes
