@@ -313,7 +313,7 @@ docker run -dt --name my_customized_ipsec ye3ipsec
 
 | name | version |
 | :- |:- |
-|ye3ipsec | 1.0.0 |
+|ye3ipsec | 1.0.1 |
 |strongswan | 5.9.13 |
 |alpine | 3.18.4 |
 
