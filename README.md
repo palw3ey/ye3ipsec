@@ -235,6 +235,7 @@ These are the env variables and their default values.
 |Y_EAP_REMOTE_EAP_ID | text | %any | RA IKEv2 EAP profile : remote eap identity |
 |Y_EAP_USERNAME | text | *(randomly generated, if not set)* | RA IKEv2 EAP profile : remote username  |
 |Y_EAP_PASSWORD | password | *(randomly generated, if not set)* | RA IKEv2 EAP profile : remote password|
+|Y_EAP_USERS | text| | RA IKEv2 EAP profile : list of remote username:password separated by a blank space. eg: "emily:123789 elisabeth:987456" |
 |Y_PSK_ENABLE | yes/no | yes | yes, to activate the RA (remote access) IKEv2 PSK profile |
 |Y_PSK_LOCAL_ID | text | *(randomly generated, if not set)* | RA IKEv2 PSK profile : local identity |
 |Y_PSK_REMOTE_ID | text | *(randomly generated, if not set)* | RA IKEv2 PSK profile : remote identity |
@@ -315,6 +316,13 @@ docker run -dt --name my_customized_ipsec ye3ipsec
 |ye3ipsec | 1.0.0 |
 |strongswan | 5.9.13 |
 |alpine | 3.18.4 |
+
+# Changelog
+## 1.0.1 | 2024-01-21
+### Enhancements
+new env variable : Y_EAP_USERS, to add multiple username and password to RA IKEv2 EAP profile
+## 1.0.0 | 2023-12-03
+first release
 
 # ToDo
 
