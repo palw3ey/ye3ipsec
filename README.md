@@ -318,10 +318,11 @@ docker run -dt --name my_customized_ipsec ye3ipsec
 |alpine | 3.18.4 |
 
 # Changelog
-## 1.0.1 | 2024-01-21
-### Enhancements
+## [1.0.1] - 2024-01-21
+### Added
 new env variable : Y_EAP_USERS, to add multiple username and password to RA IKEv2 EAP profile
-## 1.0.0 | 2023-12-03
+## [1.0.0] - 2023-12-03
+### Added
 first release
 
 # ToDo
