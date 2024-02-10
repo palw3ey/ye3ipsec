@@ -184,6 +184,46 @@ docker cp myipsec:/etc/swanctl/pkcs12/clientCert.p12 ~/Documents/
 ```bash
 docker exec -it myipsec swanctl --log
 ```
+
+- Start container automatically on system boot
+```bash
+docker update --restart=unless-stopped myipsec
+```
+
+- Start container automatically on system boot with custom host commands, to add routes for example
+```bash
+cat > /etc/systemd/system/myipsec.service <<EOL
+[Unit]
+Description=ye3ipsec container
+Requires=docker.service
+After=docker.service
+
+[Service]
+Restart=always
+ExecStartPre=-/sbin/ip route del 10.1.0.0/16 via 10.2.192.254
+ExecStartPre=-/sbin/ip -6 route del fd00::a01:101/112 via fd00::a02:c0fe
+ExecStart=/usr/bin/docker start -a myipsec
+ExecStop=/usr/bin/docker stop -t 2 myipsec
+ExecStartPost=-/sbin/ip route add 10.1.0.0/16 via 10.2.192.254
+ExecStartPost=-/sbin/ip -6 route add fd00::a01:101/112 via fd00::a02:c0fe
+
+[Install]
+WantedBy=default.target
+EOL
+```
+```bash
+# reload
+systemctl daemon-reload
+# check presence
+systemctl list-unit-files | grep -i myipsec
+# enable
+systemctl enable myipsec
+# restart
+systemctl restart myipsec
+ # status
+systemctl status myipsec
+```
+
 # FAQ
 
 - With docker environment variables I can only create 1 site to site PSK profile, how do I add another site to site connection ?
