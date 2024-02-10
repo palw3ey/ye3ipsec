@@ -188,7 +188,7 @@ docker exec -it myipsec swanctl --log
 
 - With docker environment variables I can only create 1 site to site PSK profile, how do I add another site to site connection ?
 
-You are not restricted to only using docker environment veariables to customize the server, you can add new connections as you wish by simply adding a .conf file in this folder: `/etc/swanctl/conf.d/`
+You are not restricted to only using docker environment variables to customize the server, you can add new connections as you wish by simply adding a .conf file in this folder: `/etc/swanctl/conf.d/`
 
 In the example of a PSK site-to-site connection where:  
 
