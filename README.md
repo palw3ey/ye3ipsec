@@ -223,6 +223,7 @@ systemctl restart myipsec
  # status
 systemctl status myipsec
 ```
+Use Docker restart policies or service unit, but don't use both.
 
 # FAQ
 
