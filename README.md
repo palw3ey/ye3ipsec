@@ -184,6 +184,138 @@ docker cp myipsec:/etc/swanctl/pkcs12/clientCert.p12 ~/Documents/
 ```bash
 docker exec -it myipsec swanctl --log
 ```
+# FAQ
+
+- With docker environment variables I can only create 1 site to site PSK profile, how do I add another site to site connection ?
+
+You are not restricted to only using docker environment veariables to customize the server, you can add new connections as you wish by simply adding a .conf file in this folder: `/etc/swanctl/conf.d/`
+
+In the example of a PSK site-to-site connection where:  
+
+site X:
+```
+Server IP address: X.X.X.X
+Lan IP address: 10.1.0.0/16,fd00::a01:101/112
+```
+
+site Y:
+
+```
+Server IP address: Y.Y.Y.Y
+Lan IP address: 10.2.0.0/16,fd00::a02:101/112
+```
+
+Connect to the site X server, and create the file `/etc/swanctl/conf.d/s2s_psk_siteY.conf` :
+```
+cat > /etc/swanctl/conf.d/s2s_psk_siteY.conf <<EOL
+connections {
+	conn-s2s_psk_siteY {
+		version = 2
+		send_cert = ifasked
+		encap = yes
+		rekey_time = 86400s
+		dpd_delay = 15s
+		proposals = aes256-sha256-ecp256
+		remote_addrs = Y.Y.Y.Y
+
+		local {
+			auth = psk
+			certs = serverCert.pem
+			id = X.X.X.X
+		}
+		
+		remote {
+			auth = psk
+			id = Y.Y.Y.Y
+		}
+		
+		children {
+			child-s2s_psk_siteY {
+				local_ts  = 0.0.0.0/0,::/0
+				remote_ts = 10.2.0.0/16,fd00::a02:101/112
+				start_action = trap
+				esp_proposals = aes256-sha256
+				rekey_time = 28800s
+				dpd_action = restart
+			}
+		}
+		
+	}
+}
+
+secrets {
+	ike-s2s_psk_siteY {
+		secret = StrongSecret
+		id-0 = X.X.X.X
+		id-1 = Y.Y.Y.Y
+	}
+}
+EOL
+```
+reload strongswan to apply
+```
+swanctl --load-all --noprompt
+```
+
+
+Connect to the site Y server, and create the file `/etc/swanctl/conf.d/s2s_psk_siteX.conf` :
+```
+cat > /etc/swanctl/conf.d/s2s_psk_siteX.conf <<EOL
+connections {
+	conn-s2s_psk_siteX {
+	
+		version = 2
+		send_cert = ifasked
+		encap = yes
+		rekey_time = 86400s
+		dpd_delay = 15s
+		proposals = aes256-sha256-ecp256
+		remote_addrs = X.X.X.X
+
+		local {
+			auth = psk
+			certs = serverCert.pem
+			id = Y.Y.Y.Y
+		}
+		
+		remote {
+			auth = psk
+			id = X.X.X.X
+		}
+		
+		children {
+			child-s2s_psk_siteX {
+				local_ts  = 0.0.0.0/0,::/0
+				remote_ts = 10.1.0.0/16,fd00::a01:101/112
+				start_action = trap
+				esp_proposals = aes256-sha256
+				rekey_time = 28800s
+				dpd_action = restart
+			}
+		}
+		
+	}
+}
+
+secrets {
+	ike-s2s_psk_siteX {
+		secret = StrongSecret
+		id-0 = Y.Y.Y.Y
+		id-1 = X.X.X.X
+	}
+}
+EOL
+```
+reload strongswan to apply
+```
+swanctl --load-all --noprompt
+```
+
+You can now ping server Y Lan from server X, this will automatically bring up the connection.  
+Or you can do it manually using this command from server X :
+```
+sudo swanctl --initiate --ike conn-s2s_psk_siteY
+```
 
 # GNS3
 
