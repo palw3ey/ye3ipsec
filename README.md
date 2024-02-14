@@ -495,17 +495,24 @@ docker run -dt --name my_customized_ipsec ye3ipsec
 
 | name | version |
 | :- |:- |
-|ye3ipsec | 1.0.1 |
+|ye3ipsec | 1.0.2 |
 |strongswan | 5.9.13 |
 |alpine | 3.18.4 |
 
 # Changelog
+## [1.0.2] - 2024-02-14
+### Fixed
+- When Y_SERVER_CERT_CN is not set, ye3ipec will auto detect an IP address. But the IP address validation was using a bash syntax, that cause this error : "unknown operand". The fix now use a POSIX syntax.
+### Added
+- Improvement in the auto detect IP address for Y_SERVER_CERT_CN, if an external ip is not found then will get default route interface ip if exist, before going to the last choice : get first ip returned by the command $(hostname -i)
+- A FAQ in README.md
 ## [1.0.1] - 2024-01-21
 ### Added
-new env variable : Y_EAP_USERS, to add multiple username and password to RA IKEv2 EAP profile
+- new env variable : Y_EAP_USERS, to add multiple username and password to RA IKEv2 EAP profile
+- A Changelog in README.md, using this syntax : [keepachangelog.com](https://keepachangelog.com/en/1.1.0/)
 ## [1.0.0] - 2023-12-03
 ### Added
-first release
+- first release
 
 # ToDo
 
