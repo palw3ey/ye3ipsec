@@ -370,7 +370,7 @@ sudo swanctl --initiate --ike conn-s2s_psk_siteY
 ```
 
 ---
-- How do i update my container image without losing its content ?
+- How do i update my running container to the latest ye3ipsec image without losing my container data ?
 ---  
 The folder /etc/swanctl is persistent, and won't be deleted by a `docker rm`. You can find its path on the host using this command :
 ```bash
@@ -405,7 +405,7 @@ docker volume inspect myipsec_volume -f '{{ .Mountpoint }}'
 sudo cp -a /var/lib/docker/volumes/XXXXXXXXXXXXXXXX/_data/. /var/lib/docker/volumes/myipsec_volume/_data/
 
 # finally start your container, adding this option
---mount source=myipsec_volume,target=/etc/swanctl \
+--mount source=myipsec_volume,target=/etc/swanctl
 ```
 
 # GNS3
