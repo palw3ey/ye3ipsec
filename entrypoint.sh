@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# LABEL name="ye3ipsec" version="1.0.1" author="palw3ey" maintainer="palw3ey" email="palw3ey@gmail.com" website="https://github.com/palw3ey/ye3ipsec" license="MIT" create="20231203" update="20240121"
+# LABEL name="ye3ipsec" version="1.0.2" author="palw3ey" maintainer="palw3ey" email="palw3ey@gmail.com" website="https://github.com/palw3ey/ye3ipsec" license="MIT" create="20231203" update="20240214"
 
 # Entrypoint for docker
 
@@ -11,6 +11,7 @@ vg_name=ye3ipsec
 
 # get default interface
 vg_interface=$(route | awk '/^default/{print $NF}')
+vg_interface_ip=$(/sbin/ifconfig $vg_interface | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}')
 
 # get external ip
 vg_ip=$(curl -s http://whatismyip.akamai.com/)
@@ -199,11 +200,13 @@ if [[ $Y_IGNORE_CONFIG == "no" ]]; then
 	Y_S2S_PSK_REMOTE_ID=$(f_credential Y_S2S_PSK_REMOTE_ID username)
 	Y_S2S_PSK_SECRET=$(f_credential Y_S2S_PSK_SECRET password)
 
-	# if env variable Y_SERVER_CERT_CN doesn't exist, then set to external ip or first hostname ip
+	# if env variable Y_SERVER_CERT_CN doesn't exist, then set to external ip or default route interface ip or first hostname ip
 	
 	if [[ -z "$Y_SERVER_CERT_CN" ]]; then
-		if [[ $vg_ip =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+		if expr "$vg_ip" : '[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*$' >/dev/null; then
 			Y_SERVER_CERT_CN=$vg_ip
+		elif [[ ! -z "vg_interface_ip" ]]; then
+			Y_SERVER_CERT_CN=$vg_interface_ip
 		else
 			Y_SERVER_CERT_CN=$(hostname -i | cut -d ' ' -f1)
 		fi

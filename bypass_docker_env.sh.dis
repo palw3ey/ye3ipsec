@@ -1,4 +1,4 @@
-# LABEL name="ye3ipsec" version="1.0.1" author="palw3ey" maintainer="palw3ey" email="palw3ey@gmail.com" website="https://github.com/palw3ey/ye3ipsec" license="MIT" create="20231203" update="20240121"
+# LABEL name="ye3ipsec" version="1.0.2" author="palw3ey" maintainer="palw3ey" email="palw3ey@gmail.com" website="https://github.com/palw3ey/ye3ipsec" license="MIT" create="20231203" update="20240214"
 
 # These values will override docker env variables. To activate, rename the file /etc/profile.d/bypass_docker_env.sh.dis to /etc/profile.d/bypass_docker_env.sh
 

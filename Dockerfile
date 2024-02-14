@@ -1,7 +1,7 @@
 FROM alpine:latest
 
 MAINTAINER palw3ey <palw3ey@gmail.com>
-LABEL name="ye3ipsec" version="1.0.1" author="palw3ey" maintainer="palw3ey" email="palw3ey@gmail.com" website="https://github.com/palw3ey/ye3ipsec" license="MIT" create="20231203" update="20240121" description="A docker IPSec server based on Strongswan and Alpine. RA and S2S profile. Below 70 Mb. GNS3 ready." usage="docker run -dt palw3ey/ye3ipsec" tip="The folder /etc/swanctl is persistent"
+LABEL name="ye3ipsec" version="1.0.2" author="palw3ey" maintainer="palw3ey" email="palw3ey@gmail.com" website="https://github.com/palw3ey/ye3ipsec" license="MIT" create="20231203" update="20240214" description="A docker IPSec server based on Strongswan and Alpine. RA and S2S profile. Below 70 Mb. GNS3 ready." usage="docker run -dt palw3ey/ye3ipsec" tip="The folder /etc/swanctl is persistent"
 
 ENV Y_LANGUAGE=fr_FR \
 	Y_DEBUG=no \
