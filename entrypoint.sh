@@ -45,11 +45,17 @@ vg_file_external_cert=$vg_dir_swanctl/x509/cert.pem
 # firewall function
 vg_file_firewall=$vg_dir_swanctl/ye3ipsec/firewall.sh
 
+# extra info in log if debug on
+vg_log=""
+if [[ $Y_DEBUG == "yes" ]]; then
+	vg_log="$(date '+%Y-%m-%d %H:%M:%S') $(hostname) $vg_name:"
+fi
+
 # ============ [ function ] ============
 
 # echo information for docker logs
 function f_log(){
-	echo -e "$(date '+%Y-%m-%d %H:%M:%S') $(hostname) $vg_name: $@"
+	echo -e "$vg_log $@"
 }
 
 # create random credential
