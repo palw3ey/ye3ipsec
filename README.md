@@ -377,7 +377,7 @@ Now you can stop and delete the container. Update the image.
 docker stop myipsec && docker rm myipsec
 
 # Update the image
-docker pull palw3ey:ye3ipsec
+docker pull palw3ey/ye3ipsec
 ```
 
 You have 2 methods to mount the folder to your new container : use bind or volume.  
@@ -397,6 +397,7 @@ docker volume create myipsec_volume
 docker volume inspect myipsec_volume -f '{{ .Mountpoint }}'
 
 # copy your host old /etc/swanctl content to myipsec_volume
+sudo cp -a /var/lib/docker/volumes/XXXXXXXXXXXXXXXX/_data/. /var/lib/docker/volumes/myipsec_volume/_data/
 
 # finally start your container, adding this option
 --mount source=myipsec_volume,target=/etc/swanctl \
