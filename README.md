@@ -229,15 +229,17 @@ Use Docker restart policies or service unit, but don't use both.
 
 # FAQ
 - How can i run strongswan without the configurations files provided by ye3ipsec ?
+---
 ```bash
 docker run -dt --cap-add NET_ADMIN -e Y_IGNORE_CONFIG=yes --name myipsec palw3ey/ye3ipsec
 ```
 `Y_IGNORE_CONFIG=yes`, This way you only have strongswan without any custom configurations. You can find examples on the strongswan website on how to create connections.  
 
 If you are not comfortable, use `Y_IGNORE_CONFIG=no`, then use the environment variables which will automatically configure Strongswan with ready-made connection profiles. This is the purpose of the ye3ipsec container.
-  
-- With docker environment variables I can only create 1 site to site PSK profile, how do I add another site to site connection ?
 
+---
+- With docker environment variables I can only create 1 site to site PSK profile, how do I add another site to site connection ?
+---
 You are not restricted to only using docker environment variables to customize the server, you can add new connections as you wish by simply adding a .conf file in this folder: `/etc/swanctl/conf.d/`
 
 In the example of a PSK site-to-site connection where:  
@@ -366,8 +368,11 @@ Or you can do it manually using this command from server X :
 ```
 sudo swanctl --initiate --ike conn-s2s_psk_siteY
 ```
-- How do i update ye3ipsec docker image without losing its content ?  
-The folder /etc/swanctl is persistent, and won't be deleted by a `docker rm`. You can find his location on the host using this command :
+
+---
+- How do i update ye3ipsec docker image without losing its content ?
+---  
+The folder /etc/swanctl is persistent, and won't be deleted by a `docker rm`. You can find its path on the host using this command :
 ```bash
 docker inspect -f '{{ json .Mounts }}' myipsec | jq
 ```
@@ -388,12 +393,12 @@ Bind method :
 -v YOUR_HOST_OLD_SWANCTL_FOLDER_PATH:/etc/swanctl
 ```
 
-Volume method, i recommand this method :
+Volume method, i recommend this method :
 ```bash
 # Create a volume named myipsec_volume
 docker volume create myipsec_volume
 
-# get his location
+# get its path
 docker volume inspect myipsec_volume -f '{{ .Mountpoint }}'
 
 # copy your host old /etc/swanctl content to myipsec_volume
