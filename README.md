@@ -547,6 +547,8 @@ docker run -dt --name my_customized_ipsec ye3ipsec
 ### Added
 - Improvement in the auto detect IP address for Y_SERVER_CERT_CN, if an external ip is not found then will get default route interface ip if exist, before going to the last choice : get first ip returned by the command $(hostname -i)
 - A FAQ in README.md
+### Changed 
+- To reduce verbosity, in f_log function, show timestamp and container name only if Y_DEBUG is set to yes. 
 ## [1.0.1] - 2024-01-21
 ### Added
 - new env variable : Y_EAP_USERS, to add multiple username and password to RA IKEv2 EAP profile
