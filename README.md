@@ -366,6 +366,41 @@ Or you can do it manually using this command from server X :
 ```
 sudo swanctl --initiate --ike conn-s2s_psk_siteY
 ```
+- How do i update ye3ipsec docker image without losing its content ?  
+The folder /etc/swanctl is persistent, and won't be deleted by a `docker rm`. You can find his location on the host using this command :
+```bash
+docker inspect -f '{{ json .Mounts }}' myipsec | jq
+```
+Now you can stop and delete the container. Update the image.
+```bash
+# Stop and delete the container
+docker stop myipsec && docker rm myipsec
+
+# Update the image
+docker pull palw3ey:ye3ipsec
+```
+
+You have 2 methods to mount the folder to your new container : use bind or volume.  
+
+Bind method :
+```bash
+# Run the container, adding this option
+-v YOUR_HOST_OLD_SWANCTL_FOLDER_PATH:/etc/swanctl
+```
+
+Volume method, i recommand this method :
+```bash
+# Create a volume named myipsec_volume
+docker volume create myipsec_volume
+
+# get his location
+docker volume inspect myipsec_volume -f '{{ .Mountpoint }}'
+
+# copy your host old /etc/swanctl content to myipsec_volume
+
+# finally start your container, adding this option
+--mount source=myipsec_volume,target=/etc/swanctl \
+```
 
 # GNS3
 
