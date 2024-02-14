@@ -502,7 +502,7 @@ docker run -dt --name my_customized_ipsec ye3ipsec
 # Changelog
 ## [1.0.2] - 2024-02-14
 ### Fixed
-- When Y_SERVER_CERT_CN is not set, ye3ipec will auto detect an IP address. But the IP address validation was using a bash syntax, that cause this error : "unknown operand". The fix now use a POSIX syntax.
+- When Y_SERVER_CERT_CN is not set, entrypoint.sh will auto detect an IP address. But the IP address validation was using a bash syntax, that cause this error : "unknown operand". The fix now use a POSIX syntax.
 ### Added
 - Improvement in the auto detect IP address for Y_SERVER_CERT_CN, if an external ip is not found then will get default route interface ip if exist, before going to the last choice : get first ip returned by the command $(hostname -i)
 - A FAQ in README.md
