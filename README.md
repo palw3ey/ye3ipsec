@@ -20,7 +20,9 @@ The container will generate self signed certificate using external (public) ip a
 
 The container configurations and credentials can be displayed using the command : docker logs containerName  
 
-The /etc/swanctl folder is persistent.
+The /etc/swanctl folder is persistent.  
+
+Important, you need at least : `--cap-add NET_ADMIN` for strongswan to start.  
 
 # Simple usage
 
@@ -228,9 +230,10 @@ Use Docker restart policies or service unit, but don't use both.
 # FAQ
 - How can i run strongswan without the configurations files provided by ye3ipsec ?
 ```bash
-docker run -dt Y_IGNORE_CONFIG=yes --name myipsec palw3ey/ye3ipsec
+docker run -dt --cap-add NET_ADMIN -e Y_IGNORE_CONFIG=yes --name myipsec palw3ey/ye3ipsec
 ```
 `Y_IGNORE_CONFIG=yes`, This way you only have strongswan without any custom configurations. You can find examples on the strongswan website on how to create connections.  
+
 If you are not comfortable, use `Y_IGNORE_CONFIG=no`, then use the environment variables which will automatically configure Strongswan with ready-made connection profiles. This is the purpose of the ye3ipsec container.
   
 - With docker environment variables I can only create 1 site to site PSK profile, how do I add another site to site connection ?
