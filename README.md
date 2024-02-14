@@ -370,7 +370,7 @@ sudo swanctl --initiate --ike conn-s2s_psk_siteY
 ```
 
 ---
-- How do i update ye3ipsec docker image without losing the my container content ?
+- How do i update my container image without losing its content ?
 ---  
 The folder /etc/swanctl is persistent, and won't be deleted by a `docker rm`. You can find its path on the host using this command :
 ```bash
