@@ -197,11 +197,9 @@ docker update --restart=unless-stopped myipsec
 cat > /etc/systemd/system/myipsec.service <<EOL
 [Unit]
 Description=ye3ipsec container
-Requires=docker.service
-After=docker.service
+PartOf=docker.service
 
 [Service]
-Restart=always
 ExecStartPre=-/sbin/ip route del 10.1.0.0/16 via 10.2.192.254
 ExecStartPre=-/sbin/ip -6 route del fd00::a01:101/112 via fd00::a02:c0fe
 ExecStart=/usr/bin/docker start -a myipsec
@@ -210,7 +208,7 @@ ExecStartPost=-/sbin/ip route add 10.1.0.0/16 via 10.2.192.254
 ExecStartPost=-/sbin/ip -6 route add fd00::a01:101/112 via fd00::a02:c0fe
 
 [Install]
-WantedBy=default.target
+WantedBy=multi-user.target
 EOL
 ```
 ```bash
