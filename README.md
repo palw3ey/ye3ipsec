@@ -198,7 +198,7 @@ cat > /etc/systemd/system/myipsec.service <<EOL
 [Unit]
 Description=ye3ipsec container
 PartOf=docker.service
-After=docker.target
+After=docker.service
 
 [Service]
 ExecStartPre=-/sbin/ip route del 10.1.0.0/16 via 10.2.192.254
