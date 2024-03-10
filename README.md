@@ -515,6 +515,20 @@ These are the env variables and their default values.
 |Y_FORECAST_LOAD | yes/no | yes | yes, to activate forecast plugin |
 |Y_BYPASSLAN_LOAD | yes/no | no | yes, to activate bypasslan plugin |
 
+# Compatibility
+
+The docker image was compiled to work on these CPU architectures :
+
+- linux/386
+- linux/amd64
+- linux/arm/v6
+- linux/arm/v7
+- linux/arm64
+- linux/ppc64le
+- linux/s390x
+
+Work on most computers including Raspberry Pi
+
 # Build
 
 To customize and create your own images.
