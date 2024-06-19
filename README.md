@@ -127,7 +127,7 @@ docker network create --ipv6 \
   Use these options with docker run :
 ```bash
 -e Y_EAP_REMOTE_AUTH=eap-radius -e Y_RADIUS_ENABLE=yes \
-  -e Y_RADIUS_SERVER=radius.server.lan -e Y_RADIUS_SERET=StrongRadiusSecret \
+  -e Y_RADIUS_SERVER=radius.server.lan -e Y_RADIUS_SECRET=StrongRadiusSecret \
   -e Y_RADIUS_PORT_AUTH=1812 -e Y_RADIUS_PORT_ACCT=1813
 ```
 
