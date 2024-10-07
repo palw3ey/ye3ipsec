@@ -142,6 +142,8 @@ The /etc/swanctl folder is persistent.
 
 Important, you need at least : `--cap-add NET_ADMIN` for strongswan to start.  
 
+# [Prerequisite](https://github.com/palw3ey/ye3ipsec/blob/main/doc/prerequisite.md)
+
 # [HOWTOs](https://github.com/palw3ey/ye3ipsec/blob/main/doc/howtos.md)
 
 # [FAQ](https://github.com/palw3ey/ye3ipsec/blob/main/doc/faq.md)
