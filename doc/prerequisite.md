@@ -2,7 +2,7 @@
 
 ***It is recommended to have at least basic knowledge of Linux commands, containers and VPN networks.***
 
-Open needed ports in your firewall
+## Open needed ports in your firewall
 
 ```bash
 
@@ -36,7 +36,7 @@ sudo iptables -A INPUT  -p tcp --sport 53 -m state --state ESTABLISHED -j ACCEPT
 # If you use ipv6, just use the same commands by replacing the word iptables by ip6tables
 ```
 
-Set runtime status of some kernel parameters 
+## Set runtime status of some kernel parameters 
 
 ```bash
 # ip forwarding 
@@ -67,12 +67,12 @@ sudo sysctl -w net.ipv6.conf.all.send_redirects=0
 # These commands are non persistent = they do not survive a system reboot. To make persistent add a file to this directory /etc/sysctl.d/ containing one key=value per line.
 ```
 
-If you want to use Podman (with crun and pasta), the install command is 
+## Install Podman (with crun and pasta)
 ```bash
 sudo apt update; sudo apt install podman crun passt
 ```
 
-If you want to use Docker, the install command is 
+## Install Docker
 ```bash
 sudo apt update; sudo apt install docker.io;
 # configuration
