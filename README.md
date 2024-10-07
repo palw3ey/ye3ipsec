@@ -7,7 +7,7 @@ A container IPSec server based on Strongswan and Alpine. With remote access and 
 Create a remote access connection with EAP (mschapv2) authentication :
 
 ```bash
-# Podman command
+# Podman rootless command
 podman run -dt \
   --runtime=/usr/bin/crun --network=pasta \
   --cap-add=NET_ADMIN,SYS_MODULE,SYS_ADMIN,NET_RAW \
@@ -42,7 +42,7 @@ docker exec -it myipsec swanctl --log
 &nbsp;
 
 ```bash
-# Podman command
+# Podman rootless command
 
 # Using pasta
 # adapt this line and include it to the container's option :
