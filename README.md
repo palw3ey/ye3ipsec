@@ -156,7 +156,9 @@ Important, you need at least : `--cap-add NET_ADMIN` for strongswan to start.
 
 # [Build](https://github.com/palw3ey/ye3ipsec/blob/main/doc/build.md)
 
-# [Strongswan MAN page](https://docs.strongswan.org/)
+# strongSwan Links
+[strongSwan Documentation](https://docs.strongswan.org/)
+[Configuration Examples](https://wiki.strongswan.org/projects/strongswan/wiki/ConfigurationExamples)
 
 # Version
 
