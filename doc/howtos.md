@@ -122,9 +122,15 @@ docker exec -it myipsec cat /etc/swanctl/x509ca/caCert.pem
 docker cp myipsec:/etc/swanctl/pkcs12/clientCert.p12 ~/Documents/
 ```
 
-## Show Strongswan log
+## Show strongSwan log
 ```bash
 docker exec -it myipsec swanctl --log
+```
+
+## Show strongSwan table 220
+```bash
+# docker exec -it myipsec ip rule show
+docker exec -it myipsec ip route show table 220
 ```
 
 ## Start container automatically on system boot
