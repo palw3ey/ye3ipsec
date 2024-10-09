@@ -133,6 +133,17 @@ docker exec -it myipsec swanctl --log
 docker exec -it myipsec ip route show table 220
 ```
 
+## tcpdump
+```bash
+# usefull option : -i interfaceName, ip6
+docker exec -it myipsec tcpdump
+```
+
+## add NDP entry
+```bash
+docker exec -it myipsec ip -6 neigh add proxy <ip> dev <interface>
+```
+
 ## Start container automatically on system boot
 ```bash
 docker update --restart=unless-stopped myipsec
