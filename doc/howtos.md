@@ -1,6 +1,6 @@
 # HOWTOs
 
-## Enable ipv6 in Docker
+## ¤ Enable ipv6 in Docker
 ```bash
 # Open this file :
 vi /etc/docker/daemon.json
