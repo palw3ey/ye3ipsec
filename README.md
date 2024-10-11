@@ -74,7 +74,7 @@ docker network create --ipv6 --subnet=10.2.192.0/23 --subnet=fd00::a02:c000/119 
 
 ---
 
-[tip] You can avoid step 1) and 2) if you have Let's Encrypt certificates. See [HOWTOs](https://github.com/palw3ey/ye3ipsec/blob/main/doc/howtos.md#use-the-host-lets-encrypt-certificate-to-identify-the-vpn-server-instead-of-the-certificate-generated-by-the-container) 
+[tip] You can avoid step 1) and 2) if you have Let's Encrypt certificates. See [HOWTOs](https://github.com/palw3ey/ye3ipsec/blob/main/doc/howtos.md#-use-the-host-lets-encrypt-certificate-to-identify-the-vpn-server-instead-of-the-certificate-generated-by-the-container) 
 
 ---
 
