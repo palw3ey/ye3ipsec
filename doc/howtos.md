@@ -44,7 +44,7 @@ docker network create --ipv6 \
   -v /etc/letsencrypt/live/www.test.lan/privkey.pem:/etc/swanctl/private/privkey.pem \
 ```
 If you use Podman (rootless), with the above command to mount the certificates, you will get permission issue viewable in `swanctl --load-all --noprompt` : `mapping '/etc/swanctl/private/privkey.pem' failed: Permission denied, skipped`.
-The solution is to modify the permissions. Or you can remove the above command and simply copy the certificates to the container and apply new chmod persmission :
+The solution is to modify the permissions. Or you can remove the -v options and simply copy the certificates to the container and apply new chmod persmission :
 
 ```bash
 myipsec_volume=$(podman inspect myipsec | jq -r '.[].Mounts.[0].Source')
