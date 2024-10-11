@@ -112,7 +112,7 @@ If you use Podman (rootless), with the above command to mount the certificates y
 docker logs myipsec | grep "CRED_"
 ```
 
-¤ ## Show CA
+## ¤ Show CA
 ```bash
 docker exec -it myipsec cat /etc/swanctl/x509ca/caCert.pem
 ```
@@ -127,29 +127,29 @@ docker cp myipsec:/etc/swanctl/pkcs12/clientCert.p12 ~/Documents/
 docker exec -it myipsec swanctl --log
 ```
 
-## Show strongSwan table 220
+## ¤ Show strongSwan table 220
 ```bash
 # docker exec -it myipsec ip rule show
 docker exec -it myipsec ip route show table 220
 ```
 
-## tcpdump
+## ¤ tcpdump
 ```bash
 # usefull option : -i interfaceName, ip6
 docker exec -it myipsec tcpdump
 ```
 
-## add NDP entry
+## ¤ add NDP entry
 ```bash
 docker exec -it myipsec ip -6 neigh add proxy <ip> dev <interface>
 ```
 
-## Start container automatically on system boot
+## ¤ Start container automatically on system boot
 ```bash
 docker update --restart=unless-stopped myipsec
 ```
 
-## Start container automatically on system boot with custom host commands, to add routes for example
+## ¤ Start container automatically on system boot with custom host commands, to add routes for example
 ```bash
 cat > /etc/systemd/system/myipsec.service <<EOL
 [Unit]
