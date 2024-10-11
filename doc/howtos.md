@@ -48,7 +48,7 @@ The solution is to modify the permissions. Or you can remove the -v options and 
 
 ```bash
 myipsec_volume=$(podman inspect myipsec | jq -r '.[].Mounts.[0].Source')
-letsencrypt_folder=/etc/letsencrypt/live/my.domain.com
+letsencrypt_folder=/etc/letsencrypt/live/www.test.lan
 sudo cp $letsencrypt_folder/chain.pem $myipsec_volume/x509ca/chain.pem
 sudo cp $letsencrypt_folder/cert.pem $myipsec_volume/x509/cert.pem
 sudo cp $letsencrypt_folder/privkey.pem $myipsec_volume/private/privkey.pem
