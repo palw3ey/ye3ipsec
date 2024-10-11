@@ -73,19 +73,7 @@ docker network create --ipv6 --subnet=10.2.192.0/23 --subnet=fd00::a02:c000/119 
 # Test
 
 ---
-<details><summary>[tip] You can avoid step 1) and 2) if you have Let's Encrypt certificates. Click</summary>
-&nbsp;
-
-Just add these lines in podman/docker run options (replace `my.domain.com` by your real domain) :
-
-```bash
--e Y_LOCAL_SELFCERT=no -e Y_SERVER_CERT_CN=my.domain.com \
--v /etc/letsencrypt/live/my.domain.com/chain.pem:/etc/swanctl/x509ca/chain.pem:ro \
--v /etc/letsencrypt/live/my.domain.com/cert.pem:/etc/swanctl/x509/cert.pem:ro \
--v /etc/letsencrypt/live/my.domain.com/privkey.pem:/etc/swanctl/private/privkey.pem:ro \
-```
-</details>
-
+[tip] You can avoid step 1) and 2) if you have Let's Encrypt certificates. See [HOWTOs](https://github.com/palw3ey/ye3ipsec/blob/main/doc/howtos.md#use-the-host-lets-encrypt-certificate-to-identify-the-vpn-server-instead-of-the-certificate-generated-by-the-container) 
 ---
 
 1) On the host, show the content of the ca certificate 
