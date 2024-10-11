@@ -44,8 +44,14 @@ docker network create --ipv6 \
   -v /etc/letsencrypt/live/www.test.lan/privkey.pem:/etc/swanctl/private/privkey.pem \
 ```
 If you use Podman (rootless), with the above command to mount the certificates, you will get permission issue viewable in `swanctl --load-all --noprompt` : `mapping '/etc/swanctl/private/privkey.pem' failed: Permission denied, skipped`.
-on your host, the command `sudo cat /etc/apparmor.d/abstractions/ssl_certs | grep letsencrypt` will show that `privkey.pem` can't be read.
-The solution is to add the permissions: `sudo sh -c "echo '  /etc/letsencrypt/archive/*/privkey*.pem r,' > /etc/apparmor.d/local/myipsec"`
+  
+On your host, the command `sudo cat /etc/apparmor.d/abstractions/ssl_certs | grep letsencrypt` will show that `privkey.pem` can't be read.
+The solution is to add the permissions: 
+
+```bash
+sudo sh -c "echo '  /etc/letsencrypt/archive/*/privkey*.pem r,' > /etc/apparmor.d/local/podman"
+sudo apparmor_parser -r -T /etc/apparmor.d/podman
+```
 
 ## ¤ Specify the pool, for remote access client (road warrior)  
   Use these options with docker run :
