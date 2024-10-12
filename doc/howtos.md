@@ -43,13 +43,27 @@ docker network create --ipv6 \
   -v /etc/letsencrypt/live/www.test.lan/cert.pem:/etc/swanctl/x509/cert.pem \
   -v /etc/letsencrypt/live/www.test.lan/privkey.pem:/etc/swanctl/private/privkey.pem \
 ```
-If you use Podman (rootless), with the above command to mount the certificates, you will get permission issue viewable in `swanctl --load-all --noprompt` : `mapping '/etc/swanctl/private/privkey.pem' failed: Permission denied, skipped`.
-  
-On your host, the command `sudo cat /etc/apparmor.d/abstractions/ssl_certs | grep letsencrypt` will show that `privkey.pem` can't be read.
-The solution is to add the permissions: 
+
+If you use Podman (rootless), with the above command to mount the certificates, you will get permission issue viewable in `swanctl --load-all --noprompt` : 
+`mapping '/etc/swanctl/private/privkey.pem' failed: Permission denied, skipped`. 
+ 
+The solution is to modify the permissions. Or you can remove the -v options and simply copy the certificates to the container and apply new chmod persmission :
 
 ```bash
-sudo sh -c "echo '  /etc/letsencrypt/archive/*/privkey*.pem r,' > /etc/apparmor.d/local/podman"
+myipsec_volume=$(podman inspect myipsec | jq -r '.[].Mounts.[0].Source')
+letsencrypt_folder=/etc/letsencrypt/live/www.test.lan
+sudo cp $letsencrypt_folder/chain.pem $myipsec_volume/x509ca/chain.pem
+sudo cp $letsencrypt_folder/cert.pem $myipsec_volume/x509/cert.pem
+sudo cp $letsencrypt_folder/privkey.pem $myipsec_volume/private/privkey.pem
+sudo chmod 644 $myipsec_volume/private/privkey.pem
+sudo chown $USER $myipsec_volume/private/privkey.pem
+
+# now you can restart the container with :
+podman restart myipsec
+
+# or without restart with this :
+sudo sed -i 's/certs = serverCert.pem/certs = cert.pem/' $myipsec_volume/conf.d/template.conf
+podman exec -it myipsec swanctl --load-all --noprompt
 sudo apparmor_parser -r -T /etc/apparmor.d/podman
 ```
 
