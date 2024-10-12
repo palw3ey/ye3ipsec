@@ -64,7 +64,6 @@ podman restart myipsec
 # or without restart with this :
 sudo sed -i 's/certs = serverCert.pem/certs = cert.pem/' $myipsec_volume/conf.d/template.conf
 podman exec -it myipsec swanctl --load-all --noprompt
-sudo apparmor_parser -r -T /etc/apparmor.d/podman
 ```
 
 ## ¤ Specify the pool, for remote access client (road warrior)  
