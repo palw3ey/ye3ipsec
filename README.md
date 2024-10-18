@@ -1,13 +1,99 @@
 # ye3ipsec
 
-A container IPSec server based on Strongswan and Alpine. With remote access and site to site VPN profile. Below 70 Mb. GNS3 ready
+A container IPSec server based on Strongswan and Alpine. With remote access and site to site VPN profile. Below 70 Mb. GNS3 ready.
 
 # Simple usage
 
 Create a remote access connection with EAP (mschapv2) authentication :
 
+---
+<details><summary>[prerequisites] Click</summary>
+&nbsp;
+
+***It is recommended to have at least basic knowledge of Linux commands, containers and VPN networks.***
+
+Open needed ports in your firewall
+
 ```bash
-# Podman rootless command
+
+# Allow outgoing
+sudo iptables -A OUTPUT -m conntrack --ctstate NEW,ESTABLISHED,RELATED -j ACCEPT
+sudo iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+
+# Allow incomming ISAKMP and NAT-T
+sudo iptables -A INPUT -p udp -m multiport --dports 500,4500 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+sudo iptables -A OUTPUT -p udp -m multiport --sports 500,4500 -m conntrack --ctstate ESTABLISHED -j ACCEPT
+
+# Allow incomming IP protocol 50 for Encapsulated Security Protocol (ESP)
+sudo iptables -A INPUT -p esp -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+sudo iptables -A OUTPUT -p esp -m conntrack --ctstate ESTABLISHED -j ACCEPT
+
+# Allow incomming IP protocol 51 for Authentication Header (AH). (for ip6tables replace -p by -m)
+sudo iptables -A INPUT -p ah -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+sudo iptables -A OUTPUT -p ah -m conntrack --ctstate ESTABLISHED -j ACCEPT
+
+# Allow server to reach remote dns, crl and ocsp
+sudo iptables -A OUTPUT -p tcp -m multiport --dports 80,8080 -m state --state NEW,ESTABLISHED -j ACCEPT
+sudo iptables -A INPUT  -p tcp -m multiport --sports 80,8080 -m state --state ESTABLISHED -j ACCEPT
+sudo iptables -A OUTPUT -p udp --dport 53 -m state --state NEW,ESTABLISHED -j ACCEPT
+sudo iptables -A INPUT  -p udp --sport 53 -m state --state ESTABLISHED -j ACCEPT
+sudo iptables -A OUTPUT -p tcp --dport 53 -m state --state NEW,ESTABLISHED -j ACCEPT
+sudo iptables -A INPUT  -p tcp --sport 53 -m state --state ESTABLISHED -j ACCEPT
+
+# To make persistent :
+# sudo netfilter-persistent save
+
+# If you use ipv6, just use the same commands by replacing the word iptables by ip6tables
+```
+
+Set runtime status of some kernel parameters 
+
+```bash
+# ip forwarding 
+sudo sysctl -w net.ipv4.ip_forward=1 
+sudo sysctl -w net.ipv6.conf.all.forwarding=1
+sudo sysctl -w net.ipv6.conf.default.forwarding=1
+
+# router advertisements
+sudo sysctl -w net.ipv6.conf.all.accept_ra=2
+sudo sysctl -w net.ipv6.conf.default.accept_ra=2
+
+# ndp
+sudo sysctl -w net.ipv6.conf.all.proxy_ndp=1
+sudo sysctl -w net.ipv6.conf.default.proxy_ndp=1
+
+# for rootless podman, unprivileged ping
+sudo sysctl -w "net.ipv4.ping_group_range=0 2000000"
+
+# for rootless podman, unprivileged port
+sudo sysctl -w net.ipv4.ip_unprivileged_port_start=0
+
+# to not accept ICMP redirects
+sudo sysctl -w net.ipv4.conf.all.accept_redirects=0
+sudo sysctl -w net.ipv6.conf.all.accept_redirects=0
+sudo sysctl -w net.ipv4.conf.all.send_redirects=0
+sudo sysctl -w net.ipv6.conf.all.send_redirects=0
+
+# These commands are non persistent = they do not survive a system reboot. To make persistent add a file to this directory /etc/sysctl.d/ containing one key=value per line.
+```
+
+If you want to use Podman (with crun and pasta), the install command is 
+```bash
+sudo apt update; sudo apt install podman crun passt
+```
+
+If you want to use Docker, the install command is 
+```bash
+sudo apt update; sudo apt install docker.io;
+# configuration
+sudo groupadd docker; sudo usermod -aG docker $USER; newgrp docker; sudo systemctl enable --now docker
+```
+</details>
+
+---
+
+```bash
+# Podman command
 podman run -dt \
   --runtime=/usr/bin/crun --network=pasta \
   --cap-add=NET_ADMIN,SYS_MODULE,SYS_ADMIN,NET_RAW \
@@ -42,7 +128,7 @@ docker exec -it myipsec swanctl --log
 &nbsp;
 
 ```bash
-# Podman rootless command
+# Podman command
 
 # Using pasta
 # adapt this line and include it to the container's option :
@@ -53,7 +139,7 @@ docker exec -it myipsec swanctl --log
 podman network create --ipv6 --subnet=10.2.192.0/23 --subnet=fd00::a02:c000/119 mynet46
 
 # remove --network=pasta in the container's option, and add/adapt this line :
- -e Y_FIREWALL_NAT=no --network=mynet46 --ip 10.2.192.254 --ip6 fd00::a02:c0fe -e Y_POOL_IPV4=10.2.193.0/24 -e Y_POOL_IPV6=fd00::a02:c100/120 -e Y_POOL_DNS4="1.1.1.1, 8.8.8.8" -e Y_POOL_DNS4="2606:4700:4700::1111, 2001:4860:4860::8888"
+-e Y_FIREWALL_NAT=no --network=mynet46 --ip 10.2.192.254 --ip6 fd00::a02:c0fe -e Y_POOL_IPV4=10.2.193.0/24 -e Y_POOL_IPV6=fd00::a02:c100/120 -e Y_POOL_DNS4="1.1.1.1, 8.8.8.8" -e Y_POOL_DNS4="2606:4700:4700::1111, 2001:4860:4860::8888"
 ```
 
 For Docker, see how [to enable ipv6](https://github.com/palw3ey/ye3ipsec/blob/main/doc/howtos.md#enable-ipv6-in-docker)
@@ -73,8 +159,18 @@ docker network create --ipv6 --subnet=10.2.192.0/23 --subnet=fd00::a02:c000/119 
 # Test
 
 ---
+<details><summary>[tip] You can avoid step 1) and 2) if you have Let's Encrypt certificates. Click</summary>
+&nbsp;
 
-[tip] You can avoid step 1) and 2) if you have Let's Encrypt certificates. See [HOWTOs](https://github.com/palw3ey/ye3ipsec/blob/main/doc/howtos.md#-use-the-host-lets-encrypt-certificate-to-identify-the-vpn-server-instead-of-the-certificate-generated-by-the-container) 
+Just add these lines in podman/docker run options (replace `my.domain.com` by your real domain) :
+
+```bash
+-e Y_LOCAL_SELFCERT=no -e Y_SERVER_CERT_CN=my.domain.com \
+-v /etc/letsencrypt/live/my.domain.com/chain.pem:/etc/swanctl/x509ca/chain.pem:ro \
+-v /etc/letsencrypt/live/my.domain.com/cert.pem:/etc/swanctl/x509/cert.pem:ro \
+-v /etc/letsencrypt/live/my.domain.com/privkey.pem:/etc/swanctl/private/privkey.pem:ro \
+```
+</details>
 
 ---
 
@@ -132,8 +228,6 @@ The /etc/swanctl folder is persistent.
 
 Important, you need at least : `--cap-add NET_ADMIN` for strongswan to start.  
 
-# [Prerequisite](https://github.com/palw3ey/ye3ipsec/blob/main/doc/prerequisite.md)
-
 # [HOWTOs](https://github.com/palw3ey/ye3ipsec/blob/main/doc/howtos.md)
 
 # [FAQ](https://github.com/palw3ey/ye3ipsec/blob/main/doc/faq.md)
@@ -146,10 +240,9 @@ Important, you need at least : `--cap-add NET_ADMIN` for strongswan to start.
 
 # [Build](https://github.com/palw3ey/ye3ipsec/blob/main/doc/build.md)
 
-# strongSwan Links
-[strongSwan Documentation](https://docs.strongswan.org/)
- 
-[Configuration Examples](https://wiki.strongswan.org/projects/strongswan/wiki/ConfigurationExamples)
+# Documentation
+
+[strongswan man page](https://docs.strongswan.org/)
 
 # Version
 
