@@ -58,17 +58,18 @@ vg_file_external_cert=$vg_dir_swanctl/x509/cert.pem
 # firewall function
 vg_file_firewall=$vg_dir_swanctl/ye3ipsec/firewall.sh
 
-# extra info in logs, if debug on
-vg_log=""
-if [[ $Y_DEBUG == "yes" ]]; then
-	vg_log="$(date '+%Y-%m-%d %H:%M:%S') $(hostname) $vg_name:"
-fi
-
 # ============ [ function ] ============
 
 # echo information for logs
 function f_log(){
-	echo -e "$vg_log $@"
+
+	# extra info in logs, if debug on
+	vl_log=""
+	if [[ $Y_DEBUG == "yes" ]]; then
+		vl_log="$(date '+%Y-%m-%d %H:%M:%S') $(hostname) $vg_name:"
+	fi
+
+	echo -e "$vl_log $@"
 }
 
 # create random credential
