@@ -67,12 +67,12 @@ sudo sysctl -w net.ipv6.conf.all.send_redirects=0
 # These commands are non persistent = they do not survive a system reboot. To make persistent add a file to this directory /etc/sysctl.d/ containing one key=value per line.
 ```
 
-## Install Podman (with crun and pasta)
+## Install Podman (with crun and pasta) on Ubuntu 24.04.1 LTS
 ```bash
 sudo apt update; sudo apt install podman crun passt
 ```
 
-## Install Docker
+## Install Docker on Ubuntu 24.04.1 LTS
 ```bash
 sudo apt update; sudo apt install docker.io;
 # configuration
