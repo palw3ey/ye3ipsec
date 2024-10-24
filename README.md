@@ -56,7 +56,7 @@ podman network create --ipv6 --subnet=10.2.192.0/23 --subnet=fd00::a02:c000/119 
  -e Y_FIREWALL_NAT=no --network=mynet46 --ip 10.2.192.254 --ip6 fd00::a02:c0fe -e Y_POOL_IPV4=10.2.193.0/24 -e Y_POOL_IPV6=fd00::a02:c100/120 -e Y_POOL_DNS4="1.1.1.1, 8.8.8.8" -e Y_POOL_DNS4="2606:4700:4700::1111, 2001:4860:4860::8888"
 ```
 
-For Docker, see how [to enable ipv6](https://github.com/palw3ey/ye3ipsec/blob/main/doc/howtos.md#enable-ipv6-in-docker)
+For Docker, see how [to enable ipv6](https://github.com/palw3ey/ye3ipsec/blob/main/doc/howtos.md#-enable-ipv6-in-docker)
 ```bash
 # Docker command
 
