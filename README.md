@@ -28,7 +28,7 @@ docker run -dt \
 ```bash
 # to auto-generate 10 random EAP users, add : -e Y_EAP_USERS_RANDOM=10
 # to auto-generate 30 random RSA certificate users, add : -e Y_CERT_USERS_RANDOM=30
-# to auto-generate 50 random PSK users, add : Y_PSK_USERS_RANDOM=50
+# to auto-generate 50 random PSK users, add : -e Y_PSK_USERS_RANDOM=50
 
 # to see the logs and credentials : run this below command (replace docker by podman if you use podman)
 docker logs myipsec
