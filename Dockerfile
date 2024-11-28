@@ -194,5 +194,7 @@ RUN ln -sfn /etc/swanctl/ye3ipsec/bypass_container_env.sh /etc/profile.d/bypass_
 
 EXPOSE $Y_PORT_IKE/udp $Y_PORT_NAT/udp
 
-ENTRYPOINT ["sh", "--login", "-c", "/entrypoint.sh"]
+RUN apk add dumb-init
+ENTRYPOINT ["/usr/bin/dumb-init", "--"]
+CMD ["sh", "--login", "-c", "/entrypoint.sh"]
 
