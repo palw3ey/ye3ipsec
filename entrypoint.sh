@@ -433,7 +433,7 @@ if [[ $Y_IGNORE_CONFIG == "no" ]]; then
 	if [[ -z "$Y_SERVER_CERT_CN" ]]; then
 		if expr "$vg_ip" : '[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*$' >/dev/null; then
 			Y_SERVER_CERT_CN=$vg_ip
-		elif [[ ! -z "vg_interface_ip" ]]; then
+		elif [[ ! -z "$vg_interface_ip" ]]; then
 			Y_SERVER_CERT_CN=$vg_interface_ip
 		else
 			Y_SERVER_CERT_CN=$(hostname -i | cut -d ' ' -f1)
