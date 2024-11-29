@@ -1,9 +1,12 @@
 FROM alpine:latest
 
 LABEL org.opencontainers.image.title="ye3ipsec"
-LABEL org.opencontainers.image.version="1.0.7"
-LABEL org.opencontainers.image.created="2024-10-07T15:00:00-03:00"
-LABEL org.opencontainers.image.revision="20241007"
+
+LABEL org.opencontainers.image.version="1.0.8"
+LABEL org.opencontainers.image.created="2024-11-28T15:00:00-03:00"
+LABEL org.opencontainers.image.revision="20241128"
+LABEL org.opencontainers.image.base.name="ghcr.io/palw3ey/ye3ipsec:1.0.8"
+
 LABEL org.opencontainers.image.licenses="MIT"
 LABEL org.opencontainers.image.authors="palw3ey"
 LABEL org.opencontainers.image.vendor="palw3ey"
@@ -12,7 +15,6 @@ LABEL org.opencontainers.image.email="palw3ey@gmail.com"
 LABEL org.opencontainers.image.url="https://github.com/palw3ey/ye3ipsec"
 LABEL org.opencontainers.image.documentation="https://github.com/palw3ey/ye3ipsec/blob/main/README.md"
 LABEL org.opencontainers.image.source="https://github.com/palw3ey/ye3ipsec"
-LABEL org.opencontainers.image.base.name="ghcr.io/palw3ey/ye3ipsec:1.0.7"
 LABEL org.opencontainers.image.description="A container IPSec server based on Strongswan and Alpine. RA and S2S profile. Below 70 Mb. GNS3 ready"
 LABEL org.opencontainers.image.usage="docker run -dt --cap-add NET_ADMIN ghcr.io/palw3ey/ye3ipsec:latest"
 LABEL org.opencontainers.image.tip="The folder /etc/swanctl is persistent"
@@ -173,7 +175,7 @@ ADD ye3ipsec_patch/ /ye3ipsec_patch/
 
 RUN \
 	# install packages
-	apk --update --no-cache add build-base gmp-dev openssl openssl-dev linux-pam-dev ip6tables iptables-dev xz zstd kmod curl curl-dev $Y_EXTRA_PACKAGE &&  \
+	apk --update --no-cache add dumb-init build-base gmp-dev openssl openssl-dev linux-pam-dev ip6tables iptables-dev xz zstd kmod curl curl-dev $Y_EXTRA_PACKAGE &&  \
 	\
 	# build strongswan
 	mkdir /usr/local/src && cd /usr/local/src && \
@@ -194,7 +196,5 @@ RUN ln -sfn /etc/swanctl/ye3ipsec/bypass_container_env.sh /etc/profile.d/bypass_
 
 EXPOSE $Y_PORT_IKE/udp $Y_PORT_NAT/udp
 
-RUN apk add dumb-init
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
-CMD ["sh", "--login", "-c", "/entrypoint.sh"]
-
+CMD ["/entrypoint.sh"]
