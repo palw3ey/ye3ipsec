@@ -1,4 +1,6 @@
 
+## This file don't apply if dumb-init is used in the Dockerfile. You must use this : ENTRYPOINT ["sh", "--login", "-c", "/entrypoint.sh"]
+
 ## These values will override container env variables, and used by entrypoint.sh on every restart. To activate and customize the configurations wanted, remove one or more # sign.
 
 #export Y_LANGUAGE=fr_FR
