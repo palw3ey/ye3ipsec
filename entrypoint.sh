@@ -9,6 +9,19 @@
 # date
 vg_date=$(date '+%Y%m%d%H%M%S')
 
+# base directory, without ending slash
+vg_dir_swanctl="/etc/swanctl"
+
+# to load other env var
+if [[ -f $vg_dir_swanctl/ye3ipsec/bypass_container_env.sh ]] ; then
+
+	# create/update symbolic link for bypass_container_env.sh
+	ln -sfn $vg_dir_swanctl/ye3ipsec/bypass_container_env.sh /etc/profile.d/bypass_container_env.sh
+	
+	# source
+	source /etc/profile.d/bypass_container_env.sh > /dev/null 2>&1		
+fi
+
 # default language
 vg_default_language="fr_FR"
 
@@ -21,9 +34,6 @@ vg_interface_ip=$(/sbin/ifconfig $vg_interface | grep 'inet addr:' | cut -d: -f2
 
 # get external ip
 vg_ip=$(curl -m $Y_URL_IP_CHECK_TIMEOUT -s $Y_URL_IP_CHECK)
-
-# base directory, without ending slash
-vg_dir_swanctl="/etc/swanctl"
 
 # credential directory, without ending slash
 vg_dir_credential=$vg_dir_swanctl/ye3ipsec/credential
@@ -397,10 +407,6 @@ if [[ $Y_IGNORE_CONFIG == "no" ]]; then
 	
 	source $vg_dir_swanctl/ye3ipsec/strongswan.sh > $vg_dir_swanctl/ye3ipsec/strongswan.conf
 	ln -sfn $vg_dir_swanctl/ye3ipsec/strongswan.conf /etc/strongswan.conf
-
-	# create/update symbolic link for bypass_container_env.sh
- 
- 	ln -sfn $vg_dir_swanctl/ye3ipsec/bypass_container_env.sh /etc/profile.d/bypass_container_env.sh
 	
 	# credentials 
 	
