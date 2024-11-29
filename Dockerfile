@@ -196,5 +196,5 @@ RUN ln -sfn /etc/swanctl/ye3ipsec/bypass_container_env.sh /etc/profile.d/bypass_
 
 EXPOSE $Y_PORT_IKE/udp $Y_PORT_NAT/udp
 
-ENTRYPOINT ["/usr/bin/dumb-init", "--"]
+ENTRYPOINT ["/usr/bin/dumb-init", "--rewrite", "15:9", "--"]
 CMD ["/entrypoint.sh"]
