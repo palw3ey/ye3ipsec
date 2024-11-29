@@ -173,19 +173,20 @@ ADD entrypoint.sh /
 ADD i18n/ /i18n/
 ADD ye3ipsec_patch/ /ye3ipsec_patch/
 
-# install packages
-RUN apk --update --no-cache add dumb-init build-base gmp-dev openssl openssl-dev linux-pam-dev ip6tables iptables-dev xz zstd kmod curl curl-dev $Y_EXTRA_PACKAGE
-
-# build strongswan
-RUN mkdir /usr/local/src && cd /usr/local/src && \
+RUN \
+	# install packages
+	apk --update --no-cache add dumb-init build-base gmp-dev openssl openssl-dev linux-pam-dev ip6tables iptables-dev xz zstd kmod curl curl-dev $Y_EXTRA_PACKAGE && \
+ 	\
+	# build strongswan
+	mkdir /usr/local/src && cd /usr/local/src && \
 	wget https://download.strongswan.org/strongswan-${Y_STRONGSWAN_VERSION}.tar.bz2 && tar xjvf "strongswan-${Y_STRONGSWAN_VERSION}.tar.bz2" &&  cd strongswan*/ &&  \
 	if [[ $Y_PATCH == "yes" ]]; then cp -r /ye3ipsec_patch . ; fi && before_build=ye3ipsec_patch/before_build/all/patch.sh && if [[ -f $before_build ]]; then chmod +x $before_build && $before_build; fi && before_build=ye3ipsec_patch/before_build/$Y_STRONGSWAN_VERSION/patch.sh && if [[ -f $before_build ]]; then chmod +x $before_build && $before_build; fi && \
 	./configure --prefix= --enable-eap-identity --enable-eap-dynamic --enable-eap-mschapv2 --enable-md4 --enable-eap-md5 --enable-eap-tls --enable-eap-ttls --enable-eap-tnc --enable-eap-gtc --enable-xauth-eap --enable-xauth-noauth --enable-xauth-pam --enable-eap-peap --enable-eap-sim --enable-eap-radius --enable-openssl --enable-vici --enable-swanctl --enable-charon --enable-stroke --enable-dhcp --enable-forecast --enable-farp --enable-bypass-lan --enable-curl && \
 	NB_CORES=$(grep -c '^processor' /proc/cpuinfo) && make -j$((NB_CORES+1)) -l${NB_CORES} &&  make install && \
-	after_build=ye3ipsec_patch/after_build/all/patch.sh && if [[ -f $after_build ]]; then chmod +x $after_build && $after_build; fi && after_build=ye3ipsec_patch/after_build/$Y_STRONGSWAN_VERSION/patch.sh && if [[ -f $after_build ]]; then chmod +x $after_build && $after_build; fi
-	
-# clean
-RUN apk del build-base && rm -rf /tmp/* && rm -rf /var/cache/apk/* && rm -rf /usr/local/src/
+	after_build=ye3ipsec_patch/after_build/all/patch.sh && if [[ -f $after_build ]]; then chmod +x $after_build && $after_build; fi && after_build=ye3ipsec_patch/after_build/$Y_STRONGSWAN_VERSION/patch.sh && if [[ -f $after_build ]]; then chmod +x $after_build && $after_build; fi && \
+	\
+	# clean
+	apk del build-base && rm -rf /tmp/* && rm -rf /var/cache/apk/* && rm -rf /usr/local/src/
 
 ADD swanctl/ /etc/swanctl/
 
