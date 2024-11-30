@@ -1,7 +1,7 @@
 {
     "name": "ye3ipsec",
     "category": "guest",
-    "description": "A container IPSec server based on Strongswan and Alpine. RA and S2S profile. Below 70 Mb. GNS3 ready.",
+    "description": "IPSec client and server based on Strongswan and Alpine. RA and S2S profile. GNS3 ready",
     "vendor_name": "palw3ey",
     "vendor_url": "https://github.com/palw3ey/ye3ipsec",
     "product_name": "ye3ipsec",
