@@ -475,15 +475,9 @@ if [[ $Y_IGNORE_CONFIG == "no" ]]; then
 		pki --issue --outform pem --type priv --lifetime $Y_SERVER_CERT_DAYS --in $vg_file_server_key --cacert $vg_file_ca_cert --cakey $vg_file_ca_key --dn "CN=$Y_SERVER_CERT_CN" --san "$Y_SERVER_CERT_CN" --flag clientAuth --flag serverAuth --flag ikeIntermediate 	> $vg_file_server_cert
 	fi
 	
-	# create or recreate client certificate
-
- 	if [[ -f "$vg_dir_swanctl/x509/clientCert.pem" ]] ; then
-		vl_client_cert_cn="$(openssl x509 -in $vg_dir_swanctl/x509/clientCert.pem -noout -subject | sed 's/subject=CN = //')"
-  	else 
-   		vl_client_cert_cn="$Y_CERT_CN"
-  	fi
+	# create client certificate
    
-	if [ ! -f "$vg_file_client_cert" ] || [ "$Y_CERT_CN" != "$vl_client_cert_cn" ] ; then
+	if [[ ! -f "$vg_file_client_cert" ]] ; then
 	
 		f_log "$i_create_client_certificate"
 		
