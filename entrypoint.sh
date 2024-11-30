@@ -461,7 +461,7 @@ if [[ $Y_IGNORE_CONFIG == "no" ]]; then
 		
 	# create or recreate server certificate
 	
- 	if [ -f "$vg_file_server_cert" ]] ; then
+ 	if [[ -f "$vg_file_server_cert" ]] ; then
 		$vl_server_cert_cn=$(openssl x509 -in $vg_file_server_cert -noout -subject | sed "s/subject=CN = //")
   	else 
    		$vl_server_cert_cn="$Y_SERVER_CERT_CN"
@@ -477,7 +477,7 @@ if [[ $Y_IGNORE_CONFIG == "no" ]]; then
 	
 	# create or recreate client certificate
 
- 	if [ -f "$vg_dir_swanctl/x509/clientCert.pem" ]] ; then
+ 	if [[ -f "$vg_dir_swanctl/x509/clientCert.pem" ]] ; then
 		$vl_client_cert_cn=$(openssl x509 -in "$vg_dir_swanctl/x509/clientCert.pem" -noout -subject | sed "s/subject=CN = //")
   	else 
    		$vl_client_cert_cn="$Y_CERT_CN"
