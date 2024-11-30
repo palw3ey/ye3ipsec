@@ -3,8 +3,8 @@ FROM alpine:latest
 LABEL org.opencontainers.image.title="ye3ipsec"
 
 LABEL org.opencontainers.image.version="1.0.8"
-LABEL org.opencontainers.image.created="2024-11-28T15:00:00-03:00"
-LABEL org.opencontainers.image.revision="20241128"
+LABEL org.opencontainers.image.created="2024-11-30T15:00:00-03:00"
+LABEL org.opencontainers.image.revision="20241130"
 LABEL org.opencontainers.image.base.name="ghcr.io/palw3ey/ye3ipsec:1.0.8"
 
 LABEL org.opencontainers.image.licenses="MIT"
