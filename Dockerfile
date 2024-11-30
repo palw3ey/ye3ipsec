@@ -20,8 +20,6 @@ LABEL org.opencontainers.image.usage="docker run -dt --cap-add NET_ADMIN ghcr.io
 LABEL org.opencontainers.image.tip="The folder /etc/swanctl is persistent"
 LABEL org.opencontainers.image.premiere="20231203"
 
-MAINTAINER palw3ey <palw3ey@gmail.com>
-
 ENV Y_LANGUAGE=fr_FR \
 	Y_DEBUG=no \
 	Y_IGNORE_CONFIG=no \
