@@ -1,11 +1,11 @@
 # Changelog
-## [1.0.8] - 2024-11-30
+## [1.0.8] - 2024-12-01
 ### Added
 - new package : tini
 ### Changed
 - use tini as entrypoint in Dockerfile
 - source bypass_container_env.sh early inside entrypoint.sh
-- if the env variable Y_SERVER_CERT_CN has changed, then on container restart will recreate the server certificate
+- if the env variable Y_SERVER_CERT_CN is not set, then will be set to the server certificate cn, if the certificate file exist
 ### Fixed
 - fix an occurence of the variable vg_interface_ip (missing $)
 ## [1.0.7] - 2024-10-07
