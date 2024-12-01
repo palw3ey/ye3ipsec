@@ -438,14 +438,13 @@ if [[ $Y_IGNORE_CONFIG == "no" ]]; then
 	
 	if [[ -z "$Y_SERVER_CERT_CN" ]]; then
 		if expr "$vg_ip" : '[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*$' >/dev/null; then
-			Y_SERVER_CERT_CN=$vg_ip
+			Y_SERVER_CERT_CN="$vg_ip"
 		elif [[ ! -z "$vg_interface_ip" ]]; then
-			Y_SERVER_CERT_CN=$vg_interface_ip
+			Y_SERVER_CERT_CN="$vg_interface_ip"
 		else
-			Y_SERVER_CERT_CN=$(hostname -i | cut -d ' ' -f1)
+			Y_SERVER_CERT_CN="$(hostname -i | cut -d ' ' -f1)"
 		fi
 	fi
-	f_log "Y_SERVER_CERT_CN = $Y_SERVER_CERT_CN"
 	
 	# create ca certificate
 
@@ -458,26 +457,25 @@ if [[ $Y_IGNORE_CONFIG == "no" ]]; then
 	fi
 	
 	f_log 'caCert : cat /etc/swanctl/x509ca/caCert.pem'
-		
-	# create or recreate server certificate
-	
- 	if [[ -f "$vg_file_server_cert" ]] ; then
-		vl_server_cert_cn="$(openssl x509 -in $vg_file_server_cert -noout -subject | sed 's/subject=CN = //')"
-  	else 
-   		vl_server_cert_cn="$Y_SERVER_CERT_CN"
-  	fi
+
+ 	# create server certificate
    
-	if [ ! -f "$vg_file_server_key" ] || [ ! -f "$vg_file_server_cert" ] || [ "$Y_SERVER_CERT_CN" != "$vl_server_cert_cn" ] ; then
+	if [ ! -f "$vg_file_server_key" ] || [ ! -f "$vg_file_server_cert" ] ; then
 	
 		f_log "$i_create_server_certificate"
 		
 		pki --gen --outform pem > $vg_file_server_key
-		pki --issue --outform pem --type priv --lifetime $Y_SERVER_CERT_DAYS --in $vg_file_server_key --cacert $vg_file_ca_cert --cakey $vg_file_ca_key --dn "CN=$Y_SERVER_CERT_CN" --san "$Y_SERVER_CERT_CN" --flag clientAuth --flag serverAuth --flag ikeIntermediate 	> $vg_file_server_cert
-	fi
+		pki --issue --outform pem --type priv --lifetime $Y_SERVER_CERT_DAYS --in $vg_file_server_key --cacert $vg_file_ca_cert --cakey $vg_file_ca_key --dn "CN=$Y_SERVER_CERT_CN" --san "$Y_SERVER_CERT_CN" --flag clientAuth --flag serverAuth --flag ikeIntermediate > $vg_file_server_cert
+
+ 	else
+  		Y_SERVER_CERT_CN="$(openssl x509 -in $vg_file_server_cert -noout -subject | sed 's/subject=CN = //')"
+ 	fi
+  	
+	f_log "Y_SERVER_CERT_CN = $Y_SERVER_CERT_CN"
 	
 	# create client certificate
    
-	if [[ ! -f "$vg_file_client_cert" ]] ; then
+	if [ ! -f "$vg_file_client_cert" ] || [ ! -f "$vg_file_client_key" ] ; then
 	
 		f_log "$i_create_client_certificate"
 		
