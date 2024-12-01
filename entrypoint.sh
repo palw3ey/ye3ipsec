@@ -361,6 +361,9 @@ function f_cert_users_random(){
 	fi
 }
 
+function f_certificate_cn() {
+    echo "$(openssl x509 -in $1 -noout -subject | sed -n 's/.*subject[[:space:]]*=[[:space:]]*CN[[:space:]]*=\([[:space:]]*\)\(.*\)/\2/p')"
+}
 
 # create firewall rules
 if [[ -f $vg_file_firewall ]] ; then
@@ -434,10 +437,13 @@ if [[ $Y_IGNORE_CONFIG == "no" ]]; then
 	Y_S2S_PSK_REMOTE_ID=$(f_credential Y_S2S_PSK_REMOTE_ID username)
 	Y_S2S_PSK_SECRET=$(f_credential Y_S2S_PSK_SECRET password)
 
-	# if env variable Y_SERVER_CERT_CN doesn't exist, then set to external ip or default route interface ip or first hostname ip
+	# if env variable Y_SERVER_CERT_CN doesn't exist, then set to certificate cn, or external ip or default route interface ip or first hostname ip
 	
 	if [[ -z "$Y_SERVER_CERT_CN" ]]; then
-		if expr "$vg_ip" : '[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*$' >/dev/null; then
+
+ 		if [[ -f "$vg_file_server_cert" ]] ; then
+ 			Y_SERVER_CERT_CN="$(f_certificate_cn $vg_file_server_cert)"
+		elif expr "$vg_ip" : '[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*$' >/dev/null; then
 			Y_SERVER_CERT_CN="$vg_ip"
 		elif [[ ! -z "$vg_interface_ip" ]]; then
 			Y_SERVER_CERT_CN="$vg_interface_ip"
@@ -445,6 +451,8 @@ if [[ $Y_IGNORE_CONFIG == "no" ]]; then
 			Y_SERVER_CERT_CN="$(hostname -i | cut -d ' ' -f1)"
 		fi
 	fi
+ 
+	f_log "Y_SERVER_CERT_CN = $Y_SERVER_CERT_CN"
 	
 	# create ca certificate
 
@@ -467,11 +475,7 @@ if [[ $Y_IGNORE_CONFIG == "no" ]]; then
 		pki --gen --outform pem > $vg_file_server_key
 		pki --issue --outform pem --type priv --lifetime $Y_SERVER_CERT_DAYS --in $vg_file_server_key --cacert $vg_file_ca_cert --cakey $vg_file_ca_key --dn "CN=$Y_SERVER_CERT_CN" --san "$Y_SERVER_CERT_CN" --flag clientAuth --flag serverAuth --flag ikeIntermediate > $vg_file_server_cert
 
- 	else
-  		Y_SERVER_CERT_CN="$(openssl x509 -in $vg_file_server_cert -noout -subject | sed 's/subject=CN = //')"
  	fi
-  	
-	f_log "Y_SERVER_CERT_CN = $Y_SERVER_CERT_CN"
 	
 	# create client certificate
    
