@@ -26,5 +26,5 @@ jobs:
           platforms: linux/amd64
           push: true
           tags: |
-            ghcr.io/user/app:latest
-            ghcr.io/user/app:1.0.8
+            ghcr.io/palw3ey/ye3ipsec:latest
+            ghcr.io/palw3ey/ye3ipsec:1.0.8
