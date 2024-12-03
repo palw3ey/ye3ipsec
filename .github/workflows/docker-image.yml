@@ -7,12 +7,25 @@ jobs:
   docker:
     runs-on: ubuntu-latest
     steps:
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ vars.Y_DOCKER_USERNAME }}
+          password: ${{ secrets.Y_DOCKER_PASSWORD }}
+
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ vars.Y_GITHUB_USERNAME }}
           password: ${{ secrets.Y_GITHUB_PASSWORD }}
+
+      - name: Login to Quay Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: quay.io
+          username: ${{ vars.Y_QUAY_USERNAME }}
+          password: ${{ secrets.Y_QUAY_PASSWORD }}
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -23,8 +36,10 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
-          platforms: linux/ppc64le,linux/s390x
+          platforms: linux/386,linux/amd64
           push: true
           tags: |
             ghcr.io/palw3ey/ye3ipsec:latest
             ghcr.io/palw3ey/ye3ipsec:1.0.8
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
