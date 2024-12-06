@@ -1,6 +1,6 @@
 # ye3ipsec
 
-A container IPSec server based on Strongswan and Alpine. With remote access and site to site VPN profile. Below 70 Mb. GNS3 ready
+IPSec client and server based on Strongswan and Alpine. RA and S2S profile. GNS3 ready
 
 # Simple usage
 
