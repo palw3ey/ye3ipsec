@@ -155,9 +155,9 @@ Important, you need at least : `--cap-add NET_ADMIN` for strongswan to start.
 
 | name | version |
 | :- |:- |
-|ye3ipsec | 1.0.8 |
-|strongswan | 5.9.14 |
-|alpine | 3.20.3 |
+|ye3ipsec | 1.1.1 |
+|strongswan | 6.0.0 |
+|alpine | 3.21.0 |
 
 # [Changelog](https://github.com/palw3ey/ye3ipsec/blob/main/doc/changelog.md)
 
