@@ -2,10 +2,10 @@ FROM alpine:latest
 
 LABEL org.opencontainers.image.title="ye3ipsec"
 
-LABEL org.opencontainers.image.version="1.0.8"
-LABEL org.opencontainers.image.created="2024-12-01T15:00:00-03:00"
-LABEL org.opencontainers.image.revision="20241201"
-LABEL org.opencontainers.image.base.name="ghcr.io/palw3ey/ye3ipsec:1.0.8"
+LABEL org.opencontainers.image.version="1.1.0"
+LABEL org.opencontainers.image.created="2024-12-15T15:00:00-03:00"
+LABEL org.opencontainers.image.revision="20241215"
+LABEL org.opencontainers.image.base.name="ghcr.io/palw3ey/ye3ipsec:1.1.0"
 
 LABEL org.opencontainers.image.licenses="MIT"
 LABEL org.opencontainers.image.authors="palw3ey"
