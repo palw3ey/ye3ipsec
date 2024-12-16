@@ -15,7 +15,7 @@ These are the env variables and their default values.
 |Y_PROTO_AH | text | ah | ah protocol |
 |Y_PORT_IKE | port number | 500 | ike port |
 |Y_PORT_NAT | port number | 4500 | nat-t port |
-|Y_SERVER_CERT_CN | IP address or domain name | *if not set, will attempt to detect and use the public ip address otherwise the first local ip address* | CN value to use for the server certificate  |
+|Y_SERVER_CERT_CN | IP address or domain name | *if not set, then will be set to the server certificate cn, if this certificate file exist, or will attempt to detect and use the public ip address otherwise the first local ip address* | CN value to use for the server certificate  |
 |Y_SERVER_CERT_DN | text | "C=FR, ST=Ile-de-France, L=Paris, O=IPSec, OU=Example" | DN value to add to the server certificate |
 |Y_SERVER_CERT_DAYS | integer | 3650 | number of days before expiration, for CA and Server certificate |
 |Y_PROPOSALS_PHASE1 | cipher suite | "aes256-sha256-ecp256, aes256gcm16-sha384-prfsha384-ecp384, aes256-sha256-modp2048, aes256-sha256-modp1024, aes256-sha1-modp1024, 3des-sha1-modp1024, des-sha1-modp1024" | cipher suites to use for phase 1. Note that by default some weak cipher are present in the list, you should narrow the list to strong ones. If supported by the client |
