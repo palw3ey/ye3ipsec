@@ -441,7 +441,9 @@ if [[ $Y_IGNORE_CONFIG == "no" ]]; then
 	
 	if [[ -z "$Y_SERVER_CERT_CN" ]]; then
 
- 		if [[ -f "$vg_file_server_cert" ]] ; then
+		if [ $Y_LOCAL_SELFCERT == "no" ] && [ -f "$vg_file_external_key" ] && [ -f "$vg_file_external_cert" ]; then
+			Y_SERVER_CERT_CN="$(f_certificate_cn $vg_file_external_cert)"
+ 		elif [[ -f "$vg_file_server_cert" ]] ; then
  			Y_SERVER_CERT_CN="$(f_certificate_cn $vg_file_server_cert)"
 		elif expr "$vg_ip" : '[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*\.[0-9][0-9]*$' >/dev/null; then
 			Y_SERVER_CERT_CN="$vg_ip"
