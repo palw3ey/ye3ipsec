@@ -6,12 +6,12 @@ connections {
 
 		local {
 			auth = $Y_CLIENT_LOCAL_AUTH
-			id = $Y_CLIENT_LOCAL_ID
+			id = "$Y_CLIENT_LOCAL_ID"
 		}
 		
 		remote {
 			auth = $Y_CLIENT_REMOTE_AUTH
-			id = $Y_CLIENT_REMOTE_ID
+			id = "$Y_CLIENT_REMOTE_ID"
 		}
 		
 		children {
@@ -25,18 +25,18 @@ connections {
 
 secrets {
 	eap-client1 {
-		id = $Y_CLIENT_EAP_USERNAME
-		secret = $Y_CLIENT_EAP_PASSWORD
+		id = "$Y_CLIENT_EAP_USERNAME"
+		secret = "$Y_CLIENT_EAP_PASSWORD"
 	}
 	
 	ike-client1 {
-		secret = $Y_CLIENT_PSK_SECRET
-		id-0 = $Y_CLIENT_PSK_LOCAL_ID
-		id-1 = $Y_CLIENT_PSK_REMOTE_ID
+		secret = "$Y_CLIENT_PSK_SECRET"
+		id-0 = "$Y_CLIENT_PSK_LOCAL_ID"
+		id-1 = "$Y_CLIENT_PSK_REMOTE_ID"
 	}
 	
 	pkcs12-client1 {
-      file = $Y_CLIENT_PKCS12_FILE
-      secret = $Y_CLIENT_PKCS12_SECRET
-   }
+      		file = "$Y_CLIENT_PKCS12_FILE"
+      		secret = "$Y_CLIENT_PKCS12_SECRET"
+   	}
 }
