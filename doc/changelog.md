@@ -1,5 +1,10 @@
 # Changelog
-## [1.1.0] - 2024-12-15
+## [1.1.0] - 2024-12-17
+### Added
+- new package : openresolv ca-certificates
+- start update-ca-certificates in entrypoint.sh 
+- symbolic link of  Let's Encrypt certificates, ISRG Root X1 and ISRG Root X2, to x509ca
+- resolve plugin will use /usr/sbin/resolvconf
 ### Changed
 - new version : strongSwan from 5.9.14 to 6.0.0, Alpine Linux from 3.20.3 to 3.21.0
 ## [1.0.8] - 2024-12-01
