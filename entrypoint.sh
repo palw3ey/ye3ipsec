@@ -502,7 +502,7 @@ if [[ $Y_IGNORE_CONFIG == "no" ]]; then
 		fi
 		
 		if [[ -z "$Y_LOCAL_ID" ]]; then
-			Y_LOCAL_ID=$Y_SERVER_CERT_CN
+			Y_LOCAL_ID="$Y_SERVER_CERT_CN"
 		fi
 		f_log "Y_LOCAL_ID = $Y_LOCAL_ID"
 		
@@ -646,7 +646,7 @@ if [[ $Y_IGNORE_CONFIG == "no" ]]; then
 		# if local certificate and id are not set, then use selfsigned
 		if [[ -z $Y_S2S_RSA_LOCAL_CERTS ]] && [[ -z $Y_S2S_RSA_LOCAL_ID ]] ; then
 			Y_S2S_RSA_LOCAL_CERTS=serverCert.pem
-			Y_S2S_RSA_LOCAL_ID=$Y_SERVER_CERT_CN
+			Y_S2S_RSA_LOCAL_ID="$Y_SERVER_CERT_CN"
 		fi
 		f_log "    CRED_Y_S2S_RSA_LOCAL_ID : $Y_S2S_RSA_LOCAL_ID"
 		f_log "    CRED_Y_S2S_RSA_LOCAL_CERTS : $Y_S2S_RSA_LOCAL_CERTS"
