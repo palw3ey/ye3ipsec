@@ -173,7 +173,7 @@ ADD ye3ipsec_patch/ /ye3ipsec_patch/
 
 RUN \
 	# install packages
-	apk --update --no-cache add tini build-base gmp-dev openssl openssl-dev linux-pam-dev ip6tables iptables-dev xz zstd kmod curl curl-dev $Y_EXTRA_PACKAGE && \
+	apk --update --no-cache add tini build-base gmp-dev openssl openssl-dev linux-pam-dev ip6tables iptables-dev xz zstd kmod curl curl-dev openresolv ca-certificates $Y_EXTRA_PACKAGE && \
  	\
 	# build strongswan
 	mkdir /usr/local/src && cd /usr/local/src && \
