@@ -9,6 +9,9 @@
 # date
 vg_date=$(date '+%Y%m%d%H%M%S')
 
+# update ca certificates
+update-ca-certificates > /dev/null 2>&1
+
 # base directory, without ending slash
 vg_dir_swanctl="/etc/swanctl"
 
