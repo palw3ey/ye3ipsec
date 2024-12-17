@@ -190,7 +190,15 @@ ADD swanctl/ /etc/swanctl/
 
 VOLUME "/etc/swanctl"
 
-RUN ln -sfn /etc/swanctl/ye3ipsec/bypass_container_env.sh /etc/profile.d/bypass_container_env.sh && chmod +x /entrypoint.sh
+RUN \
+   	# add Let's Encrypt Root CAs to strongswan x509ca folder
+    	ln -sfn /etc/ssl/certs/ca-cert-ISRG_Root_X1.pem /etc/swanctl/x509ca/ca-cert-ISRG_Root_X1.pem && ln -sfn /etc/ssl/certs/ca-cert-ISRG_Root_X2.pem /etc/swanctl/x509ca/ca-cert-ISRG_Root_X2.pem && \
+     	\
+	# to bypass env variable
+ 	ln -sfn /etc/swanctl/ye3ipsec/bypass_container_env.sh /etc/profile.d/bypass_container_env.sh &&  \
+  	\
+      	# make executable
+      	chmod +x /entrypoint.sh
 
 EXPOSE $Y_PORT_IKE/udp $Y_PORT_NAT/udp
 
