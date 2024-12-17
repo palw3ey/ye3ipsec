@@ -663,6 +663,13 @@ if [[ $Y_IGNORE_CONFIG == "no" ]]; then
 	else
 		mv -f $vg_dir_swanctl/conf.d/s2s_rsa.conf $vg_dir_swanctl/conf.d/s2s_rsa-$vg_date.dis 2>/dev/null
 	fi
+
+ 	if [[ $Y_CLIENT_ENABLE == "yes" ]]; then
+		f_log "$i_enable : client"
+		source $vg_dir_swanctl/ye3ipsec/client.sh > $vg_dir_swanctl/conf.d/client.conf
+	else
+		mv -f $vg_dir_swanctl/conf.d/client.conf $vg_dir_swanctl/conf.d/client-$vg_date.dis 2>/dev/null
+	fi
 	
 else
 
