@@ -12,7 +12,16 @@ charon {
 	plugins {
 	
 		include strongswan.d/charon/*.conf
-		
+
+		resolve {
+			# file = /etc/resolv.conf
+		    	load = yes
+		    	resolvconf {
+				# iface = lo.ipsec
+		        	path = /usr/sbin/resolvconf
+		    	}
+		}
+
 		revocation {
 			load = $Y_REVOCATION_LOAD
 			enable_crl = $Y_REVOCATION_ENABLE_CRL
