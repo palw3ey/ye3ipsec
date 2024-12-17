@@ -3,8 +3,8 @@ FROM alpine:latest
 LABEL org.opencontainers.image.title="ye3ipsec"
 
 LABEL org.opencontainers.image.version="1.1.0"
-LABEL org.opencontainers.image.created="2024-12-15T15:00:00-03:00"
-LABEL org.opencontainers.image.revision="20241215"
+LABEL org.opencontainers.image.created="2024-12-17T15:00:00-03:00"
+LABEL org.opencontainers.image.revision="20241217"
 LABEL org.opencontainers.image.base.name="ghcr.io/palw3ey/ye3ipsec:1.1.0"
 
 LABEL org.opencontainers.image.licenses="MIT"
@@ -192,7 +192,7 @@ VOLUME "/etc/swanctl"
 
 RUN \
 	# to bypass env variable
- 	ln -sfn /etc/swanctl/ye3ipsec/bypass_container_env.sh /etc/profile.d/bypass_container_env.sh &&  \
+ 	ln -sfn /etc/swanctl/ye3ipsec/bypass_container_env.sh /etc/profile.d/bypass_container_env.sh && \
   	\
       	# make executable
       	chmod +x /entrypoint.sh
