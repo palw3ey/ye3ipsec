@@ -1,3 +1,4 @@
+cat <<EOL
 connections {
 	conn-client : template-conn {
    
@@ -40,3 +41,4 @@ secrets {
       		secret = $Y_CLIENT_PKCS12_SECRET
    	}
 }
+EOL
