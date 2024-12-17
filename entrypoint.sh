@@ -9,9 +9,6 @@
 # date
 vg_date=$(date '+%Y%m%d%H%M%S')
 
-# update ca certificates
-update-ca-certificates > /dev/null 2>&1
-
 # base directory, without ending slash
 vg_dir_swanctl="/etc/swanctl"
 
@@ -402,6 +399,13 @@ f_log "i18n : $Y_LANGUAGE"
 if [[ $Y_IGNORE_CONFIG == "no" ]]; then
 
 	f_log "$i_apply_configuration"
+
+	# update ca certificates
+	update-ca-certificates > /dev/null 2>&1
+	
+	# add some ca certificates to x509ca folder
+	ln -sfn /etc/ssl/certs/ca-cert-ISRG_Root_X1.pem /etc/swanctl/x509ca/ca-cert-ISRG_Root_X1.pem > /dev/null 2>&1
+	ln -sfn /etc/ssl/certs/ca-cert-ISRG_Root_X2.pem /etc/swanctl/x509ca/ca-cert-ISRG_Root_X2.pem > /dev/null 2>&1
 	
 	# generate strongswan.conf and symbolic link to /etc/strongswan.conf
 	
