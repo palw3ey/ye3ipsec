@@ -147,9 +147,11 @@ Important, you need at least : `--cap-add NET_ADMIN` for strongswan to start.
 # [Build](https://github.com/palw3ey/ye3ipsec/blob/main/doc/build.md)
 
 # strongSwan Links
-[strongSwan Documentation](https://docs.strongswan.org/)
+[strongSwan documentation](https://docs.strongswan.org/)
+
+[swanctl.conf configuration](https://docs.strongswan.org/docs/latest/swanctl/swanctlConf.html)
  
-[Configuration Examples](https://wiki.strongswan.org/projects/strongswan/wiki/ConfigurationExamples)
+[configuration examples](https://wiki.strongswan.org/projects/strongswan/wiki/ConfigurationExamples)
 
 # Version
 
