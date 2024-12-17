@@ -24,7 +24,7 @@ ENV Y_LANGUAGE=fr_FR \
 	Y_DEBUG=no \
 	Y_IGNORE_CONFIG=no \
  	Y_STRONGSWAN_VERSION=6.0.0 \
-  	Y_EXTRA_PACKAGE="net-tools traceroute tcpdump ipcalc nano ca-certificates" \
+  	Y_EXTRA_PACKAGE="net-tools traceroute tcpdump ipcalc nano" \
   	Y_URL_IP_CHECK=http://whatismyip.akamai.com \
   	Y_URL_IP_CHECK_TIMEOUT=5 \
 	Y_PATCH=yes \
@@ -191,9 +191,6 @@ ADD swanctl/ /etc/swanctl/
 VOLUME "/etc/swanctl"
 
 RUN \
-   	# add Let's Encrypt Root CAs to strongswan x509ca folder
-    	ln -sfn /etc/ssl/certs/ca-cert-ISRG_Root_X1.pem /etc/swanctl/x509ca/ca-cert-ISRG_Root_X1.pem && ln -sfn /etc/ssl/certs/ca-cert-ISRG_Root_X2.pem /etc/swanctl/x509ca/ca-cert-ISRG_Root_X2.pem && \
-     	\
 	# to bypass env variable
  	ln -sfn /etc/swanctl/ye3ipsec/bypass_container_env.sh /etc/profile.d/bypass_container_env.sh &&  \
   	\
