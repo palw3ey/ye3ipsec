@@ -3,8 +3,8 @@ FROM alpine:latest
 LABEL org.opencontainers.image.title="ye3ipsec"
 
 LABEL org.opencontainers.image.version="1.1.0"
-LABEL org.opencontainers.image.created="2024-12-15T15:00:00-03:00"
-LABEL org.opencontainers.image.revision="20241215"
+LABEL org.opencontainers.image.created="2024-12-17T15:00:00-03:00"
+LABEL org.opencontainers.image.revision="20241217"
 LABEL org.opencontainers.image.base.name="localhost/ye3ipsec:1.1.0"
 LABEL org.opencontainers.image.usage="docker run -dt --cap-add NET_ADMIN localhost/ye3ipsec:1.1.0"
 
@@ -25,7 +25,7 @@ ENV Y_LANGUAGE=fr_FR \
 	Y_DEBUG=no \
 	Y_IGNORE_CONFIG=no \
 	Y_STRONGSWAN_VERSION=master \
-	Y_EXTRA_PACKAGE="net-tools traceroute tcpdump ipcalc nano ca-certificates" \
+	Y_EXTRA_PACKAGE="net-tools traceroute tcpdump ipcalc nano" \
   	Y_URL_IP_CHECK=http://whatismyip.akamai.com \
   	Y_URL_IP_CHECK_TIMEOUT=5 \
 	Y_PATCH=yes \
@@ -174,7 +174,7 @@ ADD ye3ipsec_patch/ /ye3ipsec_patch/
 
 RUN \
 	# install packages
-	apk --update --no-cache add tini build-base gmp-dev openssl openssl-dev linux-pam-dev ip6tables iptables-dev xz zstd kmod curl curl-dev git automake autoconf libtool gperf bison flex python3 $Y_EXTRA_PACKAGE &&  \
+	apk --update --no-cache add tini build-base gmp-dev openssl openssl-dev linux-pam-dev ip6tables iptables-dev xz zstd kmod curl curl-dev openresolv ca-certificates git automake autoconf libtool gperf bison flex python3 $Y_EXTRA_PACKAGE &&  \
 	\
 	# build strongswan
 	mkdir /usr/local/src && cd /usr/local/src && \
@@ -192,7 +192,12 @@ ADD swanctl/ /etc/swanctl/
 
 VOLUME "/etc/swanctl"
 
-RUN ln -sfn /etc/swanctl/ye3ipsec/bypass_container_env.sh /etc/profile.d/bypass_container_env.sh && chmod +x /entrypoint.sh
+RUN \
+	# to bypass env variable
+ 	ln -sfn /etc/swanctl/ye3ipsec/bypass_container_env.sh /etc/profile.d/bypass_container_env.sh && \
+  	\
+      	# make executable
+      	chmod +x /entrypoint.sh
 
 EXPOSE $Y_PORT_IKE/udp $Y_PORT_NAT/udp
 
