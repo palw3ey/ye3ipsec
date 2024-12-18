@@ -9,7 +9,6 @@
 - new environment variable : Y_SHOW_CRED, to show or hide credentials in docker logs
 ### Changed
 - new version : strongSwan from 5.9.14 to 6.0.0, Alpine Linux from 3.20.3 to 3.21.0
-- default value for vg_password_length, from 32 to 24
 ## [1.0.8] - 2024-12-01
 ### Added
 - new package : tini
