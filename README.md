@@ -166,6 +166,8 @@ Important, you need at least : `--cap-add NET_ADMIN` for strongswan to start.
 
 # [ToDo](https://github.com/palw3ey/ye3ipsec/blob/main/doc/todo.md)
 
+Feel free to contribute or share your ideas for new features, you can contact me here on github or by email. I speak French, but you can write to me in other languages ​​I will find ways to translate.
+
 # License
 
 MIT  
