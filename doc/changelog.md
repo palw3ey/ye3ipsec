@@ -9,6 +9,8 @@
 - new environment variable : Y_SHOW_CRED, to show or hide credentials in docker logs
 ### Changed
 - new version : strongSwan from 5.9.14 to 6.0.0, Alpine Linux from 3.20.3 to 3.21.0
+### Fixed
+- vg_interface_ip, to find the IP address of the default network interface 
 ## [1.0.8] - 2024-12-01
 ### Added
 - new package : tini
