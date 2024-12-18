@@ -46,7 +46,7 @@ vg_users_separator=":"
 vg_username_char="a-z"
 vg_username_length=12
 vg_password_char="A-Za-z0-9"
-vg_password_length=24
+vg_password_length=32
 
 # ca certificate
 vg_file_ca_key=$vg_dir_swanctl/private/caKey.pem
