@@ -9,7 +9,7 @@
     "status": "stable",
     "maintainer": "palw3ey",
     "maintainer_email": "palw3ey@gmail.com",
-    "usage": "The directory /etc/swanctl is persistent. Useful env :\nY_EAP_USERS=\"tux1:StrongPassword1 tux2:StrongPassword2\"\nY_PSK_USERS=\"sharedSecret:localId:remoteId\"\n\nDocumentation : https://github.com/palw3ey/ye3ipsec",
+    "usage": "The directory /etc/swanctl is persistent. Useful env :\nY_PSK_USERS=\"sharedSecret:localId:remoteId\"\n\nDocumentation : https://github.com/palw3ey/ye3ipsec",
     "symbol": "linux_guest.svg",
     "docker": {
         "adapters": 1,
