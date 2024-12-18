@@ -30,7 +30,7 @@ vg_name=ye3ipsec
 
 # get default interface
 vg_interface=$(route | awk '/^default/{print $NF}')
-vg_interface_ip=$(/sbin/ifconfig $vg_interface | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}')
+vg_interface_ip=$(ip addr show dev $vg_interface | grep 'inet ' | awk '{print $2}' | cut -d/ -f1)
 
 # get external ip
 vg_ip=$(curl -m $Y_URL_IP_CHECK_TIMEOUT -s $Y_URL_IP_CHECK)
