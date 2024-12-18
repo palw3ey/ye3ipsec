@@ -110,9 +110,10 @@ Set-VPNConnection -Name "EAP Test" -SplitTunneling $True
 
 
 ## Features
-- Road warrior IKEv2 profile : RSA, PSK and EAP
-- Road warrior IKEv1 profile : XAUTH RSA and XAUTH PSK
-- Site to site IKEv2 profile : RSA and PSK
+- Road warrior IKEv2 client profile : PKCS12, PSK and EAP
+- Road warrior IKEv2 server profile : RSA, PSK and EAP
+- Road warrior IKEv1 server profile : XAUTH RSA and XAUTH PSK
+- Site to site IKEv2 server profile : RSA and PSK
 - IPv4 and IPv6
 - Internal pool or external DHCP server
 - Internal certificate authority, with certificate revocation option
@@ -121,7 +122,7 @@ Set-VPNConnection -Name "EAP Test" -SplitTunneling $True
 - Firewall option to Allow/Deny : interclient, lan, internet
 - Support native VPN client : Windows, Mac, iPhone, Android
 
-The 3 Road warrior IKEv2 profile (RSA, PSK, EAP) are activated by default.  
+The 3 Road warrior IKEv2 server profile (RSA, PSK, EAP) are activated by default.  
 The credentials are randomly generated, if not set. 
 
 The container will generate self signed certificate using external (public) ip address as CN, if not set.  
