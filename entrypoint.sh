@@ -555,23 +555,25 @@ if [[ $Y_IGNORE_CONFIG == "no" ]]; then
 	
 	if [[ $Y_CERT_ENABLE == "yes" ]]; then
 		f_log "$i_enable : $i_certificate"
-		f_show_cred Y_SERVER_CERT_CN
-		f_show_cred Y_CERT_CN
-		f_show_cred Y_CERT_PASSWORD
-		f_log '    CRED_Y_CERT_ : cat "/etc/swanctl/pkcs12/clientCert.pem.p12"'
 		source $vg_dir_swanctl/ye3ipsec/cert.sh > $vg_dir_swanctl/conf.d/cert.conf
 		if [[ ! -z "$Y_CERT_USERS" ]]; then
 			f_cert_users "$Y_CERT_USERS"
 		fi
-		if [[ -f $vg_dir_swanctl/conf.d/cert_users.txt ]]; then
-			f_log "    CRED_Y_CERT_USERS : $(cat $vg_dir_swanctl/conf.d/cert_users.txt | grep '# cat ' | tr '\n' ' ' | tr -s ' ')"
-		fi
 		if [[ ! -z "$Y_CERT_USERS_RANDOM" ]]; then
 			f_cert_users_random "$Y_CERT_USERS_RANDOM"
 		fi
-		if [[ -f $vg_dir_swanctl/conf.d/cert_users_random.txt ]]; then
-			f_log "    CRED_Y_CERT_USERS_RANDOM : $(cat $vg_dir_swanctl/conf.d/cert_users_random.txt | grep '# cat ' | tr '\n' ' ' | tr -s ' ')"
-		fi
+  		if [[ $Y_SHOW_CRED == "yes" ]]; then
+			f_show_cred Y_SERVER_CERT_CN
+			f_show_cred Y_CERT_CN
+			f_show_cred Y_CERT_PASSWORD
+			f_log '    CRED_Y_CERT_ : cat "/etc/swanctl/pkcs12/clientCert.pem.p12"'
+			if [[ -f $vg_dir_swanctl/conf.d/cert_users.txt ]]; then
+				f_log "    CRED_Y_CERT_USERS : $(cat $vg_dir_swanctl/conf.d/cert_users.txt | grep '# cat ' | tr '\n' ' ' | tr -s ' ')"
+			fi
+			if [[ -f $vg_dir_swanctl/conf.d/cert_users_random.txt ]]; then
+				f_log "    CRED_Y_CERT_USERS_RANDOM : $(cat $vg_dir_swanctl/conf.d/cert_users_random.txt | grep '# cat ' | tr '\n' ' ' | tr -s ' ')"
+			fi
+   		fi
 	else
 		mv -f $vg_dir_swanctl/conf.d/cert.conf $vg_dir_swanctl/conf.d/cert-$vg_date.dis 2>/dev/null
 		mv -f $vg_dir_swanctl/conf.d/cert_users.txt $vg_dir_swanctl/conf.d/cert_users-$vg_date.dis 2>/dev/null
@@ -580,21 +582,23 @@ if [[ $Y_IGNORE_CONFIG == "no" ]]; then
 
 	if [[ $Y_EAP_ENABLE == "yes" ]]; then
 		f_log "$i_enable : $i_eap"
-		f_show_cred Y_EAP_USERNAME
-		f_show_cred Y_EAP_PASSWORD
 		source $vg_dir_swanctl/ye3ipsec/eap.sh > $vg_dir_swanctl/conf.d/eap.conf
 		if [[ ! -z "$Y_EAP_USERS" ]]; then
 			f_eap_users "$Y_EAP_USERS"
 		fi
-		if [[ -f $vg_dir_swanctl/conf.d/eap_users.conf ]]; then
-			f_log "    CRED_Y_EAP_USERS : $(cat $vg_dir_swanctl/conf.d/eap_users.conf | tr '\n' ' ' | tr -s ' ')"
-		fi
 		if [[ ! -z "$Y_EAP_USERS_RANDOM" ]]; then
 			f_eap_users_random "$Y_EAP_USERS_RANDOM"
 		fi
-		if [[ -f $vg_dir_swanctl/conf.d/eap_users_random.conf ]]; then
-			f_log "    CRED_Y_EAP_USERS_RANDOM : $(cat $vg_dir_swanctl/conf.d/eap_users_random.conf | tr '\n' ' ' | tr -s ' ')"
-		fi
+  		if [[ $Y_SHOW_CRED == "yes" ]]; then
+			f_show_cred Y_EAP_USERNAME
+			f_show_cred Y_EAP_PASSWORD
+			if [[ -f $vg_dir_swanctl/conf.d/eap_users.conf ]]; then
+				f_log "    CRED_Y_EAP_USERS : $(cat $vg_dir_swanctl/conf.d/eap_users.conf | tr '\n' ' ' | tr -s ' ')"
+			fi
+			if [[ -f $vg_dir_swanctl/conf.d/eap_users_random.conf ]]; then
+				f_log "    CRED_Y_EAP_USERS_RANDOM : $(cat $vg_dir_swanctl/conf.d/eap_users_random.conf | tr '\n' ' ' | tr -s ' ')"
+			fi
+   		fi
 	else
 		mv -f $vg_dir_swanctl/conf.d/eap.conf $vg_dir_swanctl/conf.d/eap-$vg_date.dis 2>/dev/null
 		mv -f $vg_dir_swanctl/conf.d/eap_users.conf $vg_dir_swanctl/conf.d/eap_users-$vg_date.dis 2>/dev/null
@@ -603,22 +607,24 @@ if [[ $Y_IGNORE_CONFIG == "no" ]]; then
 
 	if [[ $Y_PSK_ENABLE == "yes" ]]; then
 		f_log "$i_enable : $i_psk"
-		f_show_cred Y_PSK_SECRET
-		f_show_cred Y_PSK_LOCAL_ID
-		f_show_cred Y_PSK_REMOTE_ID
 		source $vg_dir_swanctl/ye3ipsec/psk.sh > $vg_dir_swanctl/conf.d/psk.conf
 		if [[ ! -z "$Y_PSK_USERS" ]]; then
 			f_psk_users "$Y_PSK_USERS"
 		fi
-		if [[ -f $vg_dir_swanctl/conf.d/psk_users.conf ]]; then
-			f_log "    CRED_Y_PSK_USERS : $(cat $vg_dir_swanctl/conf.d/psk_users.conf | tr '\n' ' ' | tr -s ' ')"
-		fi
 		if [[ ! -z "$Y_PSK_USERS_RANDOM" ]]; then
 			f_psk_users_random "$Y_PSK_USERS_RANDOM"
 		fi
-		if [[ -f $vg_dir_swanctl/conf.d/psk_users_random.conf ]]; then
-			f_log "    CRED_Y_PSK_USERS_RANDOM : $(cat $vg_dir_swanctl/conf.d/psk_users_random.conf | tr '\n' ' ' | tr -s ' ')"
-		fi
+  		if [[ $Y_SHOW_CRED == "yes" ]]; then
+			f_show_cred Y_PSK_SECRET
+			f_show_cred Y_PSK_LOCAL_ID
+			f_show_cred Y_PSK_REMOTE_ID
+			if [[ -f $vg_dir_swanctl/conf.d/psk_users.conf ]]; then
+				f_log "    CRED_Y_PSK_USERS : $(cat $vg_dir_swanctl/conf.d/psk_users.conf | tr '\n' ' ' | tr -s ' ')"
+			fi
+			if [[ -f $vg_dir_swanctl/conf.d/psk_users_random.conf ]]; then
+				f_log "    CRED_Y_PSK_USERS_RANDOM : $(cat $vg_dir_swanctl/conf.d/psk_users_random.conf | tr '\n' ' ' | tr -s ' ')"
+			fi
+   		fi
 	else
 		mv -f $vg_dir_swanctl/conf.d/psk.conf $vg_dir_swanctl/conf.d/psk-$vg_date.dis 2>/dev/null
 		mv -f $vg_dir_swanctl/conf.d/psk_users.conf $vg_dir_swanctl/conf.d/psk_users-$vg_date.dis 2>/dev/null
@@ -627,34 +633,40 @@ if [[ $Y_IGNORE_CONFIG == "no" ]]; then
 	
 	if [[ $Y_XAUTH_PSK_ENABLE == "yes" ]]; then
 		f_log "$i_enable : xauth psk"
-		f_show_cred Y_XAUTH_PSK_LOCAL_ID
-		f_show_cred Y_XAUTH_PSK_REMOTE_ID
-		f_show_cred Y_XAUTH_PSK_SECRET
-		f_show_cred Y_XAUTH_PSK_USERNAME
-		f_show_cred Y_XAUTH_PSK_PASSWORD
 		source $vg_dir_swanctl/ye3ipsec/xauth_psk.sh > $vg_dir_swanctl/conf.d/xauth_psk.conf
+  		if [[ $Y_SHOW_CRED == "yes" ]]; then
+			f_show_cred Y_XAUTH_PSK_LOCAL_ID
+			f_show_cred Y_XAUTH_PSK_REMOTE_ID
+			f_show_cred Y_XAUTH_PSK_SECRET
+			f_show_cred Y_XAUTH_PSK_USERNAME
+			f_show_cred Y_XAUTH_PSK_PASSWORD
+   		fi
 	else
 		mv -f $vg_dir_swanctl/conf.d/xauth_psk.conf $vg_dir_swanctl/conf.d/xauth_psk-$vg_date.dis 2>/dev/null
 	fi
 	
 	if [[ $Y_XAUTH_RSA_ENABLE == "yes" ]]; then
 		f_log "$i_enable : xauth rsa"
-		f_show_cred Y_SERVER_CERT_CN
-		f_show_cred Y_CERT_CN
-		f_show_cred Y_CERT_PASSWORD
-		f_show_cred Y_XAUTH_RSA_USERNAME
-		f_show_cred Y_XAUTH_RSA_PASSWORD
 		source $vg_dir_swanctl/ye3ipsec/xauth_rsa.sh > $vg_dir_swanctl/conf.d/xauth_rsa.conf
+	  	if [[ $Y_SHOW_CRED == "yes" ]]; then
+			f_show_cred Y_SERVER_CERT_CN
+			f_show_cred Y_CERT_CN
+			f_show_cred Y_CERT_PASSWORD
+			f_show_cred Y_XAUTH_RSA_USERNAME
+			f_show_cred Y_XAUTH_RSA_PASSWORD
+   		fi
 	else
 		mv -f $vg_dir_swanctl/conf.d/xauth_rsa.conf $vg_dir_swanctl/conf.d/xauth_rsa-$vg_date.dis 2>/dev/null
 	fi
 	
 	if [[ $Y_S2S_PSK_ENABLE == "yes" ]]; then
 		f_log "$i_enable : s2s psk"
-		f_show_cred Y_S2S_PSK_LOCAL_ID
-		f_show_cred Y_S2S_PSK_REMOTE_ID
-		f_show_cred Y_S2S_PSK_SECRET
 		source $vg_dir_swanctl/ye3ipsec/s2s_psk.sh > $vg_dir_swanctl/conf.d/s2s_psk.conf
+  		if [[ $Y_SHOW_CRED == "yes" ]]; then
+			f_show_cred Y_S2S_PSK_LOCAL_ID
+			f_show_cred Y_S2S_PSK_REMOTE_ID
+			f_show_cred Y_S2S_PSK_SECRET
+		fi
 	else
 		mv -f $vg_dir_swanctl/conf.d/s2s_psk.conf $vg_dir_swanctl/conf.d/s2s_psk-$vg_date.dis 2>/dev/null
 	fi
@@ -666,27 +678,34 @@ if [[ $Y_IGNORE_CONFIG == "no" ]]; then
 			Y_S2S_RSA_LOCAL_CERTS=serverCert.pem
 			Y_S2S_RSA_LOCAL_ID="$Y_SERVER_CERT_CN"
 		fi
-		f_show_cred Y_S2S_RSA_LOCAL_ID
-		f_show_cred Y_S2S_RSA_LOCAL_CERTS
-		f_show_cred Y_S2S_RSA_REMOTE_ID
-		f_show_cred Y_S2S_RSA_REMOTE_CERTS
 		source $vg_dir_swanctl/ye3ipsec/s2s_rsa.sh > $vg_dir_swanctl/conf.d/s2s_rsa.conf
+  		if [[ $Y_SHOW_CRED == "yes" ]]; then
+			f_show_cred Y_S2S_RSA_LOCAL_ID
+			f_show_cred Y_S2S_RSA_LOCAL_CERTS
+			f_show_cred Y_S2S_RSA_REMOTE_ID
+			f_show_cred Y_S2S_RSA_REMOTE_CERTS
+   		fi
 	else
 		mv -f $vg_dir_swanctl/conf.d/s2s_rsa.conf $vg_dir_swanctl/conf.d/s2s_rsa-$vg_date.dis 2>/dev/null
 	fi
 
  	if [[ $Y_CLIENT_ENABLE == "yes" ]]; then
 		f_log "$i_enable : client"
-		f_show_cred Y_CLIENT_LOCAL_ID
-		f_show_cred Y_CLIENT_REMOTE_ID
-    		f_show_cred Y_CLIENT_EAP_USERNAME
-    		f_show_cred Y_CLIENT_EAP_PASSWORD
-    		f_show_cred Y_CLIENT_PSK_SECRET
-    		f_show_cred Y_CLIENT_PSK_LOCAL_ID
-    		f_show_cred Y_CLIENT_PSK_REMOTE_ID
-    		f_show_cred Y_CLIENT_PKCS12_FILE
-    		f_show_cred Y_CLIENT_PKCS12_SECRET 
 		source $vg_dir_swanctl/ye3ipsec/client.sh > $vg_dir_swanctl/conf.d/client.conf
+ 		if [[ $Y_SHOW_CRED == "yes" ]]; then
+			f_show_cred Y_CLIENT_REMOTE_ADDRESS
+			f_show_cred Y_CLIENT_LOCAL_AUTH
+			f_show_cred Y_CLIENT_LOCAL_ID
+			f_show_cred Y_CLIENT_REMOTE_AUTH
+			f_show_cred Y_CLIENT_REMOTE_ID
+	    		f_show_cred Y_CLIENT_EAP_USERNAME
+	    		f_show_cred Y_CLIENT_EAP_PASSWORD
+	    		f_show_cred Y_CLIENT_PSK_SECRET
+	    		f_show_cred Y_CLIENT_PSK_LOCAL_ID
+	    		f_show_cred Y_CLIENT_PSK_REMOTE_ID
+	    		f_show_cred Y_CLIENT_PKCS12_FILE
+	    		f_show_cred Y_CLIENT_PKCS12_SECRET
+      		fi
 	else
 		mv -f $vg_dir_swanctl/conf.d/client.conf $vg_dir_swanctl/conf.d/client-$vg_date.dis 2>/dev/null
 	fi
