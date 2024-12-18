@@ -15,6 +15,73 @@ Example of environment variables for PSK connections. Just copy/paste and adapt 
  
 Where to paste ? In GNS3 Right click on your device > Configure > General settings > Environment variables
 
+### routerA
+```plaintext
+enable
+configure terminal
+
+hostname routerA
+
+! wan
+interface g0/0
+ip address 10.0.1.1 255.255.0.0
+ip nat outside
+no shutdown
+exit
+
+! lan
+interface g0/1
+ip address 192.168.1.1 255.255.255.0
+ip nat inside
+no shutdown
+exit
+
+! nat
+ip nat pool MYPOOL 10.0.1.1 10.0.1.1 netmask 255.255.255.0
+access-list 1 permit 192.168.1.0 0.0.0.255
+ip nat inside source list 1 pool MYPOOL overload
+
+! port forward
+ip nat inside source static udp 192.168.1.2 500 10.0.1.1 500
+ip nat inside source static udp 192.168.1.2 4500 10.0.1.1 4500
+do show ip nat translations
+
+do copy running-config startup-config
+```
+
+### routerB
+```plaintext
+enable
+configure terminal
+
+hostname routerB
+
+! wan
+interface g0/0
+ip address 10.0.2.1 255.255.0.0
+ip nat outside
+no shutdown
+exit
+
+! lan
+interface g0/1
+ip address 192.168.2.1 255.255.255.0
+ip nat inside
+no shutdown
+exit
+
+! nat
+ip nat pool MYPOOL 10.0.2.1 10.0.2.1 netmask 255.255.255.0
+access-list 1 permit 192.168.2.0 0.0.0.255
+ip nat inside source list 1 pool MYPOOL overload
+
+! port forward
+ip nat inside source static udp 192.168.2.2 500 10.0.2.1 500
+ip nat inside source static udp 192.168.2.2 4500 10.0.2.1 4500
+do show ip nat translations
+
+do copy running-config startup-config
+```
 
 ### Device A :
 External IP (wan) : 10.0.1.1  
