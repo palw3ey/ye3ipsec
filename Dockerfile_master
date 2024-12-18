@@ -29,6 +29,7 @@ ENV Y_LANGUAGE=fr_FR \
   	Y_URL_IP_CHECK=http://whatismyip.akamai.com \
   	Y_URL_IP_CHECK_TIMEOUT=5 \
 	Y_PATCH=yes \
+ 	Y_SHOW_CRED=yes \
 	\
 	# proto and port
 	Y_PROTO_ESP=esp \
