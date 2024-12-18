@@ -2,6 +2,8 @@
 
 IPSec client and server based on Strongswan and Alpine. RA and S2S profile. GNS3 ready
 
+This project offers a comprehensive set of features for creating IPSec VPN connections and is designed for ease of use with GNS3, with default settings compatible with wide range of device like Cisco IOS, Fortigate, built in vpn clients (Windows, Android, iOS) and more
+
 # Simple usage
 
 Create a remote access connection with EAP (mschapv2) authentication :
