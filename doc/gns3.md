@@ -17,12 +17,12 @@ Where to paste ? In GNS3 Right click on your device > Configure > General settin
 
 
 ### Device A :
-External IP (wan) : 10.0.1.2  
+External IP (wan) : 10.0.1.1  
 Internal IP (lan) : 192.168.1.2  
 Lan network : 192.168.1.0/24  
 
 ### Device B :
-External IP (wan) : 10.0.2.2  
+External IP (wan) : 10.0.2.1  
 Internal IP (lan) : 192.168.2.2  
 Lan network : 192.168.2.0/24  
 
