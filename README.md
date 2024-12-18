@@ -110,7 +110,7 @@ Set-VPNConnection -Name "EAP Test" -SplitTunneling $True
 
 
 ## Features
-- Road warrior IKEv2 client profile : PKCS12, PSK and EAP
+- Road warrior IKEv2 client profile : RSA (pkcs12 file), PSK and EAP
 - Road warrior IKEv2 server profile : RSA, PSK and EAP
 - Road warrior IKEv1 server profile : XAUTH RSA and XAUTH PSK
 - Site to site IKEv2 server profile : RSA and PSK
