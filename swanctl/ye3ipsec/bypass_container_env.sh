@@ -4,7 +4,7 @@
 #export Y_LANGUAGE=fr_FR
 #export Y_DEBUG=no
 #export Y_IGNORE_CONFIG=no
-#export Y_STRONGSWAN_VERSION=5.9.14
+#export Y_STRONGSWAN_VERSION=6.0.0
 #export Y_EXTRA_PACKAGE="net-tools traceroute tcpdump ipcalc nano"
 #export Y_URL_IP_CHECK=http://whatismyip.akamai.com
 #export Y_URL_IP_CHECK_TIMEOUT=5
@@ -117,6 +117,24 @@
 #export Y_S2S_RSA_LOCAL_TS=
 #export Y_S2S_RSA_REMOTE_TS=
 #export Y_S2S_RSA_START_ACTION=trap
+
+## IKEv2 Client with Virtual IP Adresses 
+#export Y_CLIENT_ENABLE=no
+#export Y_CLIENT_REMOTE_ADDRESS=
+#export Y_CLIENT_VIPS="0.0.0.0, ::"
+#export Y_CLIENT_LOCAL_AUTH=
+#export Y_CLIENT_LOCAL_ID=
+#export Y_CLIENT_REMOTE_AUTH=
+#export Y_CLIENT_REMOTE_ID=
+#export Y_CLIENT_LOCAL_TS=dynamic
+#export Y_CLIENT_REMOTE_TS="0.0.0.0/0, ::/0"
+#export Y_CLIENT_EAP_USERNAME=
+#export Y_CLIENT_EAP_PASSWORD=
+#export Y_CLIENT_PSK_SECRET=
+#export Y_CLIENT_PSK_LOCAL_ID=
+#export Y_CLIENT_PSK_REMOTE_ID=
+#export Y_CLIENT_PKCS12_FILE=
+#export Y_CLIENT_PKCS12_SECRET=
 
 ## revocation plugin
 #export Y_REVOCATION_LOAD=yes
