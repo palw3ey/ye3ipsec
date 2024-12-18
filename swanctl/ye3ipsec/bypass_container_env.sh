@@ -9,6 +9,7 @@
 #export Y_URL_IP_CHECK=http://whatismyip.akamai.com
 #export Y_URL_IP_CHECK_TIMEOUT=5
 #export Y_PATCH=yes
+#export Y_SHOW_CRED=yes
 
 ## port
 #export Y_PROTO_ESP=esp
