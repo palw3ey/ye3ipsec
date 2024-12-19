@@ -190,7 +190,7 @@ ENV Y_LANGUAGE=fr_FR \
 	Y_FILELOG_DEFAULT=0 \
 	Y_FILELOG_PATH=/etc/swanctl/charon.log \
 	Y_FILELOG_APPEND=yes \
-	Y_FILELOG_TIME_FORMAT="%Y-%m-%dT%H:%M:%SZ"
+	Y_FILELOG_TIME_FORMAT="%Y-%m-%dT%H:%M:%S%z"
  
 
 ADD entrypoint.sh /
