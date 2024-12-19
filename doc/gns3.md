@@ -15,9 +15,10 @@ Site to site PSK connections
 
 ![Topology](topology.png)
 
+## Configure Cisco routers
 In GNS3, double click on the cisco router, copy paste :
 
-### RouterA
+- RouterA
 ```plaintext
 enable
 configure terminal
@@ -50,7 +51,7 @@ ip nat inside source static udp 192.168.1.2 4500 10.0.1.1 4500
 do copy running-config startup-config
 ```
 
-### RouterB
+- RouterB
 ```plaintext
 enable
 configure terminal
@@ -83,9 +84,31 @@ ip nat inside source static udp 192.168.2.2 4500 10.0.2.1 4500
 do copy running-config startup-config
 ```
 
+## Static IP address
+In GNS3 Right click on your ye3ipsec device > Edi config copy paste :
+
+- ye3ipsec-A
+```bash
+auto eth0
+iface eth0 inet static
+	address 192.168.1.2
+	netmask 255.255.255.0
+	gateway 192.168.1.1
+```
+- ye3ipsec-B
+```bash
+auto eth0
+iface eth0 inet static
+	address 192.168.2.2
+	netmask 255.255.255.0
+	gateway 192.168.2.1
+	up echo nameserver 192.168.2.1 > /etc/resolv.conf
+```
+
+## Environment variables
 In GNS3 Right click on your ye3ipsec device > Configure > General settings > Environment variables, copy paste :
 
-- ye3ipsec-A :
+- ye3ipsec-A
 ```bash
 Y_S2S_PSK_ENABLE=yes
 Y_S2S_PSK_REMOTE_ADDRS=10.0.2.1
@@ -95,7 +118,8 @@ Y_S2S_PSK_SECRET=StrongSecret
 Y_S2S_PSK_LOCAL_TS=192.168.1.0/24
 Y_S2S_PSK_REMOTE_TS=192.168.2.0/24
 ```
-- ye3ipsec-B :
+
+- ye3ipsec-B
 ```bash
 Y_S2S_PSK_ENABLE=yes
 Y_S2S_PSK_REMOTE_ADDRS=10.0.1.1
@@ -105,4 +129,5 @@ Y_S2S_PSK_SECRET=StrongSecret
 Y_S2S_PSK_LOCAL_TS=192.168.2.0/24
 Y_S2S_PSK_REMOTE_TS=192.168.1.0/24
 ```
+
 
