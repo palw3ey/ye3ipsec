@@ -141,7 +141,7 @@ Y_S2S_PSK_REMOTE_TS=192.168.1.0/24
 ```
 
 ## Start the ye3ipsec devices
-Right click on ye3ipsec > Start
+Right click on the ye3ipsec devices > Start
 
 ## Verify
 
