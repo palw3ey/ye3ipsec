@@ -48,6 +48,9 @@ ip nat inside source list 1 pool MYPOOL overload
 ip nat inside source static udp 192.168.1.2 500 10.0.1.1 500
 ip nat inside source static udp 192.168.1.2 4500 10.0.1.1 4500
 
+! site to site route, through vpn
+ip route 192.168.2.0 255.255.255.0 192.168.1.2
+
 do copy running-config startup-config
 ```
 
@@ -81,11 +84,14 @@ ip nat inside source list 1 pool MYPOOL overload
 ip nat inside source static udp 192.168.2.2 500 10.0.2.1 500
 ip nat inside source static udp 192.168.2.2 4500 10.0.2.1 4500
 
+! site to site route, through vpn
+ip route 192.168.1.0 255.255.255.0 192.168.2.2
+
 do copy running-config startup-config
 ```
 
 ## Static IP address
-In GNS3 Right click on your ye3ipsec device > Edi config copy paste :
+Right click on your ye3ipsec device > Edi config, copy paste :
 
 - ye3ipsec-A
 ```bash
@@ -94,6 +100,7 @@ iface eth0 inet static
 	address 192.168.1.2
 	netmask 255.255.255.0
 	gateway 192.168.1.1
+	up echo nameserver 192.168.1.1 > /etc/resolv.conf
 ```
 - ye3ipsec-B
 ```bash
@@ -106,7 +113,7 @@ iface eth0 inet static
 ```
 
 ## Environment variables
-In GNS3 Right click on your ye3ipsec device > Configure > General settings > Environment variables, copy paste :
+Right click on your ye3ipsec device > Configure > General settings > Environment variables, copy paste :
 
 - ye3ipsec-A
 ```bash
@@ -130,4 +137,27 @@ Y_S2S_PSK_LOCAL_TS=192.168.2.0/24
 Y_S2S_PSK_REMOTE_TS=192.168.1.0/24
 ```
 
+## Verify
 
+- ye3ipsec-B  
+Right click on ye3ipsec-B device > Auxiliary console
+```bash
+# to show log
+swanctl --log
+```
+
+- ye3ipsec-A  
+Right click on ye3ipsec-A device > Auxiliary console
+```bash
+# ping ye3ipsec-B
+ping 192.168.2.2
+
+# show active connection
+swanctl -l
+```
+
+- RouterA  
+Double click on RouterA device 
+```plaintext
+do ping 192.168.2.2
+```
