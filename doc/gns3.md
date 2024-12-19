@@ -9,18 +9,20 @@ Add a link to connect the device to a switch or router. Finally, right click on 
 To see the output, right click "Console".  
 To type commands, right click "Auxiliary console".  
 
-## Test
+## Example
 
-Example of environment variables for PSK connections. Just copy/paste and adapt to your needs, from the below examples.  
- 
-Where to paste ? In GNS3 Right click on your device > Configure > General settings > Environment variables
+Site to site PSK connections
 
-### routerA
+![Topology](topology.png)
+
+In GNS3, double click on the cisco router, copy paste :
+
+### RouterA
 ```plaintext
 enable
 configure terminal
 
-hostname routerA
+hostname RouterA
 
 ! wan
 interface g0/0
@@ -49,12 +51,12 @@ do show ip nat translations
 do copy running-config startup-config
 ```
 
-### routerB
+### RouterB
 ```plaintext
 enable
 configure terminal
 
-hostname routerB
+hostname RouterB
 
 ! wan
 interface g0/0
@@ -83,18 +85,9 @@ do show ip nat translations
 do copy running-config startup-config
 ```
 
-### Device A :
-External IP (wan) : 10.0.1.1  
-Internal IP (lan) : 192.168.1.2  
-Lan network : 192.168.1.0/24  
+In GNS3 Right click on your ye3ipsec device > Configure > General settings > Environment variables, copy paste :
 
-### Device B :
-External IP (wan) : 10.0.2.1  
-Internal IP (lan) : 192.168.2.2  
-Lan network : 192.168.2.0/24  
-
-## Site to site
-- Device A :
+- ye3ipsec-A :
 ```bash
 Y_S2S_PSK_ENABLE=yes
 Y_S2S_PSK_REMOTE_ADDRS=10.0.2.1
@@ -104,7 +97,7 @@ Y_S2S_PSK_SECRET=StrongSecret
 Y_S2S_PSK_LOCAL_TS=192.168.1.0/24
 Y_S2S_PSK_REMOTE_TS=192.168.2.0/24
 ```
-- Device B :
+- ye3ipsec-B :
 ```bash
 Y_S2S_PSK_ENABLE=yes
 Y_S2S_PSK_REMOTE_ADDRS=10.0.1.1
@@ -115,22 +108,3 @@ Y_S2S_PSK_LOCAL_TS=192.168.2.0/24
 Y_S2S_PSK_REMOTE_TS=192.168.1.0/24
 ```
 
-## Client server
-- Device A, as server :
-```bash
-Y_PSK_ENABLE=yes
-Y_PSK_LOCAL_ID=192.168.1.2
-Y_PSK_REMOTE_ID=192.168.2.2
-Y_PSK_SECRET=StrongSecret
-```
-- Device B, as client :
-```bash
-Y_CLIENT_ENABLE=yes
-Y_CLIENT_REMOTE_ADDRESS=10.0.1.2
-Y_CLIENT_REMOTE_ID=192.168.1.2
-Y_CLIENT_LOCAL_ID=192.168.2.2
-Y_CLIENT_REMOTE_AUTH=psk
-Y_CLIENT_LOCAL_AUTH=psk
-Y_CLIENT_PSK_SECRET=StrongSecret
-Y_CLIENT_PSK_LOCAL_ID=192.168.2.2
-```
