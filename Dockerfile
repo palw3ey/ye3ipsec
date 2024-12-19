@@ -187,8 +187,8 @@ ENV Y_LANGUAGE=fr_FR \
 	Y_BYPASSLAN_LOAD=no \
 	\
 	# filelog charon
-	Y_FILELOG_DEFAULT=0 \
-	Y_FILELOG_PATH=/etc/swanctl/charon.log \
+	Y_FILELOG_DEFAULT=1 \
+	Y_FILELOG_PATH=/var/log/charon.log \
 	Y_FILELOG_APPEND=yes \
 	Y_FILELOG_TIME_FORMAT="%Y-%m-%dT%H:%M:%S%z"
  
