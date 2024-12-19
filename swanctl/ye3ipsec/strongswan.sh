@@ -8,7 +8,18 @@ charon {
 	
 	# for IKEv1 xauth  :
 	i_dont_care_about_security_and_use_aggressive_mode_psk=$vg_aggressive
-	
+
+	 filelog {
+	    	charon {
+			path = $Y_FILELOG_PATH
+			time_format = $Y_FILELOG_TIME_FORMAT
+			ike_name = yes
+			append = yes
+			default = $Y_FILELOG_DEFAULT
+			flush_line = yes
+	   	}
+	}
+
 	plugins {
 	
 		include strongswan.d/charon/*.conf
