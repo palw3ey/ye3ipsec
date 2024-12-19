@@ -184,7 +184,13 @@ ENV Y_LANGUAGE=fr_FR \
 	# other plugin
 	Y_FARP_LOAD=yes \
 	Y_FORECAST_LOAD=yes \
-	Y_BYPASSLAN_LOAD=no
+	Y_BYPASSLAN_LOAD=no \
+	\
+	# filelog charon
+	Y_FILELOG_DEFAULT=0 \
+	Y_FILELOG_PATH=/etc/swanctl/charon.log \
+	Y_FILELOG_TIME_FORMAT="%Y-%m-%d %H:%M:%S"
+ 
 
 ADD entrypoint.sh /
 ADD i18n/ /i18n/
