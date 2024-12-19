@@ -46,7 +46,6 @@ ip nat inside source list 1 pool MYPOOL overload
 ! port forward
 ip nat inside source static udp 192.168.1.2 500 10.0.1.1 500
 ip nat inside source static udp 192.168.1.2 4500 10.0.1.1 4500
-do show ip nat translations
 
 do copy running-config startup-config
 ```
@@ -80,7 +79,6 @@ ip nat inside source list 1 pool MYPOOL overload
 ! port forward
 ip nat inside source static udp 192.168.2.2 500 10.0.2.1 500
 ip nat inside source static udp 192.168.2.2 4500 10.0.2.1 4500
-do show ip nat translations
 
 do copy running-config startup-config
 ```
