@@ -1,6 +1,6 @@
 # GNS3
 
-To run through GNS3, download and import the appliance : [ye3ipsec.gns3a](https://raw.githubusercontent.com/palw3ey/ye3ipsec/master/ye3ipsec.gns3a)
+To run through GNS3, download and import the appliance : [ye3ipsec.gns3a](https://raw.githubusercontent.com/palw3ey/ye3ipsec/master/misc/ye3ipsec.gns3a)
 
 ## How to connect the docker container in the GNS3 topology ?
 Drag and drop the device in the topology. Right click on the device and select "Edit config".  
