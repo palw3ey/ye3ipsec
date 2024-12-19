@@ -6,7 +6,7 @@
 - symbolic link of Let's Encrypt certificates, ISRG Root X1 and ISRG Root X2, to x509ca
 - resolve plugin will use /usr/sbin/resolvconf
 - new configuration file : client.conf, for easy setup as client with the help of new env variables. (eap, psk and pkcs12)
-- new environment variables : Y_SHOW_CRED (to show or hide credentials in docker logs), $Y_FILELOG_ (to log to file)
+- new environment variables : Y_SHOW_CRED (to show or hide credentials in docker logs), $Y_FILELOG_ (to log charon to file)
 ### Changed
 - new version : strongSwan from 5.9.14 to 6.0.0, Alpine Linux from 3.20.3 to 3.21.0
 ### Fixed
