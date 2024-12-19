@@ -14,7 +14,7 @@ charon {
 			path = $Y_FILELOG_PATH
 			time_format = $Y_FILELOG_TIME_FORMAT
 			ike_name = yes
-			append = yes
+			append = $Y_FILELOG_APPEND
 			default = $Y_FILELOG_DEFAULT
 			flush_line = yes
 	   	}
