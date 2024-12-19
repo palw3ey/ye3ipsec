@@ -19,7 +19,7 @@ Site to site PSK connections
 Right click on the routers > Start
 
 ## Configure Cisco routers
-In GNS3, double click on the cisco router, copy paste :
+Double click on the cisco router, copy paste :
 
 - RouterA
 ```plaintext
