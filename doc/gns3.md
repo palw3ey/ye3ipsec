@@ -93,7 +93,7 @@ ip route 192.168.1.0 255.255.255.0 192.168.2.2
 do copy running-config startup-config
 ```
 
-## Static IP address
+## Configure ye3ipsec, static IP address
 Right click on your ye3ipsec device > Edi config, copy paste :
 
 - ye3ipsec-A
@@ -115,7 +115,7 @@ iface eth0 inet static
 	up echo nameserver 192.168.2.1 > /etc/resolv.conf
 ```
 
-## Environment variables
+## Configure ye3ipsec, environment variables
 Right click on your ye3ipsec device > Configure > General settings > Environment variables, copy paste :
 
 - ye3ipsec-A
