@@ -168,7 +168,7 @@
 #export Y_BYPASSLAN_LOAD=no
 
 ## filelog charon
-#export Y_FILELOG_DEFAULT=0
+#export Y_FILELOG_DEFAULT=1
 #export Y_FILELOG_PATH=/var/log/charon.log
 #export Y_FILELOG_APPEND=yes
 #export Y_FILELOG_TIME_FORMAT="%Y-%m-%dT%H:%M:%S%z"
