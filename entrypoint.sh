@@ -411,6 +411,9 @@ if [[ $Y_IGNORE_CONFIG == "no" ]]; then
 
 	f_log "$i_apply_configuration"
 
+	# filelog symlink
+	ln -sfn $Y_FILELOG_PATH /var/log/charon.log > /dev/null 2>&1
+
 	# update ca certificates
 	update-ca-certificates > /dev/null 2>&1
 	
