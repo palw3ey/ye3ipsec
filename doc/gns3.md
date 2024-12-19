@@ -15,6 +15,9 @@ Site to site PSK connections
 
 ![Topology](topology.png)
 
+## Start the Cisco routers
+Right click on the routers > Start
+
 ## Configure Cisco routers
 In GNS3, double click on the cisco router, copy paste :
 
@@ -136,6 +139,9 @@ Y_S2S_PSK_SECRET=StrongSecret
 Y_S2S_PSK_LOCAL_TS=192.168.2.0/24
 Y_S2S_PSK_REMOTE_TS=192.168.1.0/24
 ```
+
+## Start the ye3ipsec devices
+Right click on ye3ipsec > Start
 
 ## Verify
 
