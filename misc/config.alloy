@@ -1,0 +1,46 @@
+local.file_match "charon_logs" {
+    path_targets = [{
+        __path__ = "/etc/var/charon.log"
+    }]
+}
+
+loki.source.file "charon_source" {
+    targets    = local.file_match.charon_logs.targets
+    forward_to = [loki.process.charon_process.receiver]
+    tail_from_end = true
+}
+
+loki.process "charon_process" {
+    
+    forward_to = [loki.write.default.receiver]
+	
+    // Stage to parse log entries
+    stage.regex {
+        expression = "^(?P<timestamp>\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}[+-]\\d{4}) (?P<log_line>.*)$"
+    }
+
+    // Stage to format the timestamp in RFC3339
+    stage.timestamp {
+        source = "timestamp"
+        format = "RFC3339"
+    }
+
+    // Stage to extract log details
+    stage.labels {
+        values = {
+            level = "info"
+        }
+    }
+
+    // Output the final log line to be sent to Loki
+    stage.output {
+        source = "log_line"
+    }
+
+}
+
+loki.write "default" {
+    endpoint {
+        url = "http://localhost:3100/loki/api/v1/push"
+    }
+}
