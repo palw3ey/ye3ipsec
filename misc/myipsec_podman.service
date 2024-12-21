@@ -1,0 +1,14 @@
+[Unit]
+Description=ye3ipsec container
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Environment=myusername=john
+ExecStart=runuser -l ${myusername} -c "/usr/bin/podman start -a myipsec"
+ExecStop=runuser -l ${myusername} -c "/usr/bin/podman stop -t 2 myipsec"
+ExecStartPost=-/bin/bash /home/${myusername}/podman_vpn.sh up
+ExecStopPost=-/bin/bash /home/${myusername}/podman_vpn.sh down
+
+[Install]
+WantedBy=default.target

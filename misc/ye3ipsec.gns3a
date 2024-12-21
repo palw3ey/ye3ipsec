@@ -1,0 +1,19 @@
+{
+    "name": "ye3ipsec",
+    "category": "guest",
+    "description": "IPSec client and server based on Strongswan and Alpine. RA and S2S profile. GNS3 ready",
+    "vendor_name": "palw3ey",
+    "vendor_url": "https://github.com/palw3ey/ye3ipsec",
+    "product_name": "ye3ipsec",
+    "registry_version": 4,
+    "status": "stable",
+    "maintainer": "palw3ey",
+    "maintainer_email": "palw3ey@gmail.com",
+    "usage": "The directory /etc/swanctl is persistent. Useful env :\nY_PSK_USERS=\"sharedSecret:localId:remoteId\"\n\nDocumentation : https://github.com/palw3ey/ye3ipsec",
+    "symbol": "linux_guest.svg",
+    "docker": {
+        "adapters": 1,
+        "image": "palw3ey/ye3ipsec",
+        "console_type": "telnet"
+    }
+}

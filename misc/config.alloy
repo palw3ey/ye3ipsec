@@ -1,0 +1,23 @@
+local.file_match "charon" {
+    path_targets = [{"__path__" = "/var/log/charon.log"}]
+}
+
+loki.source.file "charon" {
+    targets    = local.file_match.charon.targets
+    forward_to = [loki.process.charon.receiver]
+}
+
+loki.process "charon" {
+    stage.static_labels {
+        values = {
+		service_name = "charon",
+        }
+    }
+    forward_to = [loki.write.default.receiver]
+}
+
+loki.write "default" {
+    endpoint {
+        url = "http://loki:3100/loki/api/v1/push"
+    }
+}
