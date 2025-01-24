@@ -11,13 +11,19 @@ These are the env variables and their default values.
 |Y_URL_IP_CHECK | url | http://whatismyip.akamai.com | Url that curl will use to retrieve the public IP |
 |Y_URL_IP_CHECK_TIMEOUT | integer | 5 | this is the -m option in curl : Maximum time allowed, in second |
 |Y_PATCH | yes/no | yes | yes, to apply fixes before and/or after strongswan build |
+|Y_SHOW_CRED | yes/no | yes | yes, to display credentials in docker logs command |
+|TZ | text | Europe/Paris | time zone, IANA format |
+|Y_DATE_FORMAT | text | "%Y-%m-%dT%H:%M:%S%z" | date format (strftime), mainly used for logs |
+|-|-|-|-|
 |Y_PROTO_ESP | text | esp | esp protocol |
 |Y_PROTO_AH | text | ah | ah protocol |
 |Y_PORT_IKE | port number | 500 | ike port |
 |Y_PORT_NAT | port number | 4500 | nat-t port |
+|-|-|-|-|
 |Y_SERVER_CERT_CN | IP address or domain name | *if not set, then will be set to the server certificate cn, if this certificate file exist, or will attempt to detect and use the public ip address otherwise the first local ip address* | CN value to use for the server certificate  |
 |Y_SERVER_CERT_DN | text | "C=FR, ST=Ile-de-France, L=Paris, O=IPSec, OU=Example" | DN value to add to the server certificate |
 |Y_SERVER_CERT_DAYS | integer | 3650 | number of days before expiration, for CA and Server certificate |
+|-|-|-|-|
 |Y_PROPOSALS_PHASE1 | cipher suite | "aes256-sha256-ecp256, aes256gcm16-sha384-prfsha384-ecp384, aes256-sha256-modp2048, aes256-sha256-modp1024, aes256-sha1-modp1024, 3des-sha1-modp1024, des-sha1-modp1024" | cipher suites to use for phase 1. Note that by default some weak cipher are present in the list, you should narrow the list to strong ones. If supported by the client |
 |Y_PROPOSALS_PHASE2 | cipher suite | "aes256-sha256, aes256gcm16-ecp384, aes256-sha1, 3des-sha1, des-sha1" | cipher suites to use for phase 2. Note that by default some weak cipher are present in the list, you should narrow the list to strong ones. If supported by the client |
 |Y_REKEY_PHASE1 | text | 86400s | rekey time for phase 1 |
@@ -34,6 +40,7 @@ These are the env variables and their default values.
 |Y_POOL_IPV6 | IPv6 Address, and mask | fd00::c0a8:101/120 | IPv6 address pool for the clients |
 |Y_POOL_DNS4 | IP Address | "1.1.1.1, 8.8.8.8" | IPv4 DNS for the clients, primary and secondary, default are Cloudflare and Google |
 |Y_POOL_DNS6 | IPv6 Address | "2606:4700:4700::1111, 2001:4860:4860::8888" | IPv6 DNS for the clients, primary and secondary, default are Cloudflare and Google |
+|-|-|-|-|
 |Y_FIREWALL_ENABLE | yes/no | no | yes, to enable the firewall rules |
 |Y_FIREWALL_IPSEC_PORT | yes/no | yes | yes, to add ipsec port and protocol |
 |Y_FIREWALL_NAT | yes/no | yes | yes, to add NAT rule |
@@ -44,6 +51,7 @@ These are the env variables and their default values.
 |Y_FIREWALL_LAN | yes/no | yes | yes, to allow client to communicate to lan address : 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16, fc00::/7 |
 |Y_FIREWALL_INTERNET | yes/no | yes | yes, to allow client to communicate with internet |
 |Y_FIREWALL_COMMENT_PREFIX | text | ye3ipsec | comment prefix added to firewall rules |
+|-|-|-|-|
 |Y_CERT_ENABLE | yes/no | yes | yes, to activate the RA (remote access) IKEv2 Certificate profile |
 |Y_CERT_DAYS | integer | 365 | RA IKEv2 Certificate profile : How long to certify for |
 |Y_CERT_REMOTE_ID | text |  | RA IKEv2 Certificate profile : remote identity |
@@ -52,6 +60,7 @@ These are the env variables and their default values.
 |Y_CERT_USERS | text| | RA IKEv2 Certificate profile : list of remote users to create (certificate_id:certificate_p12_password) separated by a blank space. eg: "emily:123789 elisabeth:987456" |
 |Y_CERT_USERS_RANDOM | integer | | RA IKEv2 Certificate profile : number of remote users to randomly create |
 |Y_CERT_P12_EXTRA | yes/no | yes | RA IKEv2 Certificate profile : yes, to add more p12 format (p12 legacy, p12 legacy no CA, p12 legacy pem) |
+|-|-|-|-|
 |Y_EAP_ENABLE | yes/no | yes | yes, to activate the RA (remote access) IKEv2 EAP profile |
 |Y_EAP_REMOTE_AUTH | text | eap-mschapv2 | RA IKEv2 EAP profile : remote authentication method |
 |Y_EAP_REMOTE_EAP_ID | text | %any | RA IKEv2 EAP profile : remote eap identity |
@@ -59,12 +68,14 @@ These are the env variables and their default values.
 |Y_EAP_PASSWORD | password | *(randomly generated, if not set)* | RA IKEv2 EAP profile : remote password|
 |Y_EAP_USERS | text| | RA IKEv2 EAP profile : list of remote users to create (username:password) separated by a blank space. eg: "emily:123789 elisabeth:987456" |
 |Y_EAP_USERS_RANDOM | integer | | RA IKEv2 EAP profile : number of remote users to randomly create |
+|-|-|-|-|
 |Y_PSK_ENABLE | yes/no | yes | yes, to activate the RA (remote access) IKEv2 PSK profile |
 |Y_PSK_LOCAL_ID | text | *(randomly generated, if not set)* | RA IKEv2 PSK profile : local identity |
 |Y_PSK_REMOTE_ID | text | *(randomly generated, if not set)* | RA IKEv2 PSK profile : remote identity |
 |Y_PSK_SECRET | password | *(randomly generated, if not set)* | RA IKEv2 PSK profile : shared secret |
 |Y_PSK_USERS | text| | RA IKEv2 PSK profile : list of remote users to create (shared_secret:local_id:remote_id) separated by a blank space. eg: "123789:emily:emily 987456:elisabeth:elisabeth" |
 |Y_PSK_USERS_RANDOM | integer | | RA IKEv2 PSK profile : number of remote users to randomly create |
+|-|-|-|-|
 |Y_XAUTH_PSK_ENABLE | yes/no | no | yes, to activate the RA (remote access) IKEv1 XAUTH PSK profile |
 |Y_XAUTH_PSK_AGGRESSIVE | yes/no | yes | RA IKEv1 XAUTH PSK profile : yes, to enable aggressive mode. (use no, for main mode) |
 |Y_XAUTH_PSK_REMOTE_AUTH | text | xauth | RA IKEv1 XAUTH PSK profile : remote authentication method |
@@ -73,11 +84,13 @@ These are the env variables and their default values.
 |Y_XAUTH_PSK_SECRET | password | *(randomly generated, if not set)* | RA IKEv1 XAUTH PSK profile : shared secret |
 |Y_XAUTH_PSK_USERNAME | text | *(randomly generated, if not set)* | RA IKEv1 XAUTH PSK profile : remote username |
 |Y_XAUTH_PSK_PASSWORD | password | *(randomly generated, if not set)* | RA IKEv1 XAUTH PSK profile : remote password |
+|-|-|-|-|
 |Y_XAUTH_RSA_ENABLE | yes/no | no | yes, to activate the RA (remote access) IKEv1 XAUTH RSA profile. The client p12 certificate is the same generated by Y_CERT_DAYS, Y_CERT_CN and Y_CERT_PASSWORD : /etc/swanctl/pkcs12/clientCert.p12 |
 |Y_XAUTH_RSA_AGGRESSIVE | yes/no | no | RA IKEv1 XAUTH RSA profile : yes, to enable aggressive mode. (use no, for main mode) |
 |Y_XAUTH_RSA_REMOTE_AUTH | text | xauth | RA IKEv1 XAUTH RSA profile : remote authentication method |
 |Y_XAUTH_RSA_USERNAME | text | *(randomly generated, if not set)* | RA IKEv1 XAUTH RSA profile : remote username |
 |Y_XAUTH_RSA_PASSWORD | password | *(randomly generated, if not set)* | RA IKEv1 XAUTH RSA profile : remote password |
+|-|-|-|-|
 |Y_S2S_PSK_ENABLE | yes/no | no | yes, to activate the S2S (site to site) IKEv2 PSK profile |
 |Y_S2S_PSK_LOCAL_ADDRS | IP address or domain |  | S2S IKEv2 PSK profile : local address |
 |Y_S2S_PSK_REMOTE_ADDRS | IP address or domain |  | S2S IKEv2 PSK profile : remote address |
@@ -87,6 +100,7 @@ These are the env variables and their default values.
 |Y_S2S_PSK_LOCAL_ID | text | *(randomly generated, if not set)* | S2S IKEv2 PSK profile : local identity |
 |Y_S2S_PSK_REMOTE_ID | text | *(randomly generated, if not set)* | S2S IKEv2 PSK profile : remote identity |
 |Y_S2S_PSK_SECRET | password | *(randomly generated, if not set)* | S2S IKEv2 PSK profile : shared secret |
+|-|-|-|-|
 |Y_S2S_RSA_ENABLE | yes/no | no | yes, to activate the S2S (site to site) IKEv2 RSA profile |
 |Y_S2S_RSA_LOCAL_ADDRS | IP address or domain |  | S2S IKEv2 RSA profile : local address |
 |Y_S2S_RSA_REMOTE_ADDRS | IP address or domain |  | S2S IKEv2 RSA profile : remote address |
@@ -97,9 +111,28 @@ These are the env variables and their default values.
 |Y_S2S_RSA_LOCAL_TS | IP address, with mask |  | S2S IKEv2 RSA profile : local traffic selectors |
 |Y_S2S_RSA_REMOTE_TS | IP address, with mask |  | S2S IKEv2 RSA profile : remote traffic selectors |
 |Y_S2S_RSA_START_ACTION | text | trap | S2S IKEv2 RSA profile : start action |
+|-|-|-|-|
+|Y_CLIENT_ENABLE | yes/no | no | yes, to activate Client profile |
+|Y_CLIENT_REMOTE_ADDRESS | IP address or domain | | Client profile : remote address |
+|Y_CLIENT_VIPS | IP address | "0.0.0.0, ::" | Client profile : Virtual IP address to request  |
+|Y_CLIENT_LOCAL_AUTH | text |  | Client profile : local authentication method |
+|Y_CLIENT_LOCAL_ID | text |  | Client profile : local identity |
+|Y_CLIENT_REMOTE_AUTH | text | | Client profile : remote authentication method |
+|Y_CLIENT_REMOTE_ID | text |  | Client profile : remote identity |
+|Y_CLIENT_LOCAL_TS | IP Address, and mask | dynamic  | Client profile : local traffic selectors |
+|Y_CLIENT_REMOTE_TS | IP Address, and mask | "0.0.0.0/0, ::/0" | Client profile : remote traffic selectors |
+|Y_CLIENT_EAP_USERNAME | text |  | Client profile : EAP username |
+|Y_CLIENT_EAP_PASSWORD | password |  | Client profile : EAP password |
+|Y_CLIENT_PSK_SECRET | password |  | Client profile : PSK Secret |
+|Y_CLIENT_PSK_LOCAL_ID | text |  | Client profile : PSK local id |
+|Y_CLIENT_PSK_REMOTE_ID | text |  | Client profile : PSK remote id |
+|Y_CLIENT_PKCS12_FILE | path |  | Client profile : Path to the PKCS#12 file |
+|Y_CLIENT_PKCS12_SECRET | password |  | Client profile : PKCS#12 file password |
+|-|-|-|-|
 |Y_REVOCATION_LOAD | yes/no | yes | yes, to activate revocation plugin |
 |Y_REVOCATION_ENABLE_CRL | yes/no | yes | REVOCATION : yes, to enable crl |
 |Y_REVOCATION_ENABLE_OCSP | yes/no | yes | REVOCATION : yes, to enable ocsp |
+|-|-|-|-|
 |Y_RADIUS_LOAD | yes/no | no | yes, to activate radius plugin |
 |Y_RADIUS_CLASS_GROUP | yes/no | no | RADIUS : yes, to enable class group |
 |Y_RADIUS_ACCOUNTING | yes/no | no | RADIUS : yes, to enable radius accounting |
@@ -107,13 +140,21 @@ These are the env variables and their default values.
 |Y_RADIUS_SECRET | text | testing123 | RADIUS : secret password to connect to the radius server |
 |Y_RADIUS_AUTH_PORT | port number | 1812 | RADIUS : authentication port |
 |Y_RADIUS_ACCT_PORT | port number | 1813 | RADIUS : accounting port |
+|-|-|-|-|
 |Y_RADIUS_DAE_ENABLE | yes/no | no | RADIUS : yes, to enable dae (Dynamic Authorization Extensions). If you need coa (Change-of-Authorization) |
 |Y_RADIUS_DAE_LISTEN | IP address | 0.0.0.0 | DAE : IP address to listen for requests |
 |Y_RADIUS_DAE_PORT | port number | 3799 | DAE : Port to listen for requests |
 |Y_RADIUS_DAE_SECRET | password | testing123 | DAE : shared secret |
+|-|-|-|-|
 |Y_DHCP_FORCE_SERVER_ADDRESS | yes/no | no | DHCP : yes, to enable force server address |
 |Y_DCHP_IDENTITY_LEASE | yes/no | no | DHCP : yes, to enable identity lease |
 |Y_DHCP_SERVER | IP address | 255.255.255.255 | DHCP : IP address of the dhcp server |
+|-|-|-|-|
 |Y_FARP_LOAD | yes/no | yes | yes, to activate farp plugin |
 |Y_FORECAST_LOAD | yes/no | yes | yes, to activate forecast plugin |
 |Y_BYPASSLAN_LOAD | yes/no | no | yes, to activate bypasslan plugin |
+|-|-|-|-|
+|Y_FILELOG_DEFAULT | integer | 1 | level of logging, for IKE daemon |
+|Y_FILELOG_PATH | path | /var/log/charon.log | path to the log file |
+|Y_FILELOG_APPEND | yes/no | yes | yes, to append to the existing file |
+
