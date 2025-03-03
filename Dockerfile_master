@@ -2,11 +2,11 @@ FROM alpine:latest
 
 LABEL org.opencontainers.image.title="ye3ipsec"
 
-LABEL org.opencontainers.image.version="1.1.0"
-LABEL org.opencontainers.image.created="2024-12-17T15:00:00-03:00"
-LABEL org.opencontainers.image.revision="20241217"
-LABEL org.opencontainers.image.base.name="localhost/ye3ipsec:1.1.0"
-LABEL org.opencontainers.image.usage="docker run -dt --cap-add NET_ADMIN localhost/ye3ipsec:1.1.0"
+LABEL org.opencontainers.image.version="1.1.1"
+LABEL org.opencontainers.image.created="2025-03-03T15:00:00-03:00"
+LABEL org.opencontainers.image.revision="20250303"
+LABEL org.opencontainers.image.base.name="localhost/ye3ipsec:1.1.1"
+LABEL org.opencontainers.image.usage="docker run -dt --cap-add NET_ADMIN localhost/ye3ipsec:1.1.1"
 
 LABEL org.opencontainers.image.licenses="MIT"
 LABEL org.opencontainers.image.authors="palw3ey"

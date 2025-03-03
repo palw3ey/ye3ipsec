@@ -1,4 +1,7 @@
 # Changelog
+## [1.1.1] - 2025-03-03
+### Changed
+- new version : Alpine Linux 3.21.3
 ## [1.1.0] - 2024-12-17
 ### Added
 - new package : openresolv ca-certificates tzdata
