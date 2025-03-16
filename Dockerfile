@@ -2,10 +2,10 @@ FROM alpine:latest
 
 LABEL org.opencontainers.image.title="ye3ipsec"
 
-LABEL org.opencontainers.image.version="1.1.1"
-LABEL org.opencontainers.image.created="2025-03-03T15:00:00-03:00"
-LABEL org.opencontainers.image.revision="20250303"
-LABEL org.opencontainers.image.base.name="ghcr.io/palw3ey/ye3ipsec:1.1.1"
+LABEL org.opencontainers.image.version="1.1.2"
+LABEL org.opencontainers.image.created="2025-03-16T15:00:00-03:00"
+LABEL org.opencontainers.image.revision="20250316"
+LABEL org.opencontainers.image.base.name="ghcr.io/palw3ey/ye3ipsec:1.1.2"
 
 LABEL org.opencontainers.image.licenses="MIT"
 LABEL org.opencontainers.image.authors="palw3ey"
@@ -23,7 +23,7 @@ LABEL org.opencontainers.image.premiere="20231203"
 ENV Y_LANGUAGE=fr_FR \
 	Y_DEBUG=no \
 	Y_IGNORE_CONFIG=no \
- 	Y_STRONGSWAN_VERSION=6.0.0 \
+ 	Y_STRONGSWAN_VERSION=6.0.1 \
   	Y_EXTRA_PACKAGE="net-tools traceroute tcpdump ipcalc nano" \
   	Y_URL_IP_CHECK=http://whatismyip.akamai.com \
   	Y_URL_IP_CHECK_TIMEOUT=5 \

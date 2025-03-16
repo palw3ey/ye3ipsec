@@ -1,7 +1,5 @@
 #!/bin/sh
 
-# LABEL name="ye3ipsec" version="1.1.1" author="palw3ey" maintainer="palw3ey" email="palw3ey@gmail.com" website="https://github.com/palw3ey/ye3ipsec" license="MIT" create="20250303" premiere="20231203" 
-
 # Entrypoint for the container
 
 # change timezone
