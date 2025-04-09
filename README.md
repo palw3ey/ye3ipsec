@@ -13,7 +13,7 @@ Create a remote access connection with EAP (mschapv2) authentication :
 podman run -dt \
   --runtime=/usr/bin/crun --network=pasta \
   --cap-add=NET_ADMIN,SYS_MODULE,SYS_ADMIN,NET_RAW \
-  --sysctl net.ipv4.ip_forward=1 --sysctl net.ipv6.conf.all.forwarding=1 --sysctl net.ipv6.conf.all.proxy_ndp=1 -v /lib/modules:/lib/modules:ro \
+  --sysctl net.ipv4.ip_forward=1 --sysctl net.ipv6.conf.all.forwarding=1 -v /lib/modules:/lib/modules:ro \
   -p 500:500/udp -p 4500:4500/udp -e Y_FIREWALL_ENABLE=yes \
   -e Y_EAP_USERS="tux1:StrongPassword1 tux2:StrongPassword2" \
   --name myipsec docker.io/palw3ey/ye3ipsec
@@ -22,7 +22,7 @@ podman run -dt \
 # Docker command
 docker run -dt \
   --cap-add=NET_ADMIN --cap-add=SYS_MODULE --cap-add=SYS_ADMIN \
-  --sysctl net.ipv4.ip_forward=1 --sysctl net.ipv6.conf.all.forwarding=1 --sysctl net.ipv6.conf.all.proxy_ndp=1 -v /lib/modules:/lib/modules:ro \
+  --sysctl net.ipv4.ip_forward=1 --sysctl net.ipv6.conf.all.forwarding=1 -v /lib/modules:/lib/modules:ro \
   -p 500:500/udp -p 4500:4500/udp -e Y_FIREWALL_ENABLE=yes \
   -e Y_EAP_USERS="tux1:StrongPassword1 tux2:StrongPassword2" \
   --name myipsec docker.io/palw3ey/ye3ipsec
@@ -160,7 +160,7 @@ Important, you need at least : `--cap-add NET_ADMIN` for strongswan to start.
 
 | name | version |
 | :- |:- |
-|ye3ipsec | 1.1.2 |
+|ye3ipsec | 1.1.3 |
 |strongswan | 6.0.1 |
 |alpine | 3.21.3 |
 

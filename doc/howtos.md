@@ -29,7 +29,7 @@ docker network create --ipv6 \
   Use these options with docker run :
 ```bash
 --cap-add NET_ADMIN --cap-add SYS_MODULE --cap-add SYS_ADMIN \  
-  --sysctl net.ipv4.ip_forward=1 --sysctl net.ipv6.conf.all.forwarding=1 --sysctl net.ipv6.conf.eth0.proxy_ndp=1 \
+  --sysctl net.ipv4.ip_forward=1 --sysctl net.ipv6.conf.all.forwarding=1 \
   -v /lib/modules:/lib/modules:ro -e Y_FIREWALL_ENABLE=yes \
   -p 500:500/udp -p 4500:4500/udp \  
   --net mynet46 --ip 10.2.192.254 --ip6 fd00::a02:c0fe \  

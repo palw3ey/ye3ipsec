@@ -1,4 +1,7 @@
 # Changelog
+## [1.1.3] - 2025-04-09
+### Changed
+- new version : just an apk update, for security (xz)
 ## [1.1.2] - 2025-03-16
 ### Changed
 - new version : strongSwan 6.0.1

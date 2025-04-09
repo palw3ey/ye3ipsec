@@ -40,10 +40,10 @@ jobs:
           push: true
           tags: |
             palw3ey/ye3ipsec:latest
-            palw3ey/ye3ipsec:1.1.2
+            palw3ey/ye3ipsec:1.1.3
             ghcr.io/palw3ey/ye3ipsec:latest
-            ghcr.io/palw3ey/ye3ipsec:1.1.2
+            ghcr.io/palw3ey/ye3ipsec:1.1.3
             quay.io/palw3ey/ye3ipsec:latest
-            quay.io/palw3ey/ye3ipsec:1.1.2
+            quay.io/palw3ey/ye3ipsec:1.1.3
           cache-from: type=gha
           cache-to: type=gha,mode=max
