@@ -2,11 +2,11 @@ FROM alpine:latest
 
 LABEL org.opencontainers.image.title="ye3ipsec"
 
-LABEL org.opencontainers.image.version="1.1.3"
-LABEL org.opencontainers.image.created="2025-04-09T15:00:00-03:00"
-LABEL org.opencontainers.image.revision="20250409"
-LABEL org.opencontainers.image.base.name="localhost/ye3ipsec:1.1.3"
-LABEL org.opencontainers.image.usage="docker run -dt --cap-add NET_ADMIN localhost/ye3ipsec:1.1.3"
+LABEL org.opencontainers.image.version="1.1.4"
+LABEL org.opencontainers.image.created="2025-04-23T15:00:00-03:00"
+LABEL org.opencontainers.image.revision="20250423"
+LABEL org.opencontainers.image.base.name="localhost/ye3ipsec:1.1.4"
+LABEL org.opencontainers.image.usage="docker run -dt --cap-add NET_ADMIN localhost/ye3ipsec:1.1.4"
 
 LABEL org.opencontainers.image.licenses="MIT"
 LABEL org.opencontainers.image.authors="palw3ey"
@@ -61,6 +61,7 @@ ENV Y_LANGUAGE=fr_FR \
 	Y_POOL_IPV6=fd00::c0a8:101/120 \
 	Y_POOL_DNS4="1.1.1.1, 8.8.8.8" \
 	Y_POOL_DNS6="2606:4700:4700::1111, 2001:4860:4860::8888" \
+	Y_UPDOWN= \
 	\
 	# firewall
 	Y_FIREWALL_ENABLE=no \
@@ -68,7 +69,7 @@ ENV Y_LANGUAGE=fr_FR \
  	Y_FIREWALL_NAT=yes \
   	Y_FIREWALL_MANGLE=yes \
    	Y_FIREWALL_REVOCATION=yes \
-    	Y_FIREWALL_REVOCATION_PORT=80,8080 \
+   	Y_FIREWALL_REVOCATION_PORT=80,8080 \
 	Y_FIREWALL_INTERCLIENT=yes \
 	Y_FIREWALL_LAN=yes \
 	Y_FIREWALL_INTERNET=yes \
@@ -122,11 +123,11 @@ ENV Y_LANGUAGE=fr_FR \
 	Y_S2S_PSK_ENABLE=no \
 	Y_S2S_PSK_LOCAL_ADDRS= \
 	Y_S2S_PSK_REMOTE_ADDRS= \
+	Y_S2S_PSK_LOCAL_ID= \
+	Y_S2S_PSK_REMOTE_ID= \
 	Y_S2S_PSK_LOCAL_TS= \
 	Y_S2S_PSK_REMOTE_TS= \
 	Y_S2S_PSK_START_ACTION=trap \
-	Y_S2S_PSK_LOCAL_ID= \
-	Y_S2S_PSK_REMOTE_ID= \
 	Y_S2S_PSK_SECRET= \
 	\
 	# IKEv2 Site to Site RSA
@@ -151,6 +152,7 @@ ENV Y_LANGUAGE=fr_FR \
 	Y_CLIENT_REMOTE_ID= \
 	Y_CLIENT_LOCAL_TS=dynamic \
 	Y_CLIENT_REMOTE_TS="0.0.0.0/0, ::/0" \
+	Y_CLIENT_START_ACTION=trap|start \
 	Y_CLIENT_EAP_USERNAME= \
 	Y_CLIENT_EAP_PASSWORD= \
 	Y_CLIENT_PSK_SECRET= \

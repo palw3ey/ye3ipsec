@@ -19,6 +19,7 @@ connections {
 			child-client : template-child {
 				local_ts = $Y_CLIENT_LOCAL_TS
 				remote_ts = $Y_CLIENT_REMOTE_TS
+				start_action = $Y_CLIENT_START_ACTION
 			}
 		}
 	}

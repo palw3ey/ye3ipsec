@@ -40,6 +40,7 @@ These are the env variables and their default values.
 |Y_POOL_IPV6 | IPv6 Address, and mask | fd00::c0a8:101/120 | IPv6 address pool for the clients |
 |Y_POOL_DNS4 | IP Address | "1.1.1.1, 8.8.8.8" | IPv4 DNS for the clients, primary and secondary, default are Cloudflare and Google |
 |Y_POOL_DNS6 | IPv6 Address | "2606:4700:4700::1111, 2001:4860:4860::8888" | IPv6 DNS for the clients, primary and secondary, default are Cloudflare and Google |
+|Y_UPDOWN | file path with arguments | | Updown script (sample : /libexec/ipsec/_updown) |
 |-|-|-|-|
 |Y_FIREWALL_ENABLE | yes/no | no | yes, to enable the firewall rules |
 |Y_FIREWALL_IPSEC_PORT | yes/no | yes | yes, to add ipsec port and protocol |
@@ -122,6 +123,7 @@ These are the env variables and their default values.
 |Y_CLIENT_LOCAL_TS | IP Address, and mask | dynamic  | Client profile : local traffic selectors |
 |Y_CLIENT_REMOTE_TS | IP Address, and mask | "0.0.0.0/0, ::/0" | Client profile : remote traffic selectors |
 |Y_CLIENT_EAP_USERNAME | text |  | Client profile : EAP username |
+|Y_CLIENT_START_ACTION | text | trap\|start | Client profile : Start action. The default setting will automatically initiate the connection. If you do not want this behavior, set it to "none". In this case, you will need to use the following command to manually start the connection: swanctl --initiate --child child-client |
 |Y_CLIENT_EAP_PASSWORD | password |  | Client profile : EAP password |
 |Y_CLIENT_PSK_SECRET | password |  | Client profile : PSK Secret |
 |Y_CLIENT_PSK_LOCAL_ID | text |  | Client profile : PSK local id |

@@ -1,4 +1,7 @@
 # Changelog
+## [1.1.4] - 2025-04-23
+### Added
+- new environment variable : Y_UPDOWN and Y_CLIENT_START_ACTION
 ## [1.1.3] - 2025-04-09
 ### Changed
 - new version : just an apk update, for security (xz)

@@ -23,6 +23,7 @@ template-child {
 	esp_proposals = $Y_PROPOSALS_PHASE2
 	rekey_time = $Y_REKEY_PHASE2
 	dpd_action = $Y_DPD_ACTION
+	updown = $Y_UPDOWN
 }
 
 pools {

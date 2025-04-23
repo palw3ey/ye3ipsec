@@ -41,6 +41,7 @@
 #export Y_POOL_IPV6=fd00::c0a8:101/120
 #export Y_POOL_DNS4="1.1.1.1, 8.8.8.8"
 #export Y_POOL_DNS6="2606:4700:4700::1111, 2001:4860:4860::8888"
+#export Y_UPDOWN=
 
 ## firewall
 #export Y_FIREWALL_ENABLE=no
@@ -102,11 +103,11 @@
 #export Y_S2S_PSK_ENABLE=no
 #export Y_S2S_PSK_LOCAL_ADDRS=
 #export Y_S2S_PSK_REMOTE_ADDRS=
+#export Y_S2S_PSK_LOCAL_ID=
+#export Y_S2S_PSK_REMOTE_ID=
 #export Y_S2S_PSK_LOCAL_TS=
 #export Y_S2S_PSK_REMOTE_TS=
 #export Y_S2S_PSK_START_ACTION=trap
-#export Y_S2S_PSK_LOCAL_ID=
-#export Y_S2S_PSK_REMOTE_ID=
 #export Y_S2S_PSK_SECRET=
 
 ## IKEv2 Site to Site RSA
@@ -131,6 +132,7 @@
 #export Y_CLIENT_REMOTE_ID=
 #export Y_CLIENT_LOCAL_TS=dynamic
 #export Y_CLIENT_REMOTE_TS="0.0.0.0/0, ::/0"
+#export Y_CLIENT_START_ACTION=trap|start
 #export Y_CLIENT_EAP_USERNAME=
 #export Y_CLIENT_EAP_PASSWORD=
 #export Y_CLIENT_PSK_SECRET=
