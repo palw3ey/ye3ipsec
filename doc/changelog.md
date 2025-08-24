@@ -1,4 +1,7 @@
 # Changelog
+## [1.1.5] - 2025-08-24
+### Changed
+- new version : strongSwan 6.0.2, Alpine Linux 3.22.1
 ## [1.1.4] - 2025-04-23
 ### Added
 - new environment variable : Y_UPDOWN and Y_CLIENT_START_ACTION
